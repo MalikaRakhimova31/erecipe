@@ -1,6 +1,7 @@
 import type { CustomRoute } from "@/types";
 import { authRoutes, jobRoutes } from "@/features";
 import Root from "@/views/root";
+import Header from "@/components/Header/Header";
 
 const routes: CustomRoute[] = [
   {
@@ -10,7 +11,12 @@ const routes: CustomRoute[] = [
     element: <Root />,
     loader: async () => null,
     errorElement: <div>Error element</div>,
-    children: [jobRoutes],
+    children: [
+      {
+        path: "/jobs",
+        element: <Header />,
+      },
+    ],
   },
   authRoutes,
   {

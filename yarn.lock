@@ -380,6 +380,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chakra-ui/icons@npm:^2.0.19":
+  version: 2.0.19
+  resolution: "@chakra-ui/icons@npm:2.0.19"
+  dependencies:
+    "@chakra-ui/icon": 3.0.16
+  peerDependencies:
+    "@chakra-ui/system": ">=2.0.0"
+    react: ">=18"
+  checksum: 343a55d853c0b7c566ea5831dabfdfa4d5e6e88069ba3966189fab6d62671ba732fb3cab42b97c61db8d4488b279b8f6555fa096ae4cad2b96c33cc1fc13dc27
+  languageName: node
+  linkType: hard
+
 "@chakra-ui/image@npm:2.0.16":
   version: 2.0.16
   resolution: "@chakra-ui/image@npm:2.0.16"
@@ -1958,18 +1970,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query-devtools@npm:^4.29.13":
-  version: 4.29.13
-  resolution: "@tanstack/react-query-devtools@npm:4.29.13"
+"@tanstack/react-query-devtools@npm:^4.29.15":
+  version: 4.29.15
+  resolution: "@tanstack/react-query-devtools@npm:4.29.15"
   dependencies:
     "@tanstack/match-sorter-utils": ^8.7.0
     superjson: ^1.10.0
     use-sync-external-store: ^1.2.0
   peerDependencies:
-    "@tanstack/react-query": 4.29.13
+    "@tanstack/react-query": 4.29.15
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 13ab17fdbefb08b45eec8e1f1753e6458423cbfa134665597ab28dd63b6286987d91d2a4dee82e5aac72a7ef087716e4e8dbbe1969d98cf8788dcfb117ea4c46
+  checksum: f9f1525311c6c4585f1fcd721269d3ba8979e60f4e3798519631d8939a4fa63f95d75fcb3945c2b49e991ac7ee57668cf680b699643000c970e6092b233a07bd
   languageName: node
   linkType: hard
 
@@ -8208,13 +8220,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "spa-starter@workspace:."
   dependencies:
+    "@chakra-ui/icons": ^2.0.19
     "@chakra-ui/react": ^2.7.0
     "@emotion/react": ^11.11.1
     "@emotion/styled": ^11.11.0
     "@hookform/resolvers": ^3.1.1
     "@tanstack/eslint-plugin-query": ^4.29.9
     "@tanstack/react-query": ^4.29.13
-    "@tanstack/react-query-devtools": ^4.29.13
+    "@tanstack/react-query-devtools": ^4.29.15
     "@tanstack/react-table": ^8.9.2
     "@testing-library/react": ^14.0.0
     "@types/node": ^20.3.1
