@@ -1,14 +1,28 @@
-interface Props {
-  onClick: (evt: React.MouseEvent<HTMLButtonElement>) => void;
-  text: string;
-}
+import { Button } from "@chakra-ui/react";
+import { type ButtonProps } from "@/types";
 
-export default function Button(props: Props): JSX.Element {
-  const { onClick, text } = props;
+export default function CButton(props: ButtonProps): JSX.Element {
+  const {
+    onClick,
+    text,
+    icon,
+    variant,
+    buttonType,
+    padding,
+    isFull = false,
+  } = props;
 
   return (
-    <button type="button" onClick={onClick}>
+    <Button
+      type={buttonType}
+      onClick={onClick}
+      leftIcon={icon}
+      variant={variant}
+      w={`${isFull ? "full" : ""}`}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      padding={padding}
+    >
       {text}
-    </button>
+    </Button>
   );
 }

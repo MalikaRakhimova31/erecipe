@@ -2,22 +2,35 @@ import type { CustomRoute } from "@/types";
 import { authRoutes, jobRoutes } from "@/features";
 import Root from "@/views/root";
 import Header from "@/components/Header/Header";
+import Dashboard from "@/features/dashboard";
+import CreateRecipe from "@/features/create-recipe";
 
 const routes: CustomRoute[] = [
   {
     id: "root",
     title: "MVD",
-    path: "/",
     element: <Root />,
     loader: async () => null,
     errorElement: <div>Error element</div>,
     children: [
       {
-        path: "/jobs",
-        element: <Header />,
+        id: "create-recipe",
+        path: "/create-recipe",
+        element: <CreateRecipe />,
+        loader: async () => null,
+        errorElement: <div>Error element</div>,
+      },
+      {
+        id: "dashboard",
+        path: "/",
+        element: <Dashboard />,
+        index: true,
+        loader: async () => null,
+        errorElement: <div>Error element</div>,
       },
     ],
   },
+
   authRoutes,
   {
     id: "global-not-found",

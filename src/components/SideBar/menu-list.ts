@@ -1,16 +1,30 @@
-// import { PhoneIcon } from "@chakra-ui/icons";
+import { type SidebarMenuProps } from "@/types";
 
-// interface MenuProps {
-//   title: string;
-//   icon: React.ReactElement;
-//   path: string;
+const sidebarMenu: SidebarMenuProps[] = [
+  {
+    title: "Статистика",
+    icon: "/assets/statistics.svg",
+    activeIcon: "/assets/active-statistics.svg",
+    path: "/",
+  },
+  // {
+  //   title: "E-рецепты",
+  //   icon: "/assets/erecipe.svg",
+  //   path: "/create-recipe",
+  //   activeIcon: "/assets/active-erecipe.svg",
+  // },
+  {
+    title: "Пациенты",
+    icon: "/assets/patients.svg",
+    path: "/patients",
+    activeIcon: "/assets/active-patients.svg",
+  },
+  // {
+  //   title: "Настройки",
+  //   icon: "/assets/settings.svg",
+  //   path: "/settings",
+  //   activeIcon: "/assets/active-settings.svg",
+  // },
+];
 
-// const menu: MenuProps[] = [
-//   {
-//     title: "Dashboard",
-//     icon: <PhoneIcon />,
-//     path: "/",
-//   },
-// ];
-
-// export default menu;
+export default sidebarMenu;

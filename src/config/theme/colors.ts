@@ -1,6 +1,6 @@
 const colors = {
   primary: {
-    main: "#007AFF",
+    main: "#0ABAB5", // green main color
     50: "#E5F2FF",
     100: "#B8DAFF",
     200: "#8AC2FF",
@@ -13,7 +13,7 @@ const colors = {
     900: "#001833",
   },
   secondary: {
-    main: "#6E8BB7",
+    main: "#393D4E", // text-color-black
     50: "#EEF1F7",
     100: "#CFD9E7",
     200: "#B1C0D8",
@@ -25,14 +25,17 @@ const colors = {
     800: "#222F44",
     900: "#111822",
   },
-  border: "#E5E9EB",
+  border: "#E7EAF0",
+  grey: "#8E93AA",
+  bgGrey: "#F8FAFB",
   rowHover: "#e5e9eb64",
-  dark: {
-    main: "#1e272c",
-    secondary: "#2b363c",
-    border: "#ffffff1a",
-    rowHover: "#e5e9eb64",
-  },
+  errorColor: "#FF4E4E",
+  // dark: {
+  //   main: "#1e272c",
+  //   secondary: "#2b363c",
+  //   border: "#ffffff1a",
+  //   rowHover: "#e5e9eb64",
+  // },
 };
 
 export default colors;
