@@ -1,14 +1,11 @@
 import DatePicker, { registerLocale } from "react-datepicker";
 import ru from "date-fns/locale/ru";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
 import { getYear, getMonth } from "date-fns";
 import "./datepicker.scss";
 import { Box } from "@chakra-ui/react";
 import { Controller } from "react-hook-form";
 import Label from "../Label/Label";
-
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 
 registerLocale("ru", ru);
 
@@ -31,7 +28,6 @@ export default function CDatePicker({
     return years;
   };
   const years = range(1990, getYear(new Date()));
-  console.log("years", range(1990, getYear(new Date())));
   const months = [
     "January",
     "February",
@@ -83,7 +79,9 @@ export default function CDatePicker({
                   </button>
                   <select
                     value={getYear(date)}
-                    onChange={({ target: { value } }) => changeYear(value)}
+                    onChange={() => {
+                      changeYear(value);
+                    }}
                   >
                     {years.map((option) => (
                       <option key={option} value={option}>
@@ -93,9 +91,9 @@ export default function CDatePicker({
                   </select>
                   <select
                     value={months[getMonth(date)]}
-                    onChange={({ target: { value } }) =>
-                      changeMonth(months.indexOf(value))
-                    }
+                    onChange={() => {
+                      changeMonth(months.indexOf(value));
+                    }}
                   >
                     {months.map((option) => (
                       <option key={option} value={option}>

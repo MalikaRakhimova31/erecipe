@@ -1,14 +1,15 @@
 import type { CustomRoute } from "@/types";
-import { authRoutes, jobRoutes } from "@/features";
+import { authRoutes } from "@/features";
 import Root from "@/views/root";
-import Header from "@/components/Header/Header";
 import Dashboard from "@/features/dashboard";
 import CreateRecipe from "@/features/create-recipe";
+import PatientsHome from "@/features/patients";
+import RecipeHistory from "@/features/recipe-history";
 
 const routes: CustomRoute[] = [
   {
     id: "root",
-    title: "MVD",
+    title: "ERecipe",
     element: <Root />,
     loader: async () => null,
     errorElement: <div>Error element</div>,
@@ -17,6 +18,20 @@ const routes: CustomRoute[] = [
         id: "create-recipe",
         path: "/create-recipe",
         element: <CreateRecipe />,
+        loader: async () => null,
+        errorElement: <div>Error element</div>,
+      },
+      {
+        id: "patients",
+        path: "/patients",
+        element: <PatientsHome />,
+        loader: async () => null,
+        errorElement: <div>Error element</div>,
+      },
+      {
+        id: "patient-recipe-history",
+        path: "/patients/:id",
+        element: <RecipeHistory />,
         loader: async () => null,
         errorElement: <div>Error element</div>,
       },

@@ -27,8 +27,7 @@ function generateRandomString(): string {
   return Array.from(array, (dec) => `0${dec.toString(16)}`.substr(-2)).join("");
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function redirectToSSO(): Promise<any> {
+async function redirectToSSO(): Promise<void> {
   // Generate and store a random "state" value
   const state = generateRandomString();
   localStorage.setItem("pkce_state", state);
@@ -39,8 +38,6 @@ async function redirectToSSO(): Promise<any> {
 
   // Hash and base64-urlencode the secret to use as the challenge
   const codeChallenge = kceChallengeFromVerifier(codeVerifier);
-
-  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
 
   // Build the authorization URL
   const url =

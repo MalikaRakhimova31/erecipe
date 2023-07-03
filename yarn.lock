@@ -1059,7 +1059,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/styled-system@npm:2.9.1":
+"@chakra-ui/styled-system@npm:2.9.1, @chakra-ui/styled-system@npm:^2.9.1":
   version: 2.9.1
   resolution: "@chakra-ui/styled-system@npm:2.9.1"
   dependencies:
@@ -8374,6 +8374,7 @@ __metadata:
     "@chakra-ui/anatomy": ^2.1.1
     "@chakra-ui/icons": ^2.0.19
     "@chakra-ui/react": ^2.7.0
+    "@chakra-ui/styled-system": ^2.9.1
     "@emotion/react": ^11.11.1
     "@emotion/styled": ^11.11.0
     "@hookform/resolvers": ^3.1.1

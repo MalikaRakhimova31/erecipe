@@ -1,11 +1,31 @@
-import { type SelectionMenuProps, type USelectProps } from "@/types";
-import SelectMenu, {
-  type StylesConfig,
-  type DropdownIndicatorProps,
-  components,
-  type ClearIndicatorProps,
-} from "react-select";
+/* eslint-disable no-nested-ternary */
+import { type USelectProps } from "@/types";
+import SelectMenu, { components } from "react-select";
+import selectStyles from "./selectStyles";
 
+function ChevronDown(): React.ReactElement {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="Linear / Arrows / Arrow Down">
+        <g id="Group">
+          <g id="Group_2">
+            <path
+              id="Vector"
+              d="M10.5203 13.454L16.4537 7.52053C16.5911 7.38329 16.6667 7.2001 16.6667 7.00476C16.6667 6.80942 16.5911 6.62623 16.4537 6.48899L16.0169 6.05203C15.7322 5.7677 15.2696 5.7677 14.9854 6.05203L10.0028 11.0345L5.01481 6.0465C4.87747 5.90927 4.69438 5.8335 4.49915 5.8335C4.3037 5.8335 4.12062 5.90927 3.98316 6.0465L3.54642 6.48346C3.40908 6.62081 3.33341 6.80389 3.33341 6.99923C3.33341 7.19457 3.40908 7.37777 3.54642 7.515L9.48523 13.454C9.62301 13.5916 9.80697 13.6671 10.0025 13.6667C10.1988 13.6671 10.3827 13.5916 10.5203 13.454Z"
+              fill="#8E93AA"
+            />
+          </g>
+        </g>
+      </g>
+    </svg>
+  );
+}
 function SearchIcon(): React.ReactElement {
   return (
     <svg
@@ -73,94 +93,12 @@ function ClearIcon(): React.ReactElement {
   );
 }
 
-const customDropdownIndicator = (
-  props: DropdownIndicatorProps<SelectionMenuProps[]>,
-): React.ReactElement => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <components.DropdownIndicator {...props}>
-    <SearchIcon />
-  </components.DropdownIndicator>
-);
-
-const customClearIndicator = (
-  props: ClearIndicatorProps<SelectionMenuProps[]>,
-): React.ReactElement => (
+const customClearIndicator = (props: any): React.ReactElement => (
   // eslint-disable-next-line react/jsx-props-no-spreading
   <components.ClearIndicator {...props}>
     <ClearIcon />
   </components.ClearIndicator>
 );
-
-const selectStyles: StylesConfig<USelectProps> = {
-  control: (provided, { isFocused }) => ({
-    ...provided,
-    width: "100%",
-    outline: "none !important",
-    background: "white",
-    borderRadius: "7px",
-    boxShadow: isFocused ? "0px 0px 5px 0px rgba(10, 186, 181, 0.15);" : "none",
-    borderColor: isFocused ? "#0ABAB5" : "#E7EAF0",
-    height: "48px",
-    padding: "0 8px",
-    transition: "all 0.2s ease",
-    ":hover": {
-      borderColor: "#0ABAB5",
-      transition: "all 0.2s ease",
-    },
-  }),
-  input: (provided) => ({
-    ...provided,
-    outline: "none",
-    fontSize: "16px",
-    color: "#393D4E",
-    lineHeight: "150%",
-    fontFamily: "Golos",
-    caretColor: "#0ABAB5",
-  }),
-  placeholder: (styles) => ({
-    ...styles,
-    fontSize: "16px",
-    lineHeight: "17px",
-    color: "#8E93AA",
-    whiteSpace: "nowrap",
-    textOverflow: "ellipsis",
-    overflow: "hidden",
-  }),
-  option: (provided, state) => ({
-    ...provided,
-    backgroundColor:
-      state.isSelected || state.isFocused ? "transparent" : "transparent",
-    color: state.isSelected ? "#0ABAB5" : "#393D4E",
-    fontSize: "16px",
-    paddingRight: "0",
-    paddingLeft: "0",
-    ":first-child": {
-      paddingTop: "0",
-    },
-    ":last-child": {
-      paddingBottom: "0",
-    },
-    ":hover": {
-      background: "transparent",
-    },
-  }),
-  menu: (provided) => ({
-    ...provided,
-    marginTop: "4px",
-    borderRadius: "7px",
-    boxShadow: "0px 8px 15px 0px rgba(0, 0, 0, 0.08)",
-    padding: "16px",
-  }),
-  menuList: (provided) => ({
-    ...provided,
-    maxHeight: "100px",
-    overflow: "auto",
-  }),
-  dropdownIndicator: (base) => ({
-    ...base,
-    color: "red",
-  }),
-};
 
 const formatOptionLabel = (
   { label }: any,
@@ -203,8 +141,14 @@ export default function USelect({
   isSearchable = false,
   placeholder,
   searchRef,
-  ...restProps
+  searchIcon,
 }: USelectProps): React.ReactElement {
+  const customDropdownIndicator = (props: any): React.ReactElement => (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <components.DropdownIndicator {...props}>
+      {searchIcon ? <SearchIcon /> : <ChevronDown />}
+    </components.DropdownIndicator>
+  );
   return (
     <SelectMenu
       styles={selectStyles}
@@ -224,8 +168,6 @@ export default function USelect({
         DropdownIndicator: customDropdownIndicator,
         ClearIndicator: customClearIndicator,
       }}
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...restProps}
     />
   );
 }

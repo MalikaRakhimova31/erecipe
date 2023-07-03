@@ -1,16 +1,8 @@
-import Button from "@/components/button/button";
-import useModalState from "./modal-state";
-
 export default function Modal(): React.ReactElement {
-  const { count, increment, decrement } = useModalState();
-
   return (
     <>
       <Header />
       <Main />
-      <Button text="decrement" onClick={decrement} />
-      {`\t${count}\t`}
-      <Button text="increment" onClick={increment} />
       <br />
       <Footer />
     </>

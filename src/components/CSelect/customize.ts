@@ -23,7 +23,7 @@ interface ColourStyles {
 }
 
 const colourStyles: ColourStyles = {
-  control: (styles, { isFocused, isDisabled }) => ({
+  control: (styles, { isDisabled }) => ({
     ...styles,
     backgroundColor: isDisabled ? "#F6F8F9" : "#F6F8F9",
     borderWidth: "1px",
@@ -40,7 +40,7 @@ const colourStyles: ColourStyles = {
       height: "42px",
     },
   }),
-  option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
+  option: (styles, { isDisabled, isFocused }) => ({
     ...styles,
     cursor: isDisabled ? "not-allowed" : "default",
     backgroundColor: isFocused ? "rgba(16, 130, 146, 0.1)" : "#fff",
@@ -58,7 +58,7 @@ const colourStyles: ColourStyles = {
     lineHeight: "17px",
     color: "#9AA6AC",
   }),
-  singleValue: (styles, { data }) => ({
+  singleValue: (styles) => ({
     ...styles,
     fontSize: "14px",
     lineHeight: "17px",

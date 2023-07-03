@@ -6,6 +6,7 @@ export default function CButton(props: ButtonProps): JSX.Element {
     onClick,
     text,
     icon,
+    rightIcon,
     variant,
     buttonType,
     padding,
@@ -17,9 +18,9 @@ export default function CButton(props: ButtonProps): JSX.Element {
       type={buttonType}
       onClick={onClick}
       leftIcon={icon}
+      rightIcon={rightIcon}
       variant={variant}
       w={`${isFull ? "full" : ""}`}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       padding={padding}
     >
       {text}

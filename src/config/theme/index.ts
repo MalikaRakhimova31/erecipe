@@ -2,6 +2,7 @@ import { extendTheme } from "@chakra-ui/react";
 import colors from "./colors";
 import accordionTheme from "./accordionTheme";
 import textareaTheme from "./textareaTheme";
+import modalTheme from "./modalTheme";
 
 const theme = extendTheme({
   components: {
@@ -55,10 +56,61 @@ const theme = extendTheme({
             color: "white",
           },
         },
+        ghost: {
+          borderRadius: "8px",
+          width: "max-content",
+          height: "53px",
+          background: "#EBFAF9",
+          color: "primary.main",
+          fontWeight: "500 !important",
+          border: "none",
+          fontSize: "16px",
+          _hover: {
+            // borderColor: "errorColor",
+            boxShadow: "0px 4px 20px 0px rgba(255, 78, 78, 0.30)",
+            background: "#0ABAB5",
+            color: "white",
+          },
+        },
+        danger: {
+          borderRadius: "8px",
+          width: "max-content",
+          height: "53px",
+          background: "#FF4E4E",
+          color: "white",
+          fontWeight: "500 !important",
+          border: "none",
+          fontSize: "16px",
+          _hover: {
+            // borderColor: "errorColor",
+            boxShadow: "0px 4px 20px 0px rgba(255, 78, 78, 0.30)",
+          },
+        },
       },
     },
     Accordion: accordionTheme,
     Textarea: textareaTheme,
+    Modal: modalTheme,
+    Table: {
+      variants: {
+        simple: {
+          th: {
+            padding: "16px 0",
+            borderColor: "#E7EAF0",
+            fontSize: "12px",
+            fontWeight: "400",
+            color: "#8E93AA",
+          },
+          td: {
+            borderColor: "#E7EAF0",
+            padding: "16px 0",
+            color: "secondary.main",
+            fontSize: "14px",
+            fontWeight: "500",
+          },
+        },
+      },
+    },
   },
   colors,
   fonts: {

@@ -4,7 +4,6 @@ import type {
   RouteObject,
 } from "react-router-dom";
 import { type Control } from "react-hook-form";
-import { type RefObject } from "react";
 
 interface CustomNonIndexRouteObject extends NonIndexRouteObject {
   children?: Array<RouteObject & { title?: string }>;
@@ -45,7 +44,8 @@ interface USelectProps {
   isSearchable?: boolean;
   isMulti?: boolean;
   isDisabled?: boolean;
-  searchRef?: RefObject<HTMLInputElement>;
+  searchRef?: any;
+  searchIcon: boolean;
 }
 
 interface LabelProps {
@@ -59,7 +59,8 @@ interface ButtonProps {
   onClick?: (evt: React.MouseEvent<HTMLButtonElement>) => void;
   text: string;
   icon?: React.ReactElement;
-  variant: "ghost" | "outline" | "solid" | "link" | "unstyled";
+  rightIcon?: React.ReactElement;
+  variant: "ghost" | "outline" | "solid" | "link" | "unstyled" | "danger";
   buttonType: "submit" | "button";
   padding?: string;
   isFull?: boolean;
@@ -80,6 +81,7 @@ interface itemProps {
   drugDuartion: string;
   period: number;
   note?: string;
+  id?: string;
 }
 
 interface TextAreaProps {
