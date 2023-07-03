@@ -13,7 +13,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import CButton from "@/components/button/button";
 import type React from "react";
 import { useLayoutEffect, useRef, useState } from "react";
-import { type SelectionMenuProps, type itemProps } from "@/types";
+import { type itemProps } from "@/types";
 import USelect from "@/components/USelect/USelect";
 import PatientBox from "@/components/PatientBox.tsx/PatientBox";
 import CModal from "@/components/CModal/CModal";
@@ -23,7 +23,7 @@ interface FormValues {
 }
 
 export default function CreateRecipe(): React.ReactElement {
-  const options: SelectionMenuProps[] = [
+  const options: any = [
     { value: "001", label: "Recipeee" },
     { value: "002", label: "Kecipeee" },
     { value: "003", label: "Apple" },

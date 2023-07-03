@@ -29,7 +29,7 @@ interface SelectionMenuProps {
 interface SelectProps {
   control: Control;
   name: string;
-  options: SelectionMenuProps[];
+  options: any;
   title: string;
   placeholder: string;
   isClearable?: boolean;
@@ -38,7 +38,7 @@ interface SelectProps {
   isDisabled?: boolean;
 }
 interface USelectProps {
-  options: SelectionMenuProps[];
+  options: any;
   placeholder: string;
   isClearable?: boolean;
   isSearchable?: boolean;

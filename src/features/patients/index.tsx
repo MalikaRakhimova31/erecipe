@@ -1,10 +1,9 @@
 import USelect from "@/components/USelect/USelect";
-import { type SelectionMenuProps } from "@/types";
 import { Box, Flex } from "@chakra-ui/react";
 import PatientsTable from "./views/PatientsTable";
 
 function PatientsHome(): React.ReactElement {
-  const options: SelectionMenuProps[] = [
+  const options: any = [
     { value: "001", label: "Recipeee" },
     { value: "002", label: "Kecipeee" },
     { value: "003", label: "Apple" },
