@@ -21,3 +21,17 @@ export async function register(data: object): Promise<Response> {
 
   return res;
 }
+
+export async function getToken(data: object): Promise<Response> {
+  // const formData = new URLSearchParams(data);
+  const res = await fetch(`${import.meta.env.VITE_BASE_URL}/oauth/token`, {
+    method: "post",
+    body: JSON.stringify(data),
+    // body: formData,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  });
+
+  return res;
+}

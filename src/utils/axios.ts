@@ -5,6 +5,9 @@ import settings from "@/config/settings";
 const request = axios.create({
   baseURL: settings.baseURL,
   timeout: settings.requestTimeout,
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
 });
 
 request.defaults.headers.timezone = new Date().getTimezoneOffset();
