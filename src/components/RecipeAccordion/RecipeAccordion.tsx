@@ -30,7 +30,6 @@ export default function RecipeAccordion({
     { value: "002", label: "Kecipeee" },
     { value: "003", label: "Apple" },
     { value: "004", label: "Butter" },
-    { value: "005", label: "Butterfly" },
   ];
 
   return (
