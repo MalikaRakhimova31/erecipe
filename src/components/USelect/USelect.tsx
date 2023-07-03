@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import { type USelectProps } from "@/types";
 import SelectMenu, { components } from "react-select";
 import selectStyles from "./selectStyles";
