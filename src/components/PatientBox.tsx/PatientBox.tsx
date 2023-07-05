@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import { Text, Flex, Box } from "@chakra-ui/react";
 import { type RefObject } from "react";
 import CButton from "../button/button";
