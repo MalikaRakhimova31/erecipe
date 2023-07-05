@@ -5,6 +5,7 @@ import Dashboard from "@/features/dashboard";
 import CreateRecipe from "@/features/create-recipe";
 import PatientsHome from "@/features/patients";
 import RecipeHistory from "@/features/recipe-history";
+import RecipeVersion from "@/features/recipe-version";
 
 const routes: CustomRoute[] = [
   {
@@ -32,6 +33,20 @@ const routes: CustomRoute[] = [
         id: "patient-recipe-history",
         path: "/patients/:id",
         element: <RecipeHistory />,
+        loader: async () => null,
+        errorElement: <div>Error element</div>,
+      },
+      {
+        id: "patient-recipe-version",
+        path: "/patients/recipe-version/:id",
+        element: <RecipeVersion />,
+        loader: async () => null,
+        errorElement: <div>Error element</div>,
+      },
+      {
+        id: "patient-recipe-edit",
+        path: "/patients/recipe-edit",
+        element: <CreateRecipe />,
         loader: async () => null,
         errorElement: <div>Error element</div>,
       },

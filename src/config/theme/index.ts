@@ -107,6 +107,9 @@ const theme = extendTheme({
             color: "secondary.main",
             fontSize: "14px",
             fontWeight: "500",
+            "&:last-child": {
+              borderColor: "none",
+            },
           },
         },
       },

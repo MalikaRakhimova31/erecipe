@@ -3227,7 +3227,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:^2.2.6":
+"classnames@npm:^2.2.6, classnames@npm:^2.3.2":
   version: 2.3.2
   resolution: "classnames@npm:2.3.2"
   checksum: 2c62199789618d95545c872787137262e741f9db13328e216b093eea91c85ef2bfb152c1f9e63027204e2559a006a92eb74147d46c800a9f96297ae1d9f96f4e
@@ -7498,7 +7498,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -7573,6 +7573,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-date-object@npm:^2.1.5":
+  version: 2.1.7
+  resolution: "react-date-object@npm:2.1.7"
+  checksum: f8e16484a16a56251697b52cb6c78c2aaa89ba33694c5f2032a967a68b70446cdb6ff9f4357e6e2a7ad50d48f1518f7b1b49ed7ca111542a8a32902c080a3c8a
+  languageName: node
+  linkType: hard
+
 "react-datepicker@npm:^4.14.1":
   version: 4.14.1
   resolution: "react-datepicker@npm:4.14.1"
@@ -7599,6 +7606,16 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
+"react-element-popper@npm:^2.1.6":
+  version: 2.1.6
+  resolution: "react-element-popper@npm:2.1.6"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 0140c2f78ea5b4ef92d2711ca66d96513403ffab62063cd3bdfee662d5424ceaf50f08a74da3a5e370b3160b1e345d144afa834f90bea5e06fa23c1682660ac4
   languageName: node
   linkType: hard
 
@@ -7677,6 +7694,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-multi-date-picker@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "react-multi-date-picker@npm:4.1.2"
+  dependencies:
+    react-date-object: ^2.1.5
+    react-element-popper: ^2.1.6
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 104a90cb9e1eaa51e94bcbff17e2b0bb670d619e3bf43703fb2c3f51e48e73d8c0e47d70f48c784c8625e7af8687d7ffcb7898cc17e3e012b71d7ee0f60fde5e
+  languageName: node
+  linkType: hard
+
 "react-onclickoutside@npm:^6.12.2":
   version: 6.13.0
   resolution: "react-onclickoutside@npm:6.13.0"
@@ -7684,6 +7714,17 @@ __metadata:
     react: ^15.5.x || ^16.x || ^17.x || ^18.x
     react-dom: ^15.5.x || ^16.x || ^17.x || ^18.x
   checksum: a7cfe62e91f7f92891cda7b885d6eec7b2854850f8703ccafcea5c04bb93a210a566a70b51b9fae0cc30c3485e04eb6a3f3ae58f495cac3ec2747b4fc44d1ad2
+  languageName: node
+  linkType: hard
+
+"react-paginate@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "react-paginate@npm:8.2.0"
+  dependencies:
+    prop-types: ^15
+  peerDependencies:
+    react: ^16 || ^17 || ^18
+  checksum: a0969b4ef27be466ef3e052e2c7c61fca60af24e0d10c76770ebd9953ad6131206a276dfc335e61cf35aa494ff3aacc2610682e3192d7f2ee9541928edb46721
   languageName: node
   linkType: hard
 
@@ -8393,6 +8434,7 @@ __metadata:
     "@vitejs/plugin-react-swc": ^3.0.0
     autoprefixer: ^10.4.14
     axios: ^1.4.0
+    classnames: ^2.3.2
     clsx: ^1.2.1
     crypto-js: ^4.1.1
     date-fns: ^2.30.0
@@ -8428,6 +8470,8 @@ __metadata:
     react-dom: ^18.2.0
     react-hook-form: ^7.45.0
     react-i18next: ^12.3.1
+    react-multi-date-picker: ^4.1.2
+    react-paginate: ^8.2.0
     react-router-dom: ^6.13.0
     react-select: ^5.7.3
     react-window: ^1.8.9

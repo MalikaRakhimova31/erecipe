@@ -15,6 +15,16 @@ type CustomRoute = (IndexRouteObject | CustomNonIndexRouteObject) & {
 
 type id = string;
 
+interface InputProps {
+  value: string | Date | null;
+  onChange: (value: string | Date | null) => void;
+}
+interface EmptyBoxProps {
+  icon: string;
+  title: string;
+  description: string;
+}
+
 interface SidebarMenuProps {
   title: string;
   icon: string;
@@ -91,6 +101,10 @@ interface TextAreaProps {
   placeholder: string;
 }
 
+interface StatusProps {
+  status: "issuedByDoctor" | "issued" | "declined" | "expired" | "new";
+}
+
 export type {
   CustomRoute,
   id,
@@ -102,4 +116,7 @@ export type {
   itemProps,
   TextAreaProps,
   USelectProps,
+  InputProps,
+  EmptyBoxProps,
+  StatusProps,
 };
