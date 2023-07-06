@@ -105,6 +105,12 @@ interface StatusProps {
   status: "issuedByDoctor" | "issued" | "declined" | "expired" | "new";
 }
 
+interface IconTitleBoxProps {
+  icon: React.ReactElement;
+  title: string;
+  text: string;
+}
+
 export type {
   CustomRoute,
   id,
@@ -119,4 +125,5 @@ export type {
   InputProps,
   EmptyBoxProps,
   StatusProps,
+  IconTitleBoxProps,
 };

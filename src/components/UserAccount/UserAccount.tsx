@@ -1,8 +1,17 @@
 import { Flex, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 export default function UserAccount(): React.ReactElement {
+  const navigate = useNavigate();
   return (
-    <Flex columnGap="10px" justifyContent="space-between" alignItems="start">
+    <Flex
+      columnGap="10px"
+      justifyContent="space-between"
+      alignItems="start"
+      onClick={() => {
+        navigate("/auth");
+      }}
+    >
       <Flex alignItems="center" justifyContent="center">
         <img src="/assets/userPlaceholder.svg" alt="user placeholder" />
       </Flex>
