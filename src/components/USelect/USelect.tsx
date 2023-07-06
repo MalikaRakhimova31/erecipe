@@ -141,6 +141,9 @@ export default function USelect({
   placeholder,
   searchRef,
   searchIcon,
+  value,
+  defaultValue,
+  onChange,
 }: USelectProps): React.ReactElement {
   const customDropdownIndicator = (props: any): React.ReactElement => (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -162,6 +165,9 @@ export default function USelect({
       placeholder={placeholder}
       formatOptionLabel={formatOptionLabel}
       ref={searchRef}
+      onChange={onChange}
+      value={value}
+      defaultValue={defaultValue}
       components={{
         // IndicatorSeparator: () => null,
         DropdownIndicator: customDropdownIndicator,

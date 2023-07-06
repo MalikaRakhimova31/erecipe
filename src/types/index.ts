@@ -56,6 +56,9 @@ interface USelectProps {
   isDisabled?: boolean;
   searchRef?: any;
   searchIcon: boolean;
+  defaultValue?: SelectionMenuProps;
+  value?: SelectionMenuProps;
+  onChange?: () => void;
 }
 
 interface LabelProps {

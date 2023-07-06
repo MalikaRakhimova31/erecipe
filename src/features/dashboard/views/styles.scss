@@ -1,17 +1,3 @@
 #line-graph {
   width: 100% !important;
 }
-.apexcharts-canvas {
-  font-family: inherit !important;
-  width: 100% !important;
-  .apexcharts-tooltip {
-    .apexcharts-tooltip {
-      background-color: red !important;
-    }
-    .apexcharts-active {
-      .apexcharts-tooltip {
-        background-color: red !important;
-      }
-    }
-  }
-}

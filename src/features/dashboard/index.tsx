@@ -1,7 +1,25 @@
 import TitleWithIcon from "@/components/TitleWithIcon/TitleWithIcon";
-import { Flex } from "@chakra-ui/react";
-import { type IconTitleBoxProps } from "@/types";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { type SelectionMenuProps, type IconTitleBoxProps } from "@/types";
+import USelect from "@/components/USelect/USelect";
 import LineGraph from "./views/LineGraph";
+import CDonut from "./views/CDonut";
+import RecentPatients from "./views/RecentPatients";
+
+const options: SelectionMenuProps[] = [
+  {
+    value: "За год",
+    label: "За год",
+  },
+  {
+    value: "За месяц",
+    label: "За месяц",
+  },
+  {
+    value: "За неделю",
+    label: "За неделю",
+  },
+];
 
 const info: IconTitleBoxProps[] = [
   {
@@ -43,7 +61,22 @@ export default function Dashboard(): React.ReactElement {
           border="1px solid #E7EAF0"
           width="100%"
           id="custom-line-graph"
+          direction="column"
+          rowGap="32px"
         >
+          <Flex alignItems="center" justifyContent="space-between">
+            <Text color="secondary.main" fontSize="18px" fontWeight="500">
+              Статистика выданных рецептов
+            </Text>
+            <Box width="230px">
+              <USelect
+                placeholder=""
+                searchIcon={false}
+                options={options}
+                defaultValue={options[0]}
+              />
+            </Box>
+          </Flex>
           <LineGraph />
         </Flex>
         <Flex w="32.4%" direction="column" rowGap="16px">
@@ -55,7 +88,7 @@ export default function Dashboard(): React.ReactElement {
             bg="white"
             width="full"
           >
-            Graph
+            <CDonut />
           </Flex>
           <Flex
             border="1px solid #E7EAF0"
@@ -65,10 +98,11 @@ export default function Dashboard(): React.ReactElement {
             bg="white"
             width="full"
           >
-            Graph
+            <CDonut />
           </Flex>
         </Flex>
       </Flex>
+      <RecentPatients />
     </Flex>
   );
 }
