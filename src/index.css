@@ -50,3 +50,24 @@ input {
   background: #8e93aa;
   border-radius: 100px;
 }
+
+#custom-line-graph div:first-child {
+  width: 100% !important;
+  font-family: "Golos", sans-serif !important;
+}
+
+#custom-line-graph text {
+  font-family: inherit;
+}
+#custom-line-graph .apexcharts-canvas {
+  font-family: "Golos", sans-serif !important;
+}
+#custom-line-graph .apexcharts-tooltip .apexcharts-tooltip-title {
+  background-color: #f8fafb !important;
+}
+#custom-line-graph .apexcharts-xaxistooltip,
+.apexcharts-yaxistooltip {
+  background-color: #f8fafb !important;
+  border: 1px solid #e7eaf0;
+  border-radius: 4px;
+}

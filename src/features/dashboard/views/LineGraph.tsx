@@ -1,5 +1,6 @@
 import Chart from "react-apexcharts";
 import { type ApexOptions } from "apexcharts";
+import "./styles.scss";
 
 interface seriesProps {
   name: string;
@@ -19,9 +20,13 @@ const chartData: Props = {
   ],
   options: {
     chart: {
+      id: "line-graph",
       height: 350,
       type: "line",
-      width: "full",
+      width: "100%",
+      toolbar: {
+        show: false,
+      },
     },
 
     xaxis: {
@@ -37,13 +42,14 @@ const chartData: Props = {
         "Sep",
       ],
     },
-    yaxis: {
-      title: {
-        text: "Sales",
-      },
-    },
+    yaxis: {},
     stroke: {
       curve: "smooth",
+      width: 4,
+    },
+    colors: ["#0ABAB5"],
+    tooltip: {
+      shared: true,
     },
   },
 };
@@ -55,7 +61,6 @@ export default function LineGraph(): React.ReactElement {
       series={chartData.series}
       type="line"
       height={350}
-      width="100%"
     />
   );
 }

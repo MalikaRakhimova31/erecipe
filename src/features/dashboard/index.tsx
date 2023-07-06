@@ -41,6 +41,8 @@ export default function Dashboard(): React.ReactElement {
           bg="white"
           p={5}
           border="1px solid #E7EAF0"
+          width="100%"
+          id="custom-line-graph"
         >
           <LineGraph />
         </Flex>

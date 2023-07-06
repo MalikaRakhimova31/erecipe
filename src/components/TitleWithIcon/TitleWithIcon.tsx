@@ -16,11 +16,12 @@ export default function TitleWithIcon({
       bg="white"
       columnGap={4}
       width="100%"
+      height="104px"
     >
       <Flex justifyContent="center" alignItems="center">
         <CIconButton icon={icon} width={48} height={48} />
       </Flex>
-      <Flex direction="column" rowGap="8px" justifyContent="space-between">
+      <Flex direction="column" rowGap="8px" justifyContent="center">
         <Text color="grey" fontSize="14px" fontWeight="400">
           {title}
         </Text>
