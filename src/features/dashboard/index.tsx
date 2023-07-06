@@ -1,5 +1,5 @@
 import TitleWithIcon from "@/components/TitleWithIcon/TitleWithIcon";
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { type IconTitleBoxProps } from "@/types";
 import LineGraph from "./views/LineGraph";
 
