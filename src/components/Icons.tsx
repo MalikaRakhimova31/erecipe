@@ -1,6 +1,6 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable import/prefer-default-export */
+
 export const ChevronDownIcon = () => (
   <svg
     width="16"

@@ -4,7 +4,6 @@ import OtpButton from "./OtpButton";
 
 const today = new Date();
 
-// eslint-disable-next-line import/prefer-default-export
 export const header = [
   "ID рецепта",
   "создан",
