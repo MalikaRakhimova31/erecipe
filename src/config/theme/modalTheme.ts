@@ -13,6 +13,8 @@ const baseStyle = definePartsStyle({
     borderRadius: "12px",
     bg: `white`,
     padding: "16px",
+    // width: "700px !important",
+    maxWidth: "fit-content !important",
   },
   header: {
     textAlign: "center",
@@ -23,7 +25,7 @@ const baseStyle = definePartsStyle({
   body: {
     color: "#393D4E",
     fontSize: "16px",
-    textAlign: "center",
+    // textAlign: "center",
     paddingTop: "0",
     paddingBottom: "24px",
   },

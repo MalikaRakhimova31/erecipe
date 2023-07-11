@@ -2,32 +2,38 @@ import { Flex } from "@chakra-ui/react";
 import cn from "classnames";
 import { type StatusProps } from "@/types";
 import styles from "./Styles.module.scss";
+import statuses from "../mock/statuses";
 
 export default function StatusBox({ status }: StatusProps): React.ReactElement {
   const classNames = cn(
-    status === "issuedByDoctor" && styles.issuedByDoctor,
-    status === "issued" && styles.issued,
-    status === "declined" && styles.declined,
-    status === "expired" && styles.expired,
-    status === "new" && styles.new,
+    status === statuses.issuedByDoctor && styles.issuedByDoctor,
+    status === statuses.issued ||
+      (status === statuses.issuedByPharmacy && styles.issued),
+    status === statuses.declined && styles.declined,
+    status === statuses.expired && styles.expired,
+    status === statuses.new && styles.new,
   );
 
   const generateTitle = (): string => {
     let str = "";
     switch (status) {
-      case "issuedByDoctor": {
+      case statuses.issuedByDoctor: {
         str = "выписан врачом";
         break;
       }
-      case "issued": {
+      case statuses.issued: {
         str = "выдан";
         break;
       }
-      case "declined": {
+      case statuses.issuedByPharmacy: {
+        str = "Выдан аптекой";
+        break;
+      }
+      case statuses.declined: {
         str = "отменен";
         break;
       }
-      case "expired": {
+      case statuses.expired: {
         str = "истек";
         break;
       }

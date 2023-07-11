@@ -77,3 +77,26 @@ input {
   color: #8e93aa !important;
   font-family: inherit;
 }
+
+#filter-popup-select .basic-multi-select {
+  width: 100%;
+  text-align: left;
+}
+
+#chakra-modal-custom-modal {
+  max-width: fit-content !important;
+}
+
+.css-1p3m7a8-multiValue {
+  background-color: rgba(55, 172, 188, 0.2) !important;
+  color: #393d4e;
+}
+
+.css-12a83d4-MultiValueRemove:hover {
+  color: #fff !important;
+  background-color: #0abab5 !important;
+}
+
+.css-1i837h3-ValueContainer2 {
+  flex-wrap: nowrap !important;
+}

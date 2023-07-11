@@ -3,7 +3,6 @@ import type {
   NonIndexRouteObject,
   RouteObject,
 } from "react-router-dom";
-import { type Control } from "react-hook-form";
 
 interface CustomNonIndexRouteObject extends NonIndexRouteObject {
   children?: Array<RouteObject & { title?: string }>;
@@ -30,6 +29,7 @@ interface SidebarMenuProps {
   icon: string;
   path: string;
   activeIcon?: string | "";
+  roles?: string[];
 }
 
 interface SelectionMenuProps {
@@ -37,7 +37,7 @@ interface SelectionMenuProps {
   label: string;
 }
 interface SelectProps {
-  control: Control;
+  control: any;
   name: string;
   options: any;
   title: string;
@@ -46,6 +46,7 @@ interface SelectProps {
   isSearchable?: boolean;
   isMulti?: boolean;
   isDisabled?: boolean;
+  menuPlacement?: "auto" | "top" | "bottom";
 }
 interface USelectProps {
   options: any;
@@ -73,10 +74,25 @@ interface ButtonProps {
   text: string;
   icon?: React.ReactElement;
   rightIcon?: React.ReactElement;
-  variant: "ghost" | "outline" | "solid" | "link" | "unstyled" | "danger";
+  variant:
+    | "ghost"
+    | "outline"
+    | "solid"
+    | "link"
+    | "unstyled"
+    | "danger"
+    | "greenText"
+    | "statusButton"
+    | "blackButton";
   buttonType: "submit" | "button";
   padding?: string;
   isFull?: boolean;
+  height?: string;
+}
+
+interface PopupInstanceProps {
+  open: boolean;
+  onClose: () => void;
 }
 
 interface itemProps {
@@ -105,7 +121,13 @@ interface TextAreaProps {
 }
 
 interface StatusProps {
-  status: "issuedByDoctor" | "issued" | "declined" | "expired" | "new";
+  status:
+    | "issuedByDoctor"
+    | "issuedByPharmacy"
+    | "issued"
+    | "declined"
+    | "expired"
+    | "new";
 }
 
 interface IconTitleBoxProps {
@@ -113,6 +135,28 @@ interface IconTitleBoxProps {
   title: string;
   text: string;
 }
+type permissionProps = string;
+
+type userRoleProps = "PHARMACY" | "DOCTOR" | "MAIN_DOCTOR" | "MINZDRAV";
+
+interface TableProps {
+  headData: any[];
+  bodyData: any[];
+  path?: string;
+  hasPath?: boolean;
+}
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactElement;
+}
+interface MProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+type roleArrayProps = string[] | undefined;
 
 export type {
   CustomRoute,
@@ -129,4 +173,11 @@ export type {
   EmptyBoxProps,
   StatusProps,
   IconTitleBoxProps,
+  permissionProps,
+  userRoleProps,
+  TableProps,
+  ModalProps,
+  MProps,
+  PopupInstanceProps,
+  roleArrayProps,
 };

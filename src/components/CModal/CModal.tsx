@@ -1,10 +1,5 @@
 import { Flex, Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
-
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactElement;
-}
+import { type ModalProps } from "@/types";
 
 export default function CModal({
   isOpen,
@@ -17,6 +12,7 @@ export default function CModal({
       onClose={onClose}
       isOpen={isOpen}
       motionPreset="slideInBottom"
+      id="custom-modal"
     >
       <ModalOverlay />
       <ModalContent>

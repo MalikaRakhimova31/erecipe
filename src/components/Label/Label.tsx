@@ -5,7 +5,12 @@ import { type LabelProps } from "@/types";
 export default function Label(props: LabelProps): React.ReactElement {
   const { title, children, optional, id } = props;
   return (
-    <Flex direction="column" rowGap="8px">
+    <Flex
+      direction="column"
+      rowGap="8px"
+      // alignItems="flex-start"
+      // justifyContent="flex-start"
+    >
       <label id={id}>
         <Text fontSize="14px" color="grey">
           {title}

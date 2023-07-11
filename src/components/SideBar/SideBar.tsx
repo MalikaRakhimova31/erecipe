@@ -1,12 +1,17 @@
 import { Flex, HStack, List, ListItem, Text } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Restricted from "@/providers/restricted";
 import sidebarMenu from "./menu-list";
 import SidebarMenuItem from "../SidebarMenuItem/SidebarMenuItem";
-import CButton from "../button/button";
+import ButtonByRole from "./ButtonByRole";
 
 export default function SideBar(): React.ReactElement {
-  const navigate = useNavigate();
-
+  console.log(
+    "menuuu",
+    sidebarMenu.map((el) =>
+      el.roles?.filter((item) => item === import.meta.env.VITE_ROLE),
+    ),
+  );
   return (
     <div className="min-h-[100vh] bg-white border-light-grey-stroke border w-[15rem]">
       <Flex direction="column" rowGap={5} flex={1}>
@@ -24,16 +29,8 @@ export default function SideBar(): React.ReactElement {
             </Text>
           </Flex>
         </Link>
-        <HStack px="24px" w="100%" mb="6">
-          <CButton
-            text="Новый рецепт"
-            onClick={() => {
-              navigate("/create-recipe");
-            }}
-            buttonType="button"
-            variant="solid"
-            icon={<img src="/assets/create.svg" alt="create icon" />}
-          />
+        <HStack px="12px" w="100%" mb="6">
+          <ButtonByRole />
         </HStack>
         <Flex direction="column" rowGap="24px">
           <HStack pl="24px">
@@ -49,14 +46,21 @@ export default function SideBar(): React.ReactElement {
           </HStack>
           <List spacing="24px">
             {sidebarMenu?.map((menu) => (
-              <ListItem key={menu.title}>
-                <SidebarMenuItem
-                  title={menu.title}
-                  icon={menu.icon}
-                  path={menu.path}
-                  activeIcon={menu.activeIcon}
-                />
-              </ListItem>
+              <Restricted
+                to={menu.roles?.filter(
+                  (el) => el === import.meta.env.VITE_ROLE,
+                )}
+                key={menu.title}
+              >
+                <ListItem>
+                  <SidebarMenuItem
+                    title={menu.title}
+                    icon={menu.icon}
+                    path={menu.path}
+                    activeIcon={menu.activeIcon}
+                  />
+                </ListItem>
+              </Restricted>
             ))}
           </List>
         </Flex>

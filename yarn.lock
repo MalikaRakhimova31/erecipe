@@ -7879,6 +7879,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-verification-input@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "react-verification-input@npm:3.3.0"
+  peerDependencies:
+    react: 16.8.0 - 18.x.x
+    react-dom: 16.8.0 - 18.x.x
+  checksum: 7dac91f4280fc67a9e0c9a7a4fcb724709e0ea34189502feadcffae8757f263679b9d223ae4bf2bab32699c6e2d37a1fd42d146ddaaff280188810210e41c062
+  languageName: node
+  linkType: hard
+
 "react-window@npm:^1.8.9":
   version: 1.8.9
   resolution: "react-window@npm:1.8.9"
@@ -8502,6 +8512,7 @@ __metadata:
     react-paginate: ^8.2.0
     react-router-dom: ^6.13.0
     react-select: ^5.7.3
+    react-verification-input: ^3.3.0
     react-window: ^1.8.9
     sass: ^1.63.4
     stylelint: ^15.7.0

@@ -40,6 +40,13 @@ const info: IconTitleBoxProps[] = [
 ];
 
 export default function Dashboard(): React.ReactElement {
+  // const location = useLocation();
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   const searchParams = new URLSearchParams(location.search);
+  //   searchParams.set("role", "DOCTOR");
+  //   navigate({ ...location, search: searchParams.toString() });
+  // }, []);
   return (
     <Flex p={4} direction="column" rowGap="16px">
       <Flex alignItems="center" justifyContent="space-between" columnGap="16px">

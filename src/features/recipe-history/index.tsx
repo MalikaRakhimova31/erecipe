@@ -1,6 +1,5 @@
 import PatientBox from "@/components/PatientBox.tsx/PatientBox";
 import RecipeHistoryCard from "@/components/RecipeHistoryCard/RecipeHistoryCard";
-import USelect from "@/components/USelect/USelect";
 import {
   Box,
   Flex,
@@ -14,10 +13,17 @@ import {
 import historyData from "@/components/mock/historyData";
 import { useMemo, useRef, useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
+import UInput from "@/components/UInput/UInput";
 
 const pageSize = 5;
 export default function RecipeHistory(): React.ReactElement {
   const searchRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const handleChange = (): void => {
+    if (inputRef.current !== null) {
+      console.log(inputRef.current.value);
+    }
+  };
   const [currentPage, setCurrentPage] = useState(1);
 
   const currentTableData = useMemo(() => {
@@ -33,22 +39,15 @@ export default function RecipeHistory(): React.ReactElement {
     "Статус",
     "Действия",
   ];
-  const options: any = [
-    { value: "001", label: "Recipeee" },
-    { value: "002", label: "Kecipeee" },
-    { value: "003", label: "Apple" },
-    { value: "004", label: "Butter" },
-    { value: "005", label: "Butterfly" },
-  ];
+
   return (
-    <Flex columnGap="16px" w="full" minH="89vh" p="4">
+    <Flex columnGap="16px" w="full" minH="82vh" p="4">
       <Flex direction="column" rowGap="16px" flex="1">
-        <USelect
-          searchIcon
-          isSearchable
-          isClearable
+        <UInput
+          icon="/assets/search.svg"
           placeholder="Поиск по ID рецепта"
-          options={options}
+          inputRef={inputRef}
+          onChange={handleChange}
         />
         <Flex direction="column" justifyContent="space-between" h="100%">
           <TableContainer>

@@ -3,6 +3,8 @@ import colors from "./colors";
 import accordionTheme from "./accordionTheme";
 import textareaTheme from "./textareaTheme";
 import modalTheme from "./modalTheme";
+import inputTheme from "./inputTheme";
+import tabsTheme from "./tabsTheme";
 
 const theme = extendTheme({
   components: {
@@ -11,7 +13,6 @@ const theme = extendTheme({
         solid: {
           borderRadius: "8px",
           width: "max-content",
-          height: "53px",
           padding: "0 24px",
           background: "primary.main",
           color: "white",
@@ -86,8 +87,57 @@ const theme = extendTheme({
             boxShadow: "0px 4px 20px 0px rgba(255, 78, 78, 0.30)",
           },
         },
+        greenText: {
+          borderRadius: "8px",
+          width: "max-content",
+          height: "48px",
+          background: "white",
+          color: "#23A566",
+          fontWeight: "500 !important",
+          borderWidth: "1px",
+          borderColor: "border",
+          fontSize: "16px",
+          _hover: {
+            boxShadow: "0px 0px 5px 0px rgba(10, 186, 181, 0.15);",
+            borderColor: "#23A566",
+          },
+        },
+        statusButton: {
+          borderRadius: "8px",
+          width: "max-content",
+          height: "41px",
+          background: "#EBFAF9",
+          color: "#0ABAB5",
+          fontWeight: "500 !important",
+          borderWidth: "none",
+          borderColor: "none",
+          fontSize: "14px",
+          _hover: {
+            boxShadow: "0px 0px 5px 0px rgba(10, 186, 181, 0.15);",
+            borderColor: "#23A566",
+          },
+        },
+        blackButton: {
+          borderRadius: "8px",
+          width: "100%",
+          height: "41px",
+          background: "white",
+          color: "#393D4E",
+          fontWeight: "500 !important",
+          border: "2px solid",
+          borderColor: "#E7EAF0",
+          fontSize: "14px",
+
+          _hover: {
+            boxShadow: "0px 0px 5px 0px rgba(10, 186, 181, 0.15);",
+            borderColor: "transparent",
+            color: "white",
+            background: "#0ABAB5",
+          },
+        },
       },
     },
+    Tabs: tabsTheme,
     Accordion: accordionTheme,
     Textarea: textareaTheme,
     Modal: modalTheme,
@@ -100,17 +150,30 @@ const theme = extendTheme({
             fontSize: "12px",
             fontWeight: "400",
             color: "#8E93AA",
+            maxWidth: "330px !important",
           },
           td: {
             borderColor: "#E7EAF0",
             padding: "16px 0",
             color: "secondary.main",
             fontSize: "14px",
-            fontWeight: "500",
+            fontWeight: "400",
+            whiteSpace: "wrap",
+            maxWidth: "315px",
             "&:last-child": {
               borderColor: "none",
             },
           },
+        },
+      },
+    },
+    Input: inputTheme,
+    InputGroup: {
+      baseStyle: {
+        background: "red",
+        _focusVisible: {
+          border: "1px solid",
+          borderColor: "red",
         },
       },
     },

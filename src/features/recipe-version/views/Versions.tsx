@@ -32,15 +32,17 @@ export default function Versions(): React.ReactElement {
           </Text>
         </Flex>
         <Flex>
-          <CButton
-            variant="unstyled"
-            text="Редактировать"
-            icon={<img src="/assets/editPencil.svg" alt="pencil" />}
-            buttonType="button"
-            onClick={() => {
-              navigate(`/patients/recipe-edit`);
-            }}
-          />
+          {import.meta.env.VITE_ROLE === "DOCTOR" && (
+            <CButton
+              variant="unstyled"
+              text="Редактировать"
+              icon={<img src="/assets/editPencil.svg" alt="pencil" />}
+              buttonType="button"
+              onClick={() => {
+                navigate(`/patients/recipe-edit`);
+              }}
+            />
+          )}
         </Flex>
       </Flex>
       <Accordion allowToggle>

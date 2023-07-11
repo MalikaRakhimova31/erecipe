@@ -150,7 +150,7 @@ export default function CreateRecipe(): React.ReactElement {
         <>
           <ModalHeader>Подтвердите действие</ModalHeader>
           <ModalBody>
-            <Text>
+            <Text textAlign="center">
               Вы уверены, что хотите отменить создание е-рецепта? Все данные
               будут утеряны
             </Text>

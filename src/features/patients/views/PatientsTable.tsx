@@ -1,29 +1,48 @@
-import {
-  Box,
-  Flex,
-  Table,
-  TableContainer,
-  Tbody,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
-import userData from "@/components/mock/usersData";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import Pagination from "@/components/Pagination/Pagination";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import EmptyBox from "@/components/EmptyBox/EmptyBox";
-import TableRow from "./TableRow";
+import JoinedTable from "@/components/JoinedTable/JoinedTable";
+import UserInfoBox from "@/components/UserInfoBox/UserInfoBox";
+import { format } from "date-fns";
 
 const pageSize = 5;
 
 export default function PatientsTable(): React.ReactElement {
   const [currentPage, setCurrentPage] = useState(1);
+  const date = new Date();
 
-  const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * pageSize;
-    const lastPageIndex = firstPageIndex + pageSize;
-    return userData.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
+  const userData = [
+    {
+      id: 1,
+      patient: (
+        <UserInfoBox src="/assets/users/user1.png" name="Ахрор Саидов" />
+      ),
+      lastVisit: format(date, "dd/MM/yyyy (HH:mm)"),
+      edit: (
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          bg="#EBFAF9"
+          borderRadius="8px"
+          px="16px"
+          py="12px"
+          w="fit-content"
+        >
+          <Text color="primary.main" fontSize="12px" fontWeight="500">
+            Все рецепты
+          </Text>
+        </Flex>
+      ),
+    },
+  ];
+  const tableHead = ["ФИО пациента", "последний визит", "Действия"];
+
+  // const currentTableData = useMemo(() => {
+  //   const firstPageIndex = (currentPage - 1) * pageSize;
+  //   const lastPageIndex = firstPageIndex + pageSize;
+  //   return userData.slice(firstPageIndex, lastPageIndex);
+  // }, [currentPage]);
   return (
     <Box
       bg="white"
@@ -35,28 +54,13 @@ export default function PatientsTable(): React.ReactElement {
     >
       {userData.length > 0 ? (
         <Flex direction="column" justifyContent="space-between" h="100%">
-          <TableContainer>
-            <Table variant="simple">
-              <Thead>
-                <Tr>
-                  <Th w="65%">ФИО пациента</Th>
-                  <Th>последний визит</Th>
-                  <Th>Действия</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {currentTableData.map((el) => (
-                  <TableRow
-                    src={el.src}
-                    name={el.name}
-                    date={el.lastInvite}
-                    id={el.userId}
-                    key={`${el.name}+${el.userId}`}
-                  />
-                ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
+          <JoinedTable
+            headData={tableHead}
+            bodyData={userData}
+            hasPath
+            path="patients"
+          />
+
           <Pagination
             currentPage={currentPage}
             totalCount={userData.length}

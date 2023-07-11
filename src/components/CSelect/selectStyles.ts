@@ -4,7 +4,7 @@ import { type SelectProps } from "@/types";
 const selectStyles: StylesConfig<SelectProps> = {
   control: (provided, { isFocused, isDisabled }) => ({
     ...provided,
-    width: "100%",
+    width: "100% !important",
     outline: isDisabled ? "#F8FAFB" : "white",
     opacity: isDisabled ? "0.4" : "1",
     background: isDisabled ? "white" : "#F8FAFB",
