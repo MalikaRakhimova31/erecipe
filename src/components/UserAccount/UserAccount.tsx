@@ -1,16 +1,16 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+
+import styles from "./UserAccount.module.scss";
+import UserAccountPopover from "../UserAccountPopover/UserAccountPopover";
 
 export default function UserAccount(): React.ReactElement {
-  const navigate = useNavigate();
   return (
     <Flex
       columnGap="10px"
       justifyContent="space-between"
       alignItems="start"
-      onClick={() => {
-        navigate("/auth");
-      }}
+      bg="white"
+      className={styles.root}
     >
       <Flex alignItems="center" justifyContent="center">
         <img src="/assets/userPlaceholder.svg" alt="user placeholder" />
@@ -30,6 +30,9 @@ export default function UserAccount(): React.ReactElement {
           Врач
         </Text>
       </Flex>
+      <div className={styles.popover}>
+        <UserAccountPopover />
+      </div>
     </Flex>
   );
 }

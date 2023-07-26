@@ -124,7 +124,7 @@ const theme = extendTheme({
           background: "white",
           color: "#393D4E",
           fontWeight: "500 !important",
-          border: "2px solid",
+          border: "1px solid",
           borderColor: "#E7EAF0",
           fontSize: "14px",
 
@@ -133,6 +133,21 @@ const theme = extendTheme({
             borderColor: "transparent",
             color: "white",
             background: "#0ABAB5",
+          },
+        },
+        gray: {
+          borderRadius: "8px",
+          width: "100%",
+          height: "41px",
+          background: "white",
+          color: "#393D4E",
+          fontWeight: "500 !important",
+          border: "1px solid",
+          borderColor: "#E7EAF0",
+          fontSize: "16px",
+
+          _hover: {
+            boxShadow: "0px 0px 5px 0px rgba(10, 186, 181, 0.15);",
           },
         },
       },
@@ -163,6 +178,17 @@ const theme = extendTheme({
             "&:last-child": {
               borderColor: "none",
             },
+          },
+        },
+      },
+    },
+    Checkbox: {
+      baseStyle: {
+        control: {
+          bg: "transparent",
+          _checked: {
+            bg: "primary.main",
+            border: "none",
           },
         },
       },

@@ -31,6 +31,7 @@ const colors = {
   rowHover: "#e5e9eb64",
   errorColor: "#FF4E4E",
   primaryColor: "#0ABAB5",
+  whiteAlpha: "#0ABAB5",
   // dark: {
   //   main: "#1e272c",
   //   secondary: "#2b363c",

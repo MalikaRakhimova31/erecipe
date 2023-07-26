@@ -87,16 +87,46 @@ input {
   max-width: fit-content !important;
 }
 
-.css-1p3m7a8-multiValue {
+.react-select__multi-value {
   background-color: rgba(55, 172, 188, 0.2) !important;
   color: #393d4e;
 }
 
-.css-12a83d4-MultiValueRemove:hover {
+.react-select__multi-value__remove:hover {
   color: #fff !important;
   background-color: #0abab5 !important;
 }
 
-.css-1i837h3-ValueContainer2 {
+.react-select__value-container {
   flex-wrap: nowrap !important;
+}
+
+.Toastify__toast-theme--light {
+  color: #393d4e !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  border-radius: 12px !important;
+  background: var(--neutral-colors-white, #fff) !important;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.07) !important;
+}
+
+.Toastify__progress-bar--success {
+  background-color: #0abab5 !important;
+
+  /* display: none; */
+}
+
+.chakra-checkbox__control {
+  border-radius: 7px !important;
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.chakra-checkbox__input {
+  accent-color: #0abab5 !important;
+  color: #0abab5 !important;
+}
+
+.myDonut {
+  height: 230px;
 }

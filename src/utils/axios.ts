@@ -6,7 +6,7 @@ const request = axios.create({
   baseURL: settings.baseURL,
   timeout: settings.requestTimeout,
   headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Type": "application/json",
   },
 });
 
@@ -20,6 +20,7 @@ request.interceptors.request.use((config) => {
   if (token !== null) {
     // eslint-disable-next-line no-param-reassign
     config.headers.Authorization = `Bearer ${token}`;
+    console.log("no token found here");
   }
 
   return config;

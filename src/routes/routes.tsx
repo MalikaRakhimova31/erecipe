@@ -13,6 +13,7 @@ import ERecipes from "@/features/recipes";
 import Polyclinic from "@/features/polylinic";
 import RecipeRecommendation from "@/features/recipe-recommendation";
 import IssueHistory from "@/features/issue-history";
+import AuthCallback from "@/features/auth/views/modal/AuthCallback";
 
 const routes: CustomRoute[] = [
   {
@@ -200,6 +201,13 @@ const routes: CustomRoute[] = [
     element: <RecipeRecommendation />,
   },
   authRoutes,
+  {
+    id: "test",
+    title: "test",
+    path: "auth/callback",
+    element: <AuthCallback />,
+    children: [],
+  },
   {
     id: "global-not-found",
     title: "Not found",

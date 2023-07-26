@@ -2,22 +2,23 @@ import TitleWithIcon from "@/components/TitleWithIcon/TitleWithIcon";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { type SelectionMenuProps, type IconTitleBoxProps } from "@/types";
 import USelect from "@/components/USelect/USelect";
-import LineGraph from "./views/LineGraph";
-import CDonut from "./views/CDonut";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "@/stores/authStore";
+import DoughnutChart from "./views/Donut";
+
 import RecentPatients from "./views/RecentPatients";
+
+import LineGraph from "./views/LineGraph";
 
 const options: SelectionMenuProps[] = [
   {
-    value: "За год",
+    value: "yearly",
     label: "За год",
   },
   {
-    value: "За месяц",
+    value: "monthly",
     label: "За месяц",
-  },
-  {
-    value: "За неделю",
-    label: "За неделю",
   },
 ];
 
@@ -40,6 +41,17 @@ const info: IconTitleBoxProps[] = [
 ];
 
 export default function Dashboard(): React.ReactElement {
+  const [dateTime, setDateTime] = useState(options[0]);
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("ACCESS_TOKEN");
+
+  useEffect(() => {
+    if (token === null) {
+      navigate("/auth");
+    }
+  }, [token]);
+
   // const location = useLocation();
   // const navigate = useNavigate();
   // useEffect(() => {
@@ -47,6 +59,11 @@ export default function Dashboard(): React.ReactElement {
   //   searchParams.set("role", "DOCTOR");
   //   navigate({ ...location, search: searchParams.toString() });
   // }, []);
+  const handleChange = (e: SelectionMenuProps): void => {
+    setDateTime(e);
+  };
+  const user = useAuthStore((state: any) => state.user);
+
   return (
     <Flex p={4} direction="column" rowGap="16px">
       <Flex alignItems="center" justifyContent="space-between" columnGap="16px">
@@ -80,7 +97,11 @@ export default function Dashboard(): React.ReactElement {
                 placeholder=""
                 searchIcon={false}
                 options={options}
-                defaultValue={options[0]}
+                // defaultValue={options[0]}
+                value={dateTime}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
               />
             </Box>
           </Flex>
@@ -95,7 +116,8 @@ export default function Dashboard(): React.ReactElement {
             bg="white"
             width="full"
           >
-            <CDonut />
+            {/* <CDonut /> */}
+            <DoughnutChart />
           </Flex>
           <Flex
             border="1px solid #E7EAF0"
@@ -105,7 +127,7 @@ export default function Dashboard(): React.ReactElement {
             bg="white"
             width="full"
           >
-            <CDonut />
+            {/* <DoughnutChart /> */}
           </Flex>
         </Flex>
       </Flex>

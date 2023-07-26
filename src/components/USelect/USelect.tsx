@@ -1,6 +1,7 @@
 import { type USelectProps } from "@/types";
 import SelectMenu, { components } from "react-select";
 import selectStyles from "./selectStyles";
+import { Text } from "@chakra-ui/react";
 
 function ChevronDown(): React.ReactElement {
   return (
@@ -132,6 +133,14 @@ const formatOptionLabel = (
   return label;
 };
 
+const NoOptionsMessage = (props: any) => {
+  return (
+    <components.NoOptionsMessage {...props}>
+      <Text color="secondary.grey">Ничего не найдено</Text>
+    </components.NoOptionsMessage>
+  );
+};
+
 export default function USelect({
   options,
   isMulti = false,
@@ -170,6 +179,7 @@ export default function USelect({
       defaultValue={defaultValue}
       components={{
         // IndicatorSeparator: () => null,
+        NoOptionsMessage,
         DropdownIndicator: customDropdownIndicator,
         ClearIndicator: customClearIndicator,
       }}

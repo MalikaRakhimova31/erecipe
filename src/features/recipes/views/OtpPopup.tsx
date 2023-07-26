@@ -2,6 +2,8 @@
 import CModal from "@/components/CModal/CModal";
 import OtpInput from "@/components/OtpInput/OtpInput";
 import CButton from "@/components/button/button";
+import formatCodeExpireDuration from "@/helpers/formatCodeExpireDuration";
+import useCodeExpire from "@/helpers/useCodeExpire";
 import {
   Box,
   ModalBody,
@@ -9,6 +11,7 @@ import {
   ModalHeader,
   Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -27,6 +30,21 @@ export default function OtpPopup({ open, onClose }: Props): React.ReactElement {
   const onSubmit = (): void => {
     navigate("/recipe-recommendation/1");
   };
+  const [isConfirm, setIsConfirm] = useState(true);
+  const [seconds, setSeconds] = useState(60);
+  const [expired, setExpired] = useState(false);
+
+  console.log("seconds", seconds);
+  console.log("expired", expired);
+  console.log("isConfirm", isConfirm);
+
+  useCodeExpire({
+    seconds,
+    setExpired,
+    isConfirm,
+    setSeconds,
+  });
+
   return (
     <CModal isOpen={open} onClose={onClose}>
       <>
@@ -65,7 +83,24 @@ export default function OtpPopup({ open, onClose }: Props): React.ReactElement {
               <OtpInput name="code" control={control} />
             </Box>
           </ModalBody>
-          <ModalFooter width="100%">
+          <ModalFooter
+            width="100%"
+            display="flex"
+            flexDirection="column"
+            rowGap={4}
+          >
+            <CButton
+              variant="gray"
+              text={`Отправить код повторно через ${formatCodeExpireDuration(
+                seconds,
+              )}`}
+              onClick={() => {
+                setSeconds(60);
+              }}
+              buttonType="button"
+              isFull
+              disabled={seconds !== 0}
+            />
             <CButton
               variant="solid"
               text="Подтвердить"

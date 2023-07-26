@@ -9,18 +9,17 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import type * as z from "zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import CButton from "@/components/button/button";
 import type React from "react";
 import { useLayoutEffect, useRef, useState } from "react";
-import { type itemProps } from "@/types";
 import USelect from "@/components/USelect/USelect";
 import PatientBox from "@/components/PatientBox.tsx/PatientBox";
 import CModal from "@/components/CModal/CModal";
-
-interface FormValues {
-  items: itemProps[];
-}
+import { toast } from "react-toastify";
+import { zodResolver } from "@hookform/resolvers/zod";
+import FormSchema from "./validation";
 
 export default function CreateRecipe(): React.ReactElement {
   const options: any = [
@@ -33,10 +32,14 @@ export default function CreateRecipe(): React.ReactElement {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const searchRef = useRef<HTMLInputElement>(null);
   const [count, setCount] = useState<number>(1);
-  const { control, handleSubmit } = useForm<FormValues>({
-    defaultValues: {
-      items: [],
-    },
+  type FormValues = z.infer<typeof FormSchema>;
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {},
   });
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -47,32 +50,30 @@ export default function CreateRecipe(): React.ReactElement {
   });
 
   const { fields, append } = useFieldArray({
-    name: "items",
     control,
+    name: "items",
   });
 
   const handleAdd = (): void => {
-    setCount(count + 1);
-    append({
-      recipeType: "",
-      mnn: "",
-      drugForm: "",
-      drugFormDetails: "",
-      drugMethod: "",
-      startDate: new Date(),
-      endDate: new Date(),
-      drugQuantity: 0,
-      measure: "",
-      frequencyMethod: "",
-      frequency: 0,
-      drugDuartion: "",
-      period: 0,
-      note: "",
-    });
+    if (fields.length >= -1) {
+      setCount(count + 1);
+      append({
+        mnn: { value: "", label: "" },
+        drugType: { value: "", label: "" },
+        drugTypeDetails: { value: "", label: "" },
+        note: "",
+      });
+    } else if (searchRef.current != null) {
+      searchRef.current.focus();
+    }
   };
 
-  const onSubmit = (data: FormValues): void => {
-    console.log(data);
+  const onSubmit = (data: any): void => {
+    console.log("create recipe", data);
+    toast.success("Рецепт отправлен успешно", {
+      icon: <img src="/assets/toastifySuccess.svg" alt="success" />,
+      position: "top-center",
+    });
   };
   return (
     <>
@@ -91,11 +92,15 @@ export default function CreateRecipe(): React.ReactElement {
               <Flex
                 direction="column"
                 justifyContent="space-between"
-                height="90vh"
+                maxHeight="82vh"
               >
                 <Box maxHeight="100%" overflowY="scroll" ref={containerRef}>
                   <Flex direction="column" rowGap="16px">
-                    <RecipeAccordion control={control} fields={fields} />
+                    <RecipeAccordion
+                      control={control}
+                      fields={fields}
+                      errors={errors}
+                    />
                   </Flex>
                 </Box>
                 <Box mt="15px">
@@ -113,7 +118,7 @@ export default function CreateRecipe(): React.ReactElement {
                     justifyContent="flex-end"
                     mt="36px"
                   >
-                    <Flex w="40%" alignItems="center" columnGap="16px">
+                    <Flex w="34%" alignItems="center" columnGap="16px">
                       <CButton
                         text="Отменить"
                         buttonType="button"
@@ -149,7 +154,7 @@ export default function CreateRecipe(): React.ReactElement {
       <CModal isOpen={isOpen} onClose={onClose}>
         <>
           <ModalHeader>Подтвердите действие</ModalHeader>
-          <ModalBody>
+          <ModalBody maxW="25rem">
             <Text textAlign="center">
               Вы уверены, что хотите отменить создание е-рецепта? Все данные
               будут утеряны

@@ -67,7 +67,7 @@ export default function Pagination({
                 className={`${
                   page === currentPage
                     ? "bg-primary text-white"
-                    : "bg-transparent text-secondary"
+                    : "bg-transparent text-secondary hover:border hover:border-primary"
                 } ease-in-out duration-200 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer`}
               >
                 {page}

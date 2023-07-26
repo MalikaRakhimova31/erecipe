@@ -1792,6 +1792,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@kurkle/color@npm:^0.3.0":
+  version: 0.3.2
+  resolution: "@kurkle/color@npm:0.3.2"
+  checksum: 79e97b31f8f6efb28c69d373f94b0c7480226fe8ec95221f518ac998e156444a496727ce47de6d728eb5c3369288e794cba82cae34253deb0d472d3bfe080e49
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -2646,20 +2653,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apexcharts@npm:^3.41.0":
-  version: 3.41.0
-  resolution: "apexcharts@npm:3.41.0"
-  dependencies:
-    svg.draggable.js: ^2.2.2
-    svg.easing.js: ^2.0.0
-    svg.filter.js: ^2.0.2
-    svg.pathmorphing.js: ^0.1.3
-    svg.resize.js: ^1.4.3
-    svg.select.js: ^3.0.1
-  checksum: b578d2473ffeffa66026dfc9c0c7f39a40663d3b1cfdd9732cf9b6624e3e9348474a3cbdfaf5ada0924cb296f52a59a1ffc4dc3930899cdb5df690b4970a3762
-  languageName: node
-  linkType: hard
-
 "aproba@npm:^1.0.3 || ^2.0.0":
   version: 2.0.0
   resolution: "aproba@npm:2.0.0"
@@ -3208,6 +3201,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chart.js@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "chart.js@npm:4.3.0"
+  dependencies:
+    "@kurkle/color": ^0.3.0
+  checksum: 157ceaa3815665163cb30ccc221a5af40834dca940faa6ec02cb95406bf3e83c15c5f36ad950a1716c9d199e87f7b9be953227c4d9d445d593536175b47bbab8
+  languageName: node
+  linkType: hard
+
 "check-error@npm:^1.0.2":
   version: 1.0.2
   resolution: "check-error@npm:1.0.2"
@@ -3314,7 +3316,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^1.2.1":
+"clsx@npm:^1.1.1, clsx@npm:^1.2.1":
   version: 1.2.1
   resolution: "clsx@npm:1.2.1"
   checksum: 30befca8019b2eb7dbad38cff6266cf543091dae2825c856a62a8ccf2c3ab9c2907c4d12b288b73101196767f66812365400a227581484a05f968b0307cfaf12
@@ -7523,6 +7525,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"property-expr@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "property-expr@npm:2.0.5"
+  checksum: 4ebe82ce45aaf1527e96e2ab84d75d25217167ec3ff6378cf83a84fb4abc746e7c65768a79d275881602ae82f168f9a6dfaa7f5e331d0fcc83d692770bcce5f1
+  languageName: node
+  linkType: hard
+
 "proxy-from-env@npm:^1.1.0":
   version: 1.1.0
   resolution: "proxy-from-env@npm:1.1.0"
@@ -7585,6 +7594,16 @@ __metadata:
     apexcharts: ^3.18.0
     react: ">=0.13"
   checksum: eb6c1fcfe7c8c9cb565edd807095633f80e8c7da115cc9aaa490b6651f771bd6bf9a48df6def4b77c6865e9170b906fa1fb8fe2b5f76b8c14ef69bca592e0f37
+  languageName: node
+  linkType: hard
+
+"react-chartjs-2@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "react-chartjs-2@npm:5.2.0"
+  peerDependencies:
+    chart.js: ^4.1.1
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: ace702185be1450e5888a8bcd8b5fc1995067e3b11d236764a67f5567a3d7c32ff16923b8d48d3d39bda6e45135da6c044c9b43fbe8e1978f95aca9d2c0ce348
   languageName: node
   linkType: hard
 
@@ -7861,6 +7880,18 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 7ee8ef3aab74c7ae1d70ff34a27643d11ba1a8d62d072c767827d9ff9a520905223e567002e0bf6c772929d8ea1c781a3ba0cc4a563e92b1e3dc2eaa817ecbe8
+  languageName: node
+  linkType: hard
+
+"react-toastify@npm:^9.1.3":
+  version: 9.1.3
+  resolution: "react-toastify@npm:9.1.3"
+  dependencies:
+    clsx: ^1.1.1
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: e8bd92c5cbf831b43a042644ab9bc69abe6ceb3ce91ba71f5cd2d8b6a2c9885ca52770e1f1ba64c5632607f6df962db344a26c7fba57606faf5aa0e7bfc8535f
   languageName: node
   linkType: hard
 
@@ -8468,9 +8499,9 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.50.0
     "@typescript-eslint/parser": ^5.59.0
     "@vitejs/plugin-react-swc": ^3.0.0
-    apexcharts: ^3.41.0
     autoprefixer: ^10.4.14
     axios: ^1.4.0
+    chart.js: ^4.3.0
     classnames: ^2.3.2
     clsx: ^1.2.1
     crypto-js: ^4.1.1
@@ -8504,6 +8535,7 @@ __metadata:
     ramda: ^0.29.0
     react: ^18.2.0
     react-apexcharts: ^1.4.0
+    react-chartjs-2: ^5.2.0
     react-datepicker: ^4.14.1
     react-dom: ^18.2.0
     react-hook-form: ^7.45.0
@@ -8512,6 +8544,7 @@ __metadata:
     react-paginate: ^8.2.0
     react-router-dom: ^6.13.0
     react-select: ^5.7.3
+    react-toastify: ^9.1.3
     react-verification-input: ^3.3.0
     react-window: ^1.8.9
     sass: ^1.63.4
@@ -8525,6 +8558,7 @@ __metadata:
     vite: ^4.3.9
     vite-tsconfig-paths: ^4.2.0
     vitest: ^0.32.0
+    yup: ^1.2.0
     zod: ^3.21.4
     zustand: ^4.3.8
   languageName: unknown
@@ -8970,77 +9004,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svg.draggable.js@npm:^2.2.2":
-  version: 2.2.2
-  resolution: "svg.draggable.js@npm:2.2.2"
-  dependencies:
-    svg.js: ^2.0.1
-  checksum: b9068975d743be664695e7d4323624bba8ff2795b855a46a2f15c842827022684501d63239c99723238d39c9f991940dc04639b8f43ac124fd9ca44a34e6aab2
-  languageName: node
-  linkType: hard
-
-"svg.easing.js@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "svg.easing.js@npm:2.0.0"
-  dependencies:
-    svg.js: ">=2.3.x"
-  checksum: 0f7df78333d879dc00200ddbb4e9d7d745307c002b5dd242ddaf276e8d907067ab75383869ef1940975be1765d595d379ced491ff4bdf78d867bff8225544e92
-  languageName: node
-  linkType: hard
-
-"svg.filter.js@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "svg.filter.js@npm:2.0.2"
-  dependencies:
-    svg.js: ^2.2.5
-  checksum: f0e780bfe385336a7c9d1d8a3ebba1ca9712f6bf0917769fd30c9fd4e3559186ec18d4d6520d9841a9cceba2ac8ff1eacc76b98f7e8b15d5f4a58975a8ecdc64
-  languageName: node
-  linkType: hard
-
-"svg.js@npm:>=2.3.x, svg.js@npm:^2.0.1, svg.js@npm:^2.2.5, svg.js@npm:^2.4.0, svg.js@npm:^2.6.5":
-  version: 2.7.1
-  resolution: "svg.js@npm:2.7.1"
-  checksum: 945bfc9623985fefb4c7275a1b98b5168e5857291f46cbd299bd2e14ce7f4428fea6569c7446d37b75694c43dea01a5f179fbce4f770e7dcd136117bb8f1a3f3
-  languageName: node
-  linkType: hard
-
-"svg.pathmorphing.js@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "svg.pathmorphing.js@npm:0.1.3"
-  dependencies:
-    svg.js: ^2.4.0
-  checksum: bcbe1ccea95c980fa127cb6ad955f1970d763143ab11576cca2fd8d13616deedf933bc17a6310754cd0cb404ac501d627afb5805c578878e4c8f24e1818a7de6
-  languageName: node
-  linkType: hard
-
-"svg.resize.js@npm:^1.4.3":
-  version: 1.4.3
-  resolution: "svg.resize.js@npm:1.4.3"
-  dependencies:
-    svg.js: ^2.6.5
-    svg.select.js: ^2.1.2
-  checksum: 8f4116f4422b72c66bb1110dca2d77ab2cc0665db1e0cd1c0020e06fe9684f53d9bc7aca3b90ce82ce35103ff8ea83a93df1db5d88c889e511d7622c9b000884
-  languageName: node
-  linkType: hard
-
-"svg.select.js@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "svg.select.js@npm:2.1.2"
-  dependencies:
-    svg.js: ^2.2.5
-  checksum: 1dbbb44d16170aad1372e0f8f0d109a21e4216e1e4e28a566738c6cb6b4519b37e44cd1f7de06f3c8eec5e588845d8cbb0e37efc89b8d27401e4c6a0a13564a4
-  languageName: node
-  linkType: hard
-
-"svg.select.js@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "svg.select.js@npm:3.0.1"
-  dependencies:
-    svg.js: ^2.6.5
-  checksum: 0ce3bda86f4b527ce1add02d0ac61ac26678db24c0e4126c584b752e65a1c3458bbe958e29eb4604b3157ef1fdace37b727eccbc2ccdb4fce0015e0ad196fc1c
-  languageName: node
-  linkType: hard
-
 "table@npm:^6.8.1":
   version: 6.8.1
   resolution: "table@npm:6.8.1"
@@ -9141,6 +9104,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tiny-case@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "tiny-case@npm:1.0.3"
+  checksum: 3f7a30c39d5b0e1bc097b0b271bec14eb5b836093db034f35a0de26c14422380b50dc12bfd37498cf35b192f5df06f28a710712c87ead68872a9e37ad6f6049d
+  languageName: node
+  linkType: hard
+
 "tiny-invariant@npm:^1.0.6":
   version: 1.3.1
   resolution: "tiny-invariant@npm:1.3.1"
@@ -9207,6 +9177,13 @@ __metadata:
   version: 1.0.6
   resolution: "toggle-selection@npm:1.0.6"
   checksum: a90dc80ed1e7b18db8f4e16e86a5574f87632dc729cfc07d9ea3ced50021ad42bb4e08f22c0913e0b98e3837b0b717e0a51613c65f30418e21eb99da6556a74c
+  languageName: node
+  linkType: hard
+
+"toposort@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "toposort@npm:2.0.2"
+  checksum: d64c74b570391c9432873f48e231b439ee56bc49f7cb9780b505cfdf5cb832f808d0bae072515d93834dd6bceca5bb34448b5b4b408335e4d4716eaf68195dcb
   languageName: node
   linkType: hard
 
@@ -9337,6 +9314,13 @@ __metadata:
   version: 0.8.1
   resolution: "type-fest@npm:0.8.1"
   checksum: d61c4b2eba24009033ae4500d7d818a94fd6d1b481a8111612ee141400d5f1db46f199c014766b9fa9b31a6a7374d96fc748c6d688a78a3ce5a33123839becb7
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^2.19.0":
+  version: 2.19.0
+  resolution: "type-fest@npm:2.19.0"
+  checksum: a4ef07ece297c9fba78fc1bd6d85dff4472fe043ede98bd4710d2615d15776902b595abf62bd78339ed6278f021235fb28a96361f8be86ed754f778973a0d278
   languageName: node
   linkType: hard
 
@@ -9948,6 +9932,18 @@ __metadata:
   version: 1.0.0
   resolution: "yocto-queue@npm:1.0.0"
   checksum: 2cac84540f65c64ccc1683c267edce396b26b1e931aa429660aefac8fbe0188167b7aee815a3c22fa59a28a58d898d1a2b1825048f834d8d629f4c2a5d443801
+  languageName: node
+  linkType: hard
+
+"yup@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "yup@npm:1.2.0"
+  dependencies:
+    property-expr: ^2.0.5
+    tiny-case: ^1.0.3
+    toposort: ^2.0.2
+    type-fest: ^2.19.0
+  checksum: f0cdceb144e358c6155670f3e27404b65b090cc12594fde6db2699523661e13542aaf87ebe8e542b67f29a5f3f9bc5f23a3a3bb09e17f10d125353d35b841fac
   languageName: node
   linkType: hard
 

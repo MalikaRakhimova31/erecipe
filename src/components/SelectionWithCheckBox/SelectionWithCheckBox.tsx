@@ -89,7 +89,7 @@ function InputOption({
     >
       {/* <input type="checkbox" checked={isSelected} /> */}
       <Flex columnGap="8px" alignItems="center">
-        <Checkbox isChecked={isSelected} colorScheme="cyan" />
+        <Checkbox isChecked={isSelected} colorScheme="primary.main" />
         {children}
       </Flex>
     </components.Option>
@@ -121,6 +121,8 @@ export default function SelectionWithCheckBox({
             styles={selectStyles}
             defaultValue={[]}
             isMulti
+            className="react-select"
+            classNamePrefix="react-select"
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
             onChange={onChange}

@@ -6,12 +6,6 @@ import SidebarMenuItem from "../SidebarMenuItem/SidebarMenuItem";
 import ButtonByRole from "./ButtonByRole";
 
 export default function SideBar(): React.ReactElement {
-  console.log(
-    "menuuu",
-    sidebarMenu.map((el) =>
-      el.roles?.filter((item) => item === import.meta.env.VITE_ROLE),
-    ),
-  );
   return (
     <div className="min-h-[100vh] bg-white border-light-grey-stroke border w-[15rem]">
       <Flex direction="column" rowGap={5} flex={1}>

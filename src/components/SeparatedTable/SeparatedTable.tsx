@@ -23,7 +23,7 @@ export default function SeparatedTable({
       navigate(`/${url}/${id}`);
     }
   };
-  console.log("bodyData", bodyData);
+
   return (
     <Flex direction="column" justifyContent="space-between" h="100%" w="full">
       <TableContainer>
@@ -72,7 +72,7 @@ export default function SeparatedTable({
                     >
                       {key === "edit" ? (
                         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                        <Link to={`/${path}/${el.id}`}>{el[key]}</Link>
+                        <Link to={`${path}/${el.id}`}>{el[key]}</Link>
                       ) : (
                         el[key]
                       )}

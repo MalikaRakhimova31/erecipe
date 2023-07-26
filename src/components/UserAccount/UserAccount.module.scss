@@ -1,0 +1,17 @@
+.root {
+  position: relative;
+  &:hover {
+    .popover {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 30px;
+      z-index: 99;
+    }
+  }
+  .popover {
+    display: none;
+    padding-top: 20px;
+    cursor: pointer;
+  }
+}

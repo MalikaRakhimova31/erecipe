@@ -1,4 +1,5 @@
 import { type userRoleProps } from "@/types";
+import { useState } from "react";
 import PermissionContext from "./permission-content";
 
 interface Props {
@@ -12,6 +13,7 @@ export default function PermissionProvider({
   permission,
   children,
 }: Props): React.ReactElement {
+  const [headerTitle, setHeaderTitle] = useState("");
   const isAllowedTo = (per: roleArrayProps): any => {
     if (per !== undefined) {
       return per.includes(permission);
@@ -21,7 +23,10 @@ export default function PermissionProvider({
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <PermissionContext.Provider value={{ isAllowedTo }}>
+    <PermissionContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      value={{ isAllowedTo, headerTitle, setHeaderTitle }}
+    >
       {children}
     </PermissionContext.Provider>
   );

@@ -8,7 +8,6 @@ import UserAccount from "../UserAccount/UserAccount";
 
 export default function Header(): React.ReactElement {
   const location = useLocation();
-  console.log("location", location);
 
   const generateHeaderTitle = (): React.ReactNode => {
     switch (location.pathname) {

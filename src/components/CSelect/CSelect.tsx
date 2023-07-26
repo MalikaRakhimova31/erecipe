@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { Controller } from "react-hook-form";
 import { type SelectProps } from "@/types";
 import SelectMenu, {
   type DropdownIndicatorProps,
   components,
 } from "react-select";
+import { Text } from "@chakra-ui/react";
 import Label from "../Label/Label";
 import selectStyles from "./selectStyles";
 
@@ -46,6 +48,15 @@ const customClearIndicator = (props: any): React.ReactElement => (
     <ClearIcon />
   </components.ClearIndicator>
 );
+
+function NoOptionsMessage(props: any): React.ReactElement {
+  return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <components.NoOptionsMessage {...props}>
+      <Text color="secondary.grey">Ничего не найдено</Text>
+    </components.NoOptionsMessage>
+  );
+}
 
 const formatOptionLabel = (
   { label }: any,
@@ -91,38 +102,46 @@ export default function CSelect({
   isSearchable = false,
   placeholder,
   menuPlacement = "auto",
+  required = false,
+  errors = false,
 }: SelectProps): React.ReactElement {
+  const selectionStyles = selectStyles(errors);
+
   return (
-    <Controller
-      control={control}
-      name={name}
-      render={({ field: { value, onChange } }) => (
-        <Label title={title}>
-          <SelectMenu
-            styles={selectStyles}
-            value={value}
-            onChange={onChange}
-            options={options}
-            classNamePrefix="select"
-            className="basic-multi-select"
-            // openMenuOnFocus
-            isClearable={isClearable}
-            isMulti={isMulti}
-            isDisabled={isDisabled}
-            isSearchable={isSearchable}
-            placeholder={placeholder}
-            formatOptionLabel={formatOptionLabel}
-            menuPlacement={menuPlacement}
-            // getOptionValue={(option) => option.value}
-            components={{
-              IndicatorSeparator: () => null,
-              DropdownIndicator: customDropdownIndicator,
-              ClearIndicator: customClearIndicator,
-            }}
-          />
-        </Label>
-      )}
-    />
+    <div>
+      <Controller
+        control={control}
+        name={name}
+        rules={{ required }}
+        render={({ field: { value, onChange } }) => (
+          <Label title={title} errors={errors}>
+            <SelectMenu
+              styles={selectionStyles}
+              value={value}
+              onChange={onChange}
+              options={options}
+              classNamePrefix="react-select"
+              className="react-select"
+              // openMenuOnFocus
+              isClearable={isClearable}
+              isMulti={isMulti}
+              isDisabled={isDisabled}
+              isSearchable={isSearchable}
+              placeholder={placeholder}
+              formatOptionLabel={formatOptionLabel}
+              menuPlacement={menuPlacement}
+              // getOptionValue={(option) => option.value}
+              components={{
+                IndicatorSeparator: () => null,
+                DropdownIndicator: customDropdownIndicator,
+                ClearIndicator: customClearIndicator,
+                NoOptionsMessage,
+              }}
+            />
+          </Label>
+        )}
+      />
+    </div>
   );
 }
 

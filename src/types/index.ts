@@ -46,6 +46,8 @@ interface SelectProps {
   isSearchable?: boolean;
   isMulti?: boolean;
   isDisabled?: boolean;
+  required?: boolean;
+  errors?: boolean;
   menuPlacement?: "auto" | "top" | "bottom";
 }
 interface USelectProps {
@@ -59,7 +61,7 @@ interface USelectProps {
   searchIcon: boolean;
   defaultValue?: SelectionMenuProps;
   value?: SelectionMenuProps;
-  onChange?: () => void;
+  onChange?: (e: SelectionMenuProps) => void;
 }
 
 interface LabelProps {
@@ -67,6 +69,8 @@ interface LabelProps {
   children: React.ReactNode;
   optional?: boolean;
   id?: string;
+  name?: string;
+  errors?: boolean;
 }
 
 interface ButtonProps {
@@ -83,11 +87,13 @@ interface ButtonProps {
     | "danger"
     | "greenText"
     | "statusButton"
-    | "blackButton";
+    | "blackButton"
+    | "gray";
   buttonType: "submit" | "button";
   padding?: string;
   isFull?: boolean;
   height?: string;
+  disabled?: boolean;
 }
 
 interface PopupInstanceProps {
@@ -95,29 +101,41 @@ interface PopupInstanceProps {
   onClose: () => void;
 }
 
+// interface itemProps {
+//   recipeType: string;
+//   mnn: string;
+//   drugForm: string;
+//   drugFormDetails: string;
+//   drugMethod: string;
+//   startDate: Date;
+//   endDate: Date;
+//   drugQuantity: number;
+//   measure: string;
+//   frequencyMethod: string;
+//   frequency: number;
+//   drugDuartion: string;
+//   period: number;
+//   note?: string;
+//   id?: string;
+// }
 interface itemProps {
-  recipeType: string;
+  recipeType?: string;
   mnn: string;
-  drugForm: string;
-  drugFormDetails: string;
-  drugMethod: string;
-  startDate: Date;
-  endDate: Date;
-  drugQuantity: number;
-  measure: string;
-  frequencyMethod: string;
-  frequency: number;
-  drugDuartion: string;
-  period: number;
+  drugType: string;
+  drugTypeDetails: string;
   note?: string;
   id?: string;
 }
+
+type items = itemProps[];
 
 interface TextAreaProps {
   title: string;
   control: any;
   name: string;
   placeholder: string;
+  required?: boolean;
+  errors?: boolean;
 }
 
 interface StatusProps {

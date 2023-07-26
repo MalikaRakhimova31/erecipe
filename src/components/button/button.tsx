@@ -12,10 +12,12 @@ export default function CButton(props: ButtonProps): JSX.Element {
     padding,
     isFull = false,
     height = "53",
+    disabled,
   } = props;
 
   return (
     <Button
+      isDisabled={disabled}
       type={buttonType}
       onClick={onClick}
       leftIcon={icon}
