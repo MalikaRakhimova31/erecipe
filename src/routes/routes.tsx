@@ -1,4 +1,4 @@
-import type { CustomRoute } from "@/types";
+// import type { CustomRoute } from "@/types";
 import { authRoutes } from "@/features";
 import Root from "@/views/root";
 import Dashboard from "@/features/dashboard";
