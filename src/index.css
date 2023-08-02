@@ -87,6 +87,15 @@ input {
   max-width: fit-content !important;
 }
 
+.react-select__menu {
+  max-height: 250px !important;
+  height: 250px !important;
+}
+.react-select__menu-list {
+  height: 100% !important;
+  max-height: 100% !important;
+}
+
 .react-select__multi-value {
   background-color: rgba(55, 172, 188, 0.2) !important;
   color: #393d4e;

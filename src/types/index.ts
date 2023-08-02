@@ -14,6 +14,18 @@ type CustomRoute = (IndexRouteObject | CustomNonIndexRouteObject) & {
 
 type id = string;
 
+interface patientInstanceProps {
+  title: string | undefined;
+  value: string | undefined;
+}
+
+interface patientInfoProps {
+  src: string | undefined;
+  name: string | undefined;
+  birthdate: string | undefined;
+  tableData: patientInstanceProps[];
+}
+
 interface InputProps {
   value: string | Date | null;
   onChange: (value: string | Date | null) => void;
@@ -127,8 +139,6 @@ interface itemProps {
   id?: string;
 }
 
-type items = itemProps[];
-
 interface TextAreaProps {
   title: string;
   control: any;
@@ -176,6 +186,11 @@ interface MProps {
 
 type roleArrayProps = string[] | undefined;
 
+interface MutationType {
+  onSuccess: (res: any) => void;
+  onError?: (res: any) => void;
+}
+
 export type {
   CustomRoute,
   id,
@@ -198,4 +213,6 @@ export type {
   MProps,
   PopupInstanceProps,
   roleArrayProps,
+  MutationType,
+  patientInfoProps,
 };

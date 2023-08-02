@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+
 import { type StylesConfig } from "react-select";
 import { type SelectProps } from "@/types";
 

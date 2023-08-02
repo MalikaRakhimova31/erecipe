@@ -1,13 +1,18 @@
 import { Text, Flex, Box } from "@chakra-ui/react";
 import { type RefObject } from "react";
 import CButton from "../button/button";
-import userInfo from "../mock/userInfo";
+import generatePatientInfo from "./generatePatientInfo";
 
 interface Props {
   searchRef: RefObject<HTMLInputElement>;
+  patientInfo: any;
 }
 
-export default function PatientBox({ searchRef }: Props): React.ReactElement {
+export default function PatientBox({
+  searchRef,
+  patientInfo,
+}: Props): React.ReactElement {
+  const userInfo = generatePatientInfo(patientInfo);
   const handleFocus = (): void => {
     if (searchRef.current != null) {
       searchRef.current.focus();
@@ -26,8 +31,8 @@ export default function PatientBox({ searchRef }: Props): React.ReactElement {
           Информация о пациенте
         </Text>
       </Box>
-      <Flex alignItems="center" justifyContent="center" h="600px">
-        {Object.keys(userInfo).length > 0 ? (
+      <Flex alignItems="center" justifyContent="center" h={400}>
+        {Object.keys(patientInfo).length > 0 ? (
           <Flex
             direction="column"
             alignItems="center"
@@ -43,16 +48,16 @@ export default function PatientBox({ searchRef }: Props): React.ReactElement {
               borderRadius="50%"
             >
               <img
-                src={userInfo.src}
+                src="/assets/users/user.svg"
                 alt="user"
                 className="object-cover w-full h-full"
               />
             </Flex>
             <Text color="secondary.main" fontSize="16px" fontWeight={500}>
-              {userInfo.name}
+              {userInfo?.name}
             </Text>
             <Text color="#8E93AA" fontSize="14px" fontWeight={400}>
-              {userInfo.birthdate}
+              {userInfo?.birthdate}
             </Text>
             <Flex
               borderTop="1px solid #E7EAF0"
@@ -60,7 +65,7 @@ export default function PatientBox({ searchRef }: Props): React.ReactElement {
               direction="column"
               w="100%"
             >
-              {userInfo.tableData.map((el) => (
+              {userInfo?.tableData.map((el) => (
                 <Flex
                   key={el.title}
                   alignItems="center"

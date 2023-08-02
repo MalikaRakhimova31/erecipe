@@ -4,8 +4,6 @@ import Auth from "@/features/auth";
 
 // VIEW IMPORTS
 import Modal from "@/features/auth/views/modal/modal";
-import Root from "@/views/root";
-import FullLoader from "@/components/Loaders/FullLoader";
 
 const routes: CustomRoute = {
   id: "auth",

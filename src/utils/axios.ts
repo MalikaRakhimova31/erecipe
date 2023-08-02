@@ -10,19 +10,15 @@ const request = axios.create({
   },
 });
 
-request.defaults.headers.timezone = new Date().getTimezoneOffset();
-request.defaults.headers["Accept-Language"] =
-  localStorage.getItem("lang") ?? settings.defaultLanguage;
+// request.defaults.headers["Accept-Language"] =
+//   localStorage.getItem("lang") ?? settings.defaultLanguage;
+const token = localStorage.getItem("ACCESS_TOKEN");
 
 request.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-
   if (token !== null) {
     // eslint-disable-next-line no-param-reassign
     config.headers.Authorization = `Bearer ${token}`;
-    console.log("no token found here");
   }
-
   return config;
 }, errorHandler);
 
@@ -32,13 +28,10 @@ export function errorHandler(error: AxiosError): void {
   // Using toJSON you get an object with more information about the HTTP error
   const errObj = error.toJSON();
   if (error.response !== null) {
-    // server responded with a status code that falls out of the range of 2xx
-
-    // @ts-expect-error: Nested code property may not exist in response object
-    if (error.response?.data?.code === 403) {
+    if (error.response?.status === 403) {
       // refresh the token
+      window.location.href = "/auth";
     }
-
     console.error(error.response);
   }
   if (error.request !== null) {

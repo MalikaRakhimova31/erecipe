@@ -33,10 +33,8 @@ export default function OtpPopup({ open, onClose }: Props): React.ReactElement {
   const [isConfirm, setIsConfirm] = useState(true);
   const [seconds, setSeconds] = useState(60);
   const [expired, setExpired] = useState(false);
-
-  console.log("seconds", seconds);
+  console.log("setIsConfirm", setIsConfirm);
   console.log("expired", expired);
-  console.log("isConfirm", isConfirm);
 
   useCodeExpire({
     seconds,

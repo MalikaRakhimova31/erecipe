@@ -1,4 +1,6 @@
-import request from "@/utils/axios";
+// const authService = {
+//   getUser: (queryParams) => request.post(`${import.meta.env.VITE_AUTH_URL}`, {data: queryParams})
+// }
 
 export async function login(data: object): Promise<Response> {
   const res = await fetch(`${import.meta.env.VITE_AUTH_URL}/auth/login`, {

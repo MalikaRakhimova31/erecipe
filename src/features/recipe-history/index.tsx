@@ -1,4 +1,3 @@
-import PatientBox from "@/components/PatientBox.tsx/PatientBox";
 import RecipeHistoryCard from "@/components/RecipeHistoryCard/RecipeHistoryCard";
 import {
   Box,
@@ -17,7 +16,7 @@ import UInput from "@/components/UInput/UInput";
 
 const pageSize = 5;
 export default function RecipeHistory(): React.ReactElement {
-  const searchRef = useRef(null);
+  // const searchRef = useRef(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const handleChange = (): void => {
     if (inputRef.current !== null) {
@@ -93,9 +92,7 @@ export default function RecipeHistory(): React.ReactElement {
           />
         </Flex>
       </Flex>
-      <Box width="29.4%">
-        <PatientBox searchRef={searchRef} />
-      </Box>
+      <Box width="29.4%">{/* <PatientBox searchRef={searchRef} /> */}</Box>
     </Flex>
   );
 }

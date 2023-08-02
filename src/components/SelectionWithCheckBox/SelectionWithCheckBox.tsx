@@ -102,6 +102,8 @@ interface Props {
   title: string;
   options: SelectionMenuProps[];
   placeholder: string;
+  // eslint-disable-next-line react/require-default-props
+  errors?: boolean;
 }
 
 export default function SelectionWithCheckBox({
@@ -110,7 +112,9 @@ export default function SelectionWithCheckBox({
   title,
   options,
   placeholder,
+  errors = false,
 }: Props): React.ReactElement {
+  const selectionStyles = selectStyles(errors);
   return (
     <Controller
       control={control}
@@ -118,7 +122,7 @@ export default function SelectionWithCheckBox({
       render={({ field: { value, onChange } }) => (
         <Label title={title}>
           <Select
-            styles={selectStyles}
+            styles={selectionStyles}
             defaultValue={[]}
             isMulti
             className="react-select"

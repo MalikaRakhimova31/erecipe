@@ -11,10 +11,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { type itemProps, type SelectionMenuProps } from "@/types";
+import { type SelectionMenuProps } from "@/types";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { UseGetRecipeMNN } from "@/features/create-recipe/api";
+import { useSearchParams } from "react-router-dom";
 import CSelect from "../CSelect/CSelect";
 import CTextArea from "../CTextArea/CTextArea";
+import generateMNNOptions from "./generateOptions";
 
 interface Props {
   control: any;
@@ -27,13 +31,24 @@ export default function RecipeAccordion({
   fields,
   errors,
 }: Props): React.ReactElement {
-  const options: SelectionMenuProps[] = [
-    { value: "001", label: "Recipeee" },
-    { value: "002", label: "Kecipeee" },
-    { value: "003", label: "Apple" },
-    { value: "004", label: "Butter" },
-    { value: "005", label: "Butterfly" },
-  ];
+  const [searchParams] = useSearchParams();
+  const [mnnOptions, setMnnOptions] = useState<SelectionMenuProps[]>();
+
+  // const { data: recipeUnits } = UseGetRecipeUnits();
+  // const { data: recipeMethods } = UseGetRecipeUnits({});
+  const { data: recipeMNNList } = UseGetRecipeMNN(
+    !!searchParams.get("id")?.length,
+  );
+
+  // console.log("units", recipeUnits);
+  // console.log("methods", recipeMethods);
+  // console.log("recipeMNNList", recipeMNNList);
+
+  useEffect(() => {
+    if (recipeMNNList?.results) {
+      setMnnOptions(generateMNNOptions(recipeMNNList.results));
+    } else setMnnOptions([]);
+  }, [recipeMNNList]);
 
   return (
     <Accordion allowToggle>
@@ -90,7 +105,7 @@ export default function RecipeAccordion({
                             <CSelect
                               control={control}
                               name={`items[${index}].mnn`}
-                              options={options}
+                              options={mnnOptions}
                               title="МНН"
                               placeholder="Выберите из списка"
                               isClearable
@@ -105,10 +120,11 @@ export default function RecipeAccordion({
                           </GridItem>
                           <Grid templateColumns="repeat(2, 1fr)" gap="16px">
                             <GridItem w="100%">
+                              {/* drugType */}
                               <CSelect
                                 control={control}
-                                name={`items[${index}].drugType`}
-                                options={options}
+                                name={`items[${index}].unit`}
+                                options={mnnOptions}
                                 title="Форма лекарства"
                                 placeholder="Выберите из списка"
                                 isClearable
@@ -117,15 +133,16 @@ export default function RecipeAccordion({
                                 errors={
                                   Boolean(errors) &&
                                   Boolean(errors.items) &&
-                                  errors?.items[index]?.drugType
+                                  errors?.items[index]?.unit
                                 }
                               />
                             </GridItem>
                             <GridItem w="100%">
+                              {/* drugTypeDetails */}
                               <CSelect
                                 control={control}
-                                name={`items[${index}].drugTypeDetails`}
-                                options={options}
+                                name={`items[${index}].method`}
+                                options={mnnOptions}
                                 title="Способ введения препарата"
                                 placeholder="Выберите из списка"
                                 isClearable
@@ -134,7 +151,7 @@ export default function RecipeAccordion({
                                 errors={
                                   Boolean(errors) &&
                                   Boolean(errors.items) &&
-                                  errors?.items[index]?.drugTypeDetails
+                                  errors?.items[index]?.method
                                 }
                               />
                             </GridItem>

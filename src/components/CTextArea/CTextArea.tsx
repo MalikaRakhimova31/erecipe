@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { Controller } from "react-hook-form";
 import { type TextAreaProps } from "@/types";
-import { Textarea, border } from "@chakra-ui/react";
+import { Textarea } from "@chakra-ui/react";
 import Label from "../Label/Label";
 
 export default function CTextArea(props: TextAreaProps): React.ReactElement {
