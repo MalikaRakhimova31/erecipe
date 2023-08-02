@@ -3,18 +3,31 @@ import { Flex, Text } from "@chakra-ui/react";
 import { type LabelProps } from "@/types";
 
 export default function Label(props: LabelProps): React.ReactElement {
-  const { title, children, optional, id } = props;
+  const { title, children, optional, id, errors } = props;
+
   return (
-    <Flex direction="column" rowGap="8px">
+    <Flex
+      direction="column"
+      rowGap="8px"
+      // alignItems="flex-start"
+      // justifyContent="flex-start"
+    >
       <label id={id}>
-        <Text fontSize="14px" color="grey">
-          {title}
-          {optional ?? (
-            <Text as="span" color="errorColor">
-              *
+        <Flex alignItems="center" justifyContent="space-between">
+          <Text fontSize="14px" color="grey">
+            {title}
+            {optional ?? (
+              <Text as="span" color="errorColor">
+                *
+              </Text>
+            )}
+          </Text>
+          {Boolean(errors) && (
+            <Text color="errorColor" fontSize="14px" fontWeight={400}>
+              Обязательное поле
             </Text>
           )}
-        </Text>
+        </Flex>
       </label>
       {children}
     </Flex>

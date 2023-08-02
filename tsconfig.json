@@ -34,7 +34,8 @@
     "*.js",
     "src/custom.d.ts",
     "src/**/*",
-    "src/helpers/login.ts"
+    "src/helpers/login.ts",
+    "src/features/auth/views/modal/AuthCallback.tsx"
   ],
   "exclude": ["src/utils/worker.ts", "src/lib"],
   "references": [

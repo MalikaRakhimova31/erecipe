@@ -3,6 +3,12 @@ import colors from "./colors";
 import accordionTheme from "./accordionTheme";
 import textareaTheme from "./textareaTheme";
 import modalTheme from "./modalTheme";
+import inputTheme from "./inputTheme";
+import tabsTheme from "./tabsTheme";
+
+const disabledStyles = {
+  opacity: 0.5,
+};
 
 const theme = extendTheme({
   components: {
@@ -11,7 +17,6 @@ const theme = extendTheme({
         solid: {
           borderRadius: "8px",
           width: "max-content",
-          height: "53px",
           padding: "0 24px",
           background: "primary.main",
           color: "white",
@@ -22,6 +27,13 @@ const theme = extendTheme({
             boxShadow: "0px 4px 20px 0px rgba(10, 186, 181, 0.30)",
             background: "primary.main",
             color: "white",
+            _disabled: {
+              ...disabledStyles,
+              background: "primary.main",
+            },
+          },
+          _disabled: {
+            ...disabledStyles,
           },
         },
         unstyled: {
@@ -38,6 +50,9 @@ const theme = extendTheme({
           fontSize: "16px",
           fontWeight: "500 !important",
           padding: "0 24px",
+          _disabled: {
+            ...disabledStyles,
+          },
         },
         outline: {
           borderRadius: "8px",
@@ -54,6 +69,16 @@ const theme = extendTheme({
             boxShadow: "0px 4px 20px 0px rgba(255, 78, 78, 0.30)",
             background: "errorColor",
             color: "white",
+            _disabled: {
+              ...disabledStyles,
+              boxShadow: "none",
+              background: "white",
+              borderColor: "border",
+              color: "secondary.main",
+            },
+          },
+          _disabled: {
+            ...disabledStyles,
           },
         },
         ghost: {
@@ -70,6 +95,13 @@ const theme = extendTheme({
             boxShadow: "0px 4px 20px 0px rgba(255, 78, 78, 0.30)",
             background: "#0ABAB5",
             color: "white",
+            _disabled: {
+              ...disabledStyles,
+              background: "primary.main",
+            },
+          },
+          _disabled: {
+            ...disabledStyles,
           },
         },
         danger: {
@@ -84,10 +116,81 @@ const theme = extendTheme({
           _hover: {
             // borderColor: "errorColor",
             boxShadow: "0px 4px 20px 0px rgba(255, 78, 78, 0.30)",
+            _disabled: {
+              ...disabledStyles,
+              background: "#FF4E4E",
+            },
+          },
+          _disabled: {
+            ...disabledStyles,
+          },
+        },
+        greenText: {
+          borderRadius: "8px",
+          width: "max-content",
+          height: "48px",
+          background: "white",
+          color: "#23A566",
+          fontWeight: "500 !important",
+          borderWidth: "1px",
+          borderColor: "border",
+          fontSize: "16px",
+          _hover: {
+            boxShadow: "0px 0px 5px 0px rgba(10, 186, 181, 0.15);",
+            borderColor: "#23A566",
+          },
+        },
+        statusButton: {
+          borderRadius: "8px",
+          width: "max-content",
+          height: "41px",
+          background: "#EBFAF9",
+          color: "#0ABAB5",
+          fontWeight: "500 !important",
+          borderWidth: "none",
+          borderColor: "none",
+          fontSize: "14px",
+          _hover: {
+            boxShadow: "0px 0px 5px 0px rgba(10, 186, 181, 0.15);",
+            borderColor: "#23A566",
+          },
+        },
+        blackButton: {
+          borderRadius: "8px",
+          width: "100%",
+          height: "41px",
+          background: "white",
+          color: "#393D4E",
+          border: "1px solid",
+          borderColor: "#E7EAF0",
+          fontWeight: "500 !important",
+          fontSize: "14px",
+
+          _hover: {
+            boxShadow: "0px 0px 5px 0px rgba(10, 186, 181, 0.15);",
+            borderColor: "transparent",
+            color: "white",
+            background: "#0ABAB5",
+          },
+        },
+        gray: {
+          borderRadius: "8px",
+          width: "100%",
+          height: "41px",
+          background: "white",
+          color: "#393D4E",
+          fontWeight: "500 !important",
+          border: "1px solid",
+          borderColor: "#E7EAF0",
+          fontSize: "16px",
+
+          _hover: {
+            boxShadow: "0px 0px 5px 0px rgba(10, 186, 181, 0.15);",
           },
         },
       },
     },
+    Tabs: tabsTheme,
     Accordion: accordionTheme,
     Textarea: textareaTheme,
     Modal: modalTheme,
@@ -100,14 +203,41 @@ const theme = extendTheme({
             fontSize: "12px",
             fontWeight: "400",
             color: "#8E93AA",
+            maxWidth: "330px !important",
           },
           td: {
             borderColor: "#E7EAF0",
             padding: "16px 0",
             color: "secondary.main",
             fontSize: "14px",
-            fontWeight: "500",
+            fontWeight: "400",
+            whiteSpace: "wrap",
+            maxWidth: "315px",
+            "&:last-child": {
+              borderColor: "none",
+            },
           },
+        },
+      },
+    },
+    Checkbox: {
+      baseStyle: {
+        control: {
+          bg: "transparent",
+          _checked: {
+            bg: "primary.main",
+            border: "none",
+          },
+        },
+      },
+    },
+    Input: inputTheme,
+    InputGroup: {
+      baseStyle: {
+        background: "red",
+        _focusVisible: {
+          border: "1px solid",
+          borderColor: "red",
         },
       },
     },

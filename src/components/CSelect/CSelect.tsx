@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { Controller } from "react-hook-form";
 import { type SelectProps } from "@/types";
 import SelectMenu, {
   type DropdownIndicatorProps,
   components,
 } from "react-select";
+import { Text } from "@chakra-ui/react";
 import Label from "../Label/Label";
 import selectStyles from "./selectStyles";
 
@@ -39,6 +43,22 @@ const customDropdownIndicator = (
     <ChevronDown />
   </components.DropdownIndicator>
 );
+
+const customClearIndicator = (props: any): React.ReactElement => (
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  <components.ClearIndicator {...props}>
+    <ClearIcon />
+  </components.ClearIndicator>
+);
+
+function NoOptionsMessage(props: any): React.ReactElement {
+  return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <components.NoOptionsMessage {...props}>
+      <Text color="secondary.grey">Ничего не найдено</Text>
+    </components.NoOptionsMessage>
+  );
+}
 
 const formatOptionLabel = (
   { label }: any,
@@ -83,35 +103,78 @@ export default function CSelect({
   isDisabled = false,
   isSearchable = false,
   placeholder,
+  menuPlacement = "auto",
+  required = false,
+  errors = false,
 }: SelectProps): React.ReactElement {
+  const selectionStyles = selectStyles(errors);
+
   return (
-    <Controller
-      control={control}
-      name={name}
-      render={({ field: { value, onChange } }) => (
-        <Label title={title}>
-          <SelectMenu
-            styles={selectStyles}
-            value={value}
-            onChange={onChange}
-            options={options}
-            classNamePrefix="select"
-            className="basic-multi-select"
-            openMenuOnFocus
-            isClearable={isClearable}
-            isMulti={isMulti}
-            isDisabled={isDisabled}
-            isSearchable={isSearchable}
-            placeholder={placeholder}
-            formatOptionLabel={formatOptionLabel}
-            // getOptionValue={(option) => option.value}
-            components={{
-              IndicatorSeparator: () => null,
-              DropdownIndicator: customDropdownIndicator,
-            }}
-          />
-        </Label>
-      )}
-    />
+    <div>
+      <Controller
+        control={control}
+        name={name}
+        rules={{ required }}
+        render={({ field: { value, onChange } }) => (
+          <Label title={title} errors={errors}>
+            <SelectMenu
+              styles={selectionStyles}
+              value={value}
+              onChange={onChange}
+              options={options}
+              classNamePrefix="react-select"
+              className="react-select"
+              // openMenuOnFocus
+              isClearable={isClearable}
+              isMulti={isMulti}
+              isDisabled={isDisabled}
+              isSearchable={isSearchable}
+              placeholder={placeholder}
+              formatOptionLabel={formatOptionLabel}
+              menuPlacement={menuPlacement}
+              // getOptionValue={(option) => option.value}
+              components={{
+                IndicatorSeparator: () => null,
+                DropdownIndicator: customDropdownIndicator,
+                ClearIndicator: customClearIndicator,
+                NoOptionsMessage,
+              }}
+            />
+          </Label>
+        )}
+      />
+    </div>
+  );
+}
+
+function ClearIcon(): React.ReactElement {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clipPath="url(#clip0_1247_2995)">
+        <path
+          d="M18.3333 10.0003C18.3333 14.6027 14.6023 18.3337 9.99996 18.3337C5.39759 18.3337 1.66663 14.6027 1.66663 10.0003C1.66663 5.39795 5.39759 1.66699 9.99996 1.66699C14.6023 1.66699 18.3333 5.39795 18.3333 10.0003Z"
+          fill="#E6EAF0"
+          stroke="#8E93AA"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M12.0833 7.91701L7.91663 12.0837M7.91661 7.91699L12.0833 12.0836"
+          stroke="#8E93AA"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_1247_2995">
+          <rect width="20" height="20" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
   );
 }

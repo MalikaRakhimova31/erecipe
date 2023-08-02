@@ -1,0 +1,114 @@
+.datePicker {
+  border: 1px solid #e7eaf0 !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+  height: max-content !important;
+  width: max-content !important;
+  .rmdp-calendar {
+    padding: 0 !important;
+    // padding-bottom: 0px !important;
+  }
+}
+
+.Calendar {
+  width: 100%;
+  .rmdp-shadow {
+    box-shadow: none !important;
+  }
+  .rmdp-day-picker {
+    padding: 0;
+  }
+  .rmdp-week:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  .rmdp-week {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.625rem;
+    .rmdp-week-day {
+      text-transform: uppercase;
+      color: #8e93aa;
+      font-size: 14px;
+      font-weight: 400;
+      width: 1.875rem;
+      height: 1.875rem;
+    }
+
+    .rmdp-day {
+      width: 1.875rem;
+      height: 1.875rem;
+      color: #393d4e;
+      border: 1px solid transparent;
+      font-size: 14px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      span {
+        width: 1.875rem;
+        height: 1.875rem;
+      }
+    }
+    .rmdp-day-hidden {
+      color: red;
+      display: block;
+    }
+    .rmdp-today span {
+      background-color: white;
+      border: 1px solid #0abab5;
+      color: #393d4e;
+    }
+    .rmdp-day:not(.rmdp-deactive) .highlight-red {
+      color: #393d4e;
+    }
+    .rmdp-day .highlight-red {
+      color: #393d4e;
+    }
+    .rmdp-day.rmdp-selected .highlight-red {
+      color: white;
+    }
+    .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
+      background-color: white;
+      color: #393d4e;
+      border: 1px solid #0abab5;
+    }
+    .rmdp-selected span {
+      background-color: #0abab5;
+      box-shadow: none !important;
+    }
+    .rmdp-day.rmdp-selected span:not(.highlight) {
+      background-color: #0abab5;
+      box-shadow: none !important;
+    }
+  }
+  .rmdp-header {
+    padding: 0;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #e7eaf0;
+    .rmdp-header-values span {
+      color: #393d4e;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+    }
+    .rmdp-arrow-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border: 1px solid transparent;
+      &:hover {
+        background-color: white;
+        border: 1px solid #0abab5;
+        box-shadow: none;
+      }
+      .rmdp-right {
+        background-image: url("/assets/arrowRight.svg");
+        background-size: cover;
+      }
+    }
+  }
+}

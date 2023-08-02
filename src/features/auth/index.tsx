@@ -1,6 +1,7 @@
 import CButton from "@/components/button/button";
 import redirectToSSO from "@/helpers/login";
 import { Box, Flex, Text } from "@chakra-ui/react";
+import { Outlet } from "react-router-dom";
 
 export default function Auth(): React.ReactElement {
   return (
@@ -80,6 +81,7 @@ export default function Auth(): React.ReactElement {
           </Flex>
         </Box>
       </Flex>
+      <Outlet />
     </Box>
   );
 }

@@ -1,8 +1,17 @@
 import { Flex, Text } from "@chakra-ui/react";
 
+import styles from "./UserAccount.module.scss";
+import UserAccountPopover from "../UserAccountPopover/UserAccountPopover";
+
 export default function UserAccount(): React.ReactElement {
   return (
-    <Flex columnGap="10px" justifyContent="space-between" alignItems="start">
+    <Flex
+      columnGap="10px"
+      justifyContent="space-between"
+      alignItems="start"
+      bg="white"
+      className={styles.root}
+    >
       <Flex alignItems="center" justifyContent="center">
         <img src="/assets/userPlaceholder.svg" alt="user placeholder" />
       </Flex>
@@ -21,6 +30,9 @@ export default function UserAccount(): React.ReactElement {
           Врач
         </Text>
       </Flex>
+      <div className={styles.popover}>
+        <UserAccountPopover />
+      </div>
     </Flex>
   );
 }
