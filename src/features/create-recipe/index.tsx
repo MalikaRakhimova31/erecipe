@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import RecipeAccordion from "@/components/RecipeAccordion/RecipeAccordion";
 import {
@@ -19,9 +20,11 @@ import PatientBox from "@/components/PatientBox.tsx/PatientBox";
 import CModal from "@/components/CModal/CModal";
 import { toast } from "react-toastify";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import { type SelectionMenuProps } from "@/types";
+
 import FormSchema from "./validation";
+
 import {
   UseGetAllUsers,
   UseGetPatientRecipes,
@@ -38,17 +41,19 @@ export default function CreateRecipe(): React.ReactElement {
   const searchRef = useRef<HTMLInputElement>(null);
   const [count, setCount] = useState<number>(1);
   const [searchParams, setSearchParams] = useSearchParams();
-  // console.log("searchParams", searchParams.get("id"));
   type FormValues = z.infer<typeof FormSchema>;
   const {
     control,
     handleSubmit,
+    reset,
+    watch,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {},
   });
-
+  const navigate = useNavigate();
+  const location = useLocation();
   const containerRef = useRef<HTMLDivElement | null>(null);
   useLayoutEffect(() => {
     if (containerRef.current != null) {
@@ -56,7 +61,7 @@ export default function CreateRecipe(): React.ReactElement {
     }
   });
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
   });
@@ -74,6 +79,36 @@ export default function CreateRecipe(): React.ReactElement {
       searchRef.current.focus();
     }
   };
+
+  const { data: patientRecipes } = UseGetPatientRecipes({
+    queryParams: {
+      uid: searchParams.get("recipe-id"),
+      patient: searchParams.get("id"),
+    },
+    open: location.pathname.includes("recipe-edit"),
+  });
+
+  console.log("patientRecipes", patientRecipes?.results);
+  // console.log("location", location.pathname.includes("recipe-edit"));
+  // console.log("watching.....", watch("items"));
+
+  useEffect(() => {
+    if (patientRecipes?.results[0]?.items?.length) {
+      reset({
+        items: patientRecipes?.results[0]?.items?.map((item: any) => ({
+          mnn: { value: item.mnn, label: item.mnn },
+          unit: { value: item.unit, label: item.unit },
+          method: { value: item.method, label: item.method },
+          note: item.note,
+        })),
+      });
+    } else {
+      reset({
+        items: [],
+      });
+      setPatientInfo({});
+    }
+  }, [location.pathname, patientRecipes]);
 
   const { mutate: getUserById } = UseGetUserById({
     onSuccess: (res) => {
@@ -94,6 +129,7 @@ export default function CreateRecipe(): React.ReactElement {
         icon: <img src="/assets/toastifySuccess.svg" alt="success" />,
         position: "top-center",
       });
+      navigate("/patients");
     },
   });
 
@@ -102,21 +138,13 @@ export default function CreateRecipe(): React.ReactElement {
       getUserById({
         search: searchParams.get("nnuzb"),
       });
-      getRecipeId({
-        patient: Number(searchParams.get("id")),
-      });
     }
   }, [searchParams.get("nnuzb")]);
 
-  const { data: allUsers } = UseGetAllUsers();
-  const { data: patientRecipes } = UseGetPatientRecipes({
-    queryParams: {
-      patient: searchParams.get("id"),
-    },
-    open: !(searchParams.get("id")?.length == null),
+  const { data: allUsers } = UseGetAllUsers({
+    queryParams: {},
+    open: true,
   });
-
-  console.log("patientRecipes", patientRecipes);
 
   useEffect(() => {
     if (allUsers?.results) {
@@ -125,7 +153,6 @@ export default function CreateRecipe(): React.ReactElement {
   }, [allUsers]);
 
   const onSubmit = (data: any): void => {
-    console.log("create recipe", data);
     sendRecipeItems({
       id: localStorage.getItem("recipeId"),
       data: {
@@ -163,6 +190,7 @@ export default function CreateRecipe(): React.ReactElement {
                       control={control}
                       fields={fields}
                       errors={errors}
+                      remove={remove}
                     />
                   </Flex>
                 </Box>
@@ -227,6 +255,9 @@ export default function CreateRecipe(): React.ReactElement {
                   setSearchParams({
                     nnuzb: e.label?.split("/")[0],
                     id: e.value,
+                  });
+                  getRecipeId({
+                    patient: Number(e.value),
                   });
                 }}
               />

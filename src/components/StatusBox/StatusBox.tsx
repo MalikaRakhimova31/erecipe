@@ -11,7 +11,8 @@ export default function StatusBox({ status }: StatusProps): React.ReactElement {
       (status === statuses.issuedByPharmacy && styles.issued),
     status === statuses.declined && styles.declined,
     status === statuses.expired && styles.expired,
-    status === statuses.new && styles.new,
+    status === statuses.new && styles.issued,
+    status === statuses.done && styles.issuedByDoctor,
   );
 
   const generateTitle = (): string => {
@@ -25,6 +26,10 @@ export default function StatusBox({ status }: StatusProps): React.ReactElement {
         str = "выдан";
         break;
       }
+      case statuses.new: {
+        str = "Новый";
+        break;
+      }
       case statuses.issuedByPharmacy: {
         str = "Выдан аптекой";
         break;
@@ -35,6 +40,10 @@ export default function StatusBox({ status }: StatusProps): React.ReactElement {
       }
       case statuses.expired: {
         str = "истек";
+        break;
+      }
+      case statuses.done: {
+        str = "Готова";
         break;
       }
       default:

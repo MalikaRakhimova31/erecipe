@@ -1,5 +1,4 @@
-import { Td, Tr } from "@chakra-ui/react";
-import format from "date-fns/format";
+import { Skeleton, Td, Tr } from "@chakra-ui/react";
 import { type StatusProps } from "@/types";
 import { Link } from "react-router-dom";
 import CIconButton from "../CIconButton/CIconButton";
@@ -7,7 +6,7 @@ import StatusBox from "../StatusBox/StatusBox";
 
 interface Props extends StatusProps {
   id: string;
-  created: Date;
+  created: string;
   expire: string;
   version: string;
 }
@@ -20,7 +19,7 @@ export default function RecipeHistoryCard({
   status,
 }: Props): React.ReactElement {
   return (
-    <Tr border="none" px="20px" py={4} bg="white">
+    <Tr border="none" px="20px" py={4} bg="white" key={id}>
       <Td
         borderTopLeftRadius="8px"
         borderBottomLeftRadius="8px"
@@ -30,7 +29,7 @@ export default function RecipeHistoryCard({
         {id}
       </Td>
       <Td border="none" fontWeight={400}>
-        {format(created, "dd/MM/yyyy (HH:mm)")}
+        {created}
       </Td>
       <Td border="none" fontWeight={400}>
         {expire}

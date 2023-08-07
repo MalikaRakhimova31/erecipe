@@ -3,21 +3,34 @@ import CCalendar from "@/components/Calendar/CCalendar";
 import { useRef, useState } from "react";
 import UInput from "@/components/UInput/UInput";
 import Restricted from "@/providers/restricted";
+import { useSearchParams } from "react-router-dom";
+import format from "date-fns/format";
 import PatientsTable from "./views/PatientsTable";
 import FilterPopup from "../doctors/views/FilterPopup";
+import { UseGetAllUsers } from "../create-recipe/api";
 
+const PAGE_SIZE = 10;
 function PatientsHome(): React.ReactElement {
   const [filter, setFilter] = useState<boolean>(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
   const handleFilterModal = (): void => {
     setFilter(true);
   };
   const [value, setValue] = useState(new Date());
   const inputRef = useRef<HTMLInputElement>(null);
-  const handleSearch = (): void => {
-    if (inputRef.current !== null) {
-      console.log("ref", inputRef.current.value);
-    }
-  };
+
+  const { data: patients } = UseGetAllUsers({
+    queryParams: {
+      visited: searchParams.get("visited"),
+      search: searchParams.get("search"),
+      page_size: PAGE_SIZE,
+      page: currentPage,
+    },
+    open: true,
+  });
+
+  console.log("patients", patients);
 
   const handleChange = (e: Date): void => {
     setValue(e);
@@ -30,9 +43,31 @@ function PatientsHome(): React.ReactElement {
             <CCalendar
               value={value}
               onChange={(e: any) => {
+                setSearchParams({
+                  visited: format(new Date(e), "yyyy-MM-dd"),
+                });
                 handleChange(e);
               }}
             />
+            {searchParams.has("visited") && (
+              <Box
+                mt={4}
+                onClick={() => {
+                  searchParams.delete("visited");
+                  setSearchParams(searchParams);
+                }}
+              >
+                <Text
+                  fontWeight={500}
+                  fontSize={16}
+                  color="errorColor"
+                  textAlign="right"
+                  cursor="pointer"
+                >
+                  Сбросить
+                </Text>
+              </Box>
+            )}
           </Box>
         </Restricted>
         <Flex flex="5" direction="column" rowGap="16px">
@@ -41,7 +76,12 @@ function PatientsHome(): React.ReactElement {
               placeholder="Поиск по ПИНФЛ/серии паспорта"
               icon="/assets/search.svg"
               inputRef={inputRef}
-              onChange={handleSearch}
+              type="number"
+              onChange={(e) => {
+                setSearchParams({
+                  search: e.target.value,
+                });
+              }}
             />
             <Restricted to={["MINZDRAV"]}>
               <Flex
@@ -63,7 +103,12 @@ function PatientsHome(): React.ReactElement {
               </Flex>
             </Restricted>
           </Flex>
-          <PatientsTable />
+          <PatientsTable
+            patients={patients}
+            pageSize={PAGE_SIZE}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </Flex>
       </Flex>
       <FilterPopup

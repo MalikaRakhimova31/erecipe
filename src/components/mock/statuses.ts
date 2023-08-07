@@ -6,6 +6,7 @@ interface statusesProps {
   declined: string;
   expired: string;
   new: string;
+  done: string;
 }
 
 const statuses: statusesProps = {
@@ -16,6 +17,7 @@ const statuses: statusesProps = {
   declined: "declined",
   expired: "expired",
   new: "new",
+  done: "done",
 };
 
 export default statuses;
