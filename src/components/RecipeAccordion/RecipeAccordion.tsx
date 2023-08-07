@@ -12,7 +12,6 @@ import {
   ModalFooter,
   ModalHeader,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
 
 import { type SelectionMenuProps } from "@/types";

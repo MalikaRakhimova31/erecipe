@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 import { Box, Flex, Text } from "@chakra-ui/react";
 import Pagination from "@/components/Pagination/Pagination";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import EmptyBox from "@/components/EmptyBox/EmptyBox";
 import JoinedTable from "@/components/JoinedTable/JoinedTable";
 import UserInfoBox from "@/components/UserInfoBox/UserInfoBox";

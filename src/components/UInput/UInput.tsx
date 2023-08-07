@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import styles from "./styles.module.scss";
 
 interface Props {
@@ -5,8 +6,7 @@ interface Props {
   icon: string;
   placeholder: string;
   inputRef: React.RefObject<HTMLInputElement>;
-  type: string;
-  // eslint-disable-next-line react/require-default-props
+  type?: string;
   disabled?: boolean;
 }
 export default function UInput({
@@ -14,7 +14,7 @@ export default function UInput({
   icon,
   placeholder,
   inputRef,
-  type = "number",
+  type = "string",
   disabled = false,
 }: Props): React.ReactElement {
   return (

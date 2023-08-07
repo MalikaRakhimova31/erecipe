@@ -6,12 +6,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable @typescript-eslint/promise-function-async */
 import request from "@/utils/axios";
-import { type MutationType } from "@/types";
-import { useMutation, useQuery } from "@tanstack/react-query";
-
-interface SuccessResponse {}
-
-interface ErrorResponse {}
+import { useQuery } from "@tanstack/react-query";
 
 interface QueryType {
   queryParams: any;

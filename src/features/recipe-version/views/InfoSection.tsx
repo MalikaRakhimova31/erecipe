@@ -4,26 +4,6 @@ import { Flex } from "@chakra-ui/react";
 import format from "date-fns/format";
 import { useMemo } from "react";
 
-const today = new Date();
-const info = [
-  {
-    title: "создан",
-    description: format(today, "dd/MM/yyyy (HH:mm)"),
-  },
-  {
-    title: "Действует до",
-    description: format(today, "dd/MM/yyyy (HH:mm)"),
-  },
-  {
-    title: "Врач",
-    description: "Феруза Алимова",
-  },
-  {
-    title: "Статус",
-    description: <StatusBox status="issuedByDoctor" />,
-  },
-];
-
 export default function InfoSection({ recipe }: any): React.ReactElement {
   // console.log("info recipe", recipe);
   const recipeInfo = useMemo(

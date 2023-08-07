@@ -1,7 +1,5 @@
 import usePagination from "@/helpers/usePagination";
 import { Box } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 
 interface Props {
   onPageChange: (p: any) => void;
@@ -27,7 +25,7 @@ export default function Pagination({
     pageSize,
     DOTS: dots,
   });
-  const [searchParams, setSearchParams] = useSearchParams();
+
   if (currentPage === 0 || paginationRange.length < 2) {
     return <div />;
   }

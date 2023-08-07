@@ -51,12 +51,7 @@ const theme = extendTheme({
         // bg: mode(`gray.50`, `gray.50`)(props),
         // fontFamily: `"Lexend Deca", "Source Sans Pro", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
       },
-      a: {
-        color: colors.brand[`500`],
-        _hover: {
-          textDecoration: `underline`,
-        },
-      },
+
       button: {
         fontWeight: `normal !important`,
       },

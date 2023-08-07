@@ -1,4 +1,4 @@
-import { Skeleton, Td, Tr } from "@chakra-ui/react";
+import { Td, Tr } from "@chakra-ui/react";
 import { type StatusProps } from "@/types";
 import { Link } from "react-router-dom";
 import CIconButton from "../CIconButton/CIconButton";

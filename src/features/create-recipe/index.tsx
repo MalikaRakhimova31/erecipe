@@ -46,7 +46,6 @@ export default function CreateRecipe(): React.ReactElement {
     control,
     handleSubmit,
     reset,
-    watch,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
