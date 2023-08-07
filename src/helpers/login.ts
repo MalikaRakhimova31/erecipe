@@ -45,7 +45,7 @@ async function redirectToSSO(): Promise<void> {
     `&client_id=` +
     `${encodeURIComponent(import.meta.env.VITE_CLIENT_ID)}` +
     `&state=${encodeURIComponent(state)}&redirect_uri=${encodeURIComponent(
-      "https://erecipe.vercel.app//auth/callback",
+      "http://localhost:3000/auth/callback",
     )}&code_challenge=${encodeURIComponent(
       await codeChallenge,
     )}&code_challenge_method=S256`;
