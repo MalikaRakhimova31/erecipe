@@ -5,12 +5,17 @@ interface Props {
   icon: string;
   placeholder: string;
   inputRef: React.RefObject<HTMLInputElement>;
+  type: string;
+  // eslint-disable-next-line react/require-default-props
+  disabled?: boolean;
 }
 export default function UInput({
   onChange,
   icon,
   placeholder,
   inputRef,
+  type = "number",
+  disabled = false,
 }: Props): React.ReactElement {
   return (
     <div className={styles.root}>
@@ -20,6 +25,8 @@ export default function UInput({
         className={styles.input}
         placeholder={placeholder}
         ref={inputRef}
+        type={type}
+        disabled={disabled}
       />
     </div>
   );

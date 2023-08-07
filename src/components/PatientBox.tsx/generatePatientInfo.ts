@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export default function generatePatientInfo(patientInfo: any) {
-  if (Object.keys(patientInfo)?.length) {
+  if (Boolean(patientInfo) && Object.keys(patientInfo)?.length !== 0) {
     return {
       src: "/assets/users/user.svg",
       name: `${patientInfo.lastname} ${patientInfo.middlename}`,
@@ -27,5 +29,6 @@ export default function generatePatientInfo(patientInfo: any) {
         // },
       ],
     };
-  } else return null;
+  }
+  return null;
 }

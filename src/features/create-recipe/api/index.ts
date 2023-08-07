@@ -14,7 +14,7 @@ interface SuccessResponse {}
 interface ErrorResponse {}
 
 interface QueryType {
-  queryParams: any;
+  queryParams?: any;
   open?: boolean;
 }
 
@@ -28,9 +28,16 @@ const createRecipeService = {
       `/api/v1/recipe/${queryParams.id}/create_items/`,
       queryParams.data,
     ),
-  getAllUsers: () => request.get("/api/v1/ssv/patients/"),
+  getAllUsers: (queryParams: any) =>
+    request.get("/api/v1/ssv/patients/", {
+      params: {
+        ...queryParams,
+      },
+    }),
   getPatientRecipes: (queryParams: any) =>
-    request.get("/api/v1/recipe/", { ...queryParams }),
+    request.get(`/api/v1/recipe/`, {
+      params: queryParams,
+    }),
   getRecipeUnits: () => request.get("/api/v1/units/"),
   getRecipeMethods: () => request.get("/api/v1/methods/"),
   getRecipeMNN: () => request.get("/api/v1/ssv/mnn/"),
@@ -44,6 +51,7 @@ export const UseGetPatientRecipes = ({ queryParams, open }: QueryType): any => {
         return res;
       }),
     enabled: !!(open ?? false),
+    cacheTime: 0,
   });
 };
 
@@ -72,13 +80,14 @@ export const UseSendRecipeItems = <T extends string>(
   );
 };
 
-export const UseGetAllUsers = (): any => {
+export const UseGetAllUsers = ({ queryParams, open }: QueryType): any => {
   return useQuery({
-    queryKey: ["GET_ALL_USERS"],
+    queryKey: ["GET_ALL_PATIENTS", queryParams],
     queryFn: () =>
-      createRecipeService.getAllUsers().then((res) => {
+      createRecipeService.getAllUsers(queryParams).then((res) => {
         return res;
       }),
+    enabled: !!(open ?? false),
   });
 };
 

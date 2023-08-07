@@ -1,48 +1,60 @@
+/* eslint-disable react/require-default-props */
 import { Box, Flex, Text } from "@chakra-ui/react";
 import Pagination from "@/components/Pagination/Pagination";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import EmptyBox from "@/components/EmptyBox/EmptyBox";
 import JoinedTable from "@/components/JoinedTable/JoinedTable";
 import UserInfoBox from "@/components/UserInfoBox/UserInfoBox";
 import { format } from "date-fns";
 
-const pageSize = 5;
+interface Props {
+  // eslint-disable-next-line react/require-default-props
+  patients?: any;
+  pageSize: number;
+  currentPage: number;
+  setCurrentPage: (c: number) => void;
+}
 
-export default function PatientsTable(): React.ReactElement {
-  const [currentPage, setCurrentPage] = useState(1);
-  const date = new Date();
+export default function PatientsTable({
+  patients,
+  pageSize,
+  currentPage,
+  setCurrentPage,
+}: Props): React.ReactElement {
+  const generateUserData = useMemo(
+    () =>
+      patients?.results?.map((patient: any) => ({
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        id: `${patient.id}&${patient.nnuzb}`,
+        patient: (
+          <UserInfoBox
+            src="/assets/users/user1.png"
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+            name={`${patient?.firstname} ${patient?.lastname}`}
+          />
+        ),
+        lastVisit: format(new Date(patient.last_visited), "dd/MM/yyyy (HH:mm)"),
+        edit: (
+          <Flex
+            alignItems="center"
+            justifyContent="center"
+            bg="#EBFAF9"
+            borderRadius="8px"
+            px="16px"
+            py="12px"
+            w="fit-content"
+          >
+            <Text color="primary.main" fontSize="12px" fontWeight="500">
+              Все рецепты
+            </Text>
+          </Flex>
+        ),
+      })),
+    [patients],
+  );
 
-  const userData = [
-    {
-      id: 1,
-      patient: (
-        <UserInfoBox src="/assets/users/user1.png" name="Ахрор Саидов" />
-      ),
-      lastVisit: format(date, "dd/MM/yyyy (HH:mm)"),
-      edit: (
-        <Flex
-          alignItems="center"
-          justifyContent="center"
-          bg="#EBFAF9"
-          borderRadius="8px"
-          px="16px"
-          py="12px"
-          w="fit-content"
-        >
-          <Text color="primary.main" fontSize="12px" fontWeight="500">
-            Все рецепты
-          </Text>
-        </Flex>
-      ),
-    },
-  ];
   const tableHead = ["ФИО пациента", "последний визит", "Действия"];
 
-  // const currentTableData = useMemo(() => {
-  //   const firstPageIndex = (currentPage - 1) * pageSize;
-  //   const lastPageIndex = firstPageIndex + pageSize;
-  //   return userData.slice(firstPageIndex, lastPageIndex);
-  // }, [currentPage]);
   return (
     <Box
       bg="white"
@@ -52,18 +64,18 @@ export default function PatientsTable(): React.ReactElement {
       minH="82vh"
       w="100%"
     >
-      {userData.length > 0 ? (
+      {generateUserData?.length > 0 ? (
         <Flex direction="column" justifyContent="space-between" h="100%">
           <JoinedTable
             headData={tableHead}
-            bodyData={userData}
+            bodyData={generateUserData}
             hasPath
             path="patients"
           />
 
           <Pagination
             currentPage={currentPage}
-            totalCount={userData.length}
+            totalCount={patients.count}
             pageSize={pageSize}
             onPageChange={(page) => {
               setCurrentPage(page);
