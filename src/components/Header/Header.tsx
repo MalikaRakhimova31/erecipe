@@ -6,7 +6,7 @@ import UserAccount from "../UserAccount/UserAccount";
 export default function Header(): React.ReactElement {
   const section = useSection();
 
-  const part = useHaveAccessTo("doctors-indicators");
+  const part = useHaveAccessTo("access");
 
   console.log(part);
 
