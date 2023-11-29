@@ -1,3 +1,4 @@
+import type { roles } from "@/config/permissions";
 import type {
   IndexRouteObject,
   NonIndexRouteObject,
@@ -41,7 +42,7 @@ interface SidebarMenuProps {
   icon: string;
   path: string;
   activeIcon?: string | "";
-  roles?: string[];
+  roles?: Array<keyof typeof roles>;
 }
 
 interface SelectionMenuProps {
@@ -106,6 +107,7 @@ interface ButtonProps {
   isFull?: boolean;
   height?: string;
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
 interface PopupInstanceProps {
@@ -161,11 +163,9 @@ interface StatusProps {
 interface IconTitleBoxProps {
   icon: React.ReactElement;
   title: string;
-  text: string;
+  text?: string | number;
 }
 type permissionProps = string;
-
-type userRoleProps = "PHARMACY" | "DOCTOR" | "MAIN_DOCTOR" | "MINZDRAV";
 
 interface TableProps {
   headData: any[];
@@ -184,11 +184,21 @@ interface MProps {
   onClose: () => void;
 }
 
-type roleArrayProps = string[] | undefined;
-
 interface MutationType {
   onSuccess: (res: any) => void;
   onError?: (res: any) => void;
+}
+
+interface ListResponse<T> {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T;
+}
+
+interface BaseParams {
+  page?: number;
+  page_number?: number;
 }
 
 export type {
@@ -207,12 +217,12 @@ export type {
   StatusProps,
   IconTitleBoxProps,
   permissionProps,
-  userRoleProps,
   TableProps,
   ModalProps,
   MProps,
   PopupInstanceProps,
-  roleArrayProps,
   MutationType,
   patientInfoProps,
+  ListResponse,
+  BaseParams,
 };

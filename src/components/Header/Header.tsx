@@ -1,26 +1,27 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
+import useSection from "@/hooks/use-section";
+import { useHaveAccessTo } from "@/helpers/have-access-to";
 import UserAccount from "../UserAccount/UserAccount";
 
-// interface Props {
-//   children: React.ReactElement;
-// }
-
 export default function Header(): React.ReactElement {
-  const location = useLocation();
+  const section = useSection();
+
+  const part = useHaveAccessTo("doctors-indicators");
+
+  console.log(part);
 
   const generateHeaderTitle = (): React.ReactNode => {
-    switch (location.pathname) {
-      case "/": {
+    switch (section) {
+      case "dashboard": {
         return "Статистика";
       }
-      case "/create-recipe": {
+      case "create-recipe": {
         return "Создать новый рецепт";
       }
-      case "/patients": {
+      case "patients": {
         return "Пациенты";
       }
-      case "/settings": {
+      case "settings": {
         return "Настройки";
       }
       default: {

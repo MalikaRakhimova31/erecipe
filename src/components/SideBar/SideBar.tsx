@@ -40,12 +40,7 @@ export default function SideBar(): React.ReactElement {
           </HStack>
           <List spacing="24px">
             {sidebarMenu?.map((menu) => (
-              <Restricted
-                to={menu.roles?.filter(
-                  (el) => el === import.meta.env.VITE_ROLE,
-                )}
-                key={menu.title}
-              >
+              <Restricted to={menu.roles ?? []} key={menu.title}>
                 <ListItem>
                   <SidebarMenuItem
                     title={menu.title}

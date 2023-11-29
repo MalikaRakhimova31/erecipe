@@ -1,9 +1,7 @@
 import type { CustomRoute } from "@/types";
-// import { Outlet } from "react-router-dom";
 import Auth from "@/features/auth";
-
-// VIEW IMPORTS
 import Modal from "@/features/auth/views/modal/modal";
+import AuthCallback from "@/features/auth/views/modal/AuthCallback";
 
 const routes: CustomRoute = {
   id: "auth",
@@ -11,12 +9,16 @@ const routes: CustomRoute = {
   path: "auth",
   element: <Auth />,
   children: [
-    // ROUTES
     {
       id: "modal",
       title: "Modal",
       path: "modal",
       element: <Modal />,
+    },
+    {
+      id: "callback",
+      path: "callback",
+      element: <AuthCallback />,
       children: [],
     },
   ],

@@ -1,13 +1,11 @@
 import "@/lib/to-capital-case";
 import SideBar from "@/components/SideBar/SideBar";
 import { Flex } from "@chakra-ui/react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet, useMatch } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { getToken } from "@/features/auth/api";
 import { useCallback, useEffect } from "react";
 import Header from "@/components/Header/Header";
-import PermissionProvider from "@/providers/permission-provider";
-import { type userRoleProps } from "@/types";
 
 export default function Root(): React.ReactElement {
   const mutation = useMutation({ mutationFn: getToken });
@@ -40,16 +38,19 @@ export default function Root(): React.ReactElement {
     void getQueryParams();
   }, [getQueryParams]);
 
-  const role: userRoleProps = import.meta.env.VITE_ROLE;
+  const match = useMatch("/");
+
+  if (match !== null) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return (
-    <PermissionProvider permission={role}>
-      <Flex>
-        <SideBar />
-        <Flex direction="column" flex={1}>
-          <Header />
-          <Outlet />
-        </Flex>
+    <Flex>
+      <SideBar />
+      <Flex direction="column" flex={1}>
+        <Header />
+        <Outlet />
       </Flex>
-    </PermissionProvider>
+    </Flex>
   );
 }

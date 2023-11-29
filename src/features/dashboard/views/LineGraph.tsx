@@ -20,7 +20,6 @@ ChartJS.register(
   Legend,
 );
 
-const labels = ["January", "February", "March", "April", "May", "June"];
 const options = {
   scales: {
     x: {
@@ -39,20 +38,25 @@ const options = {
   },
 };
 
-export default function CLineGraph(): React.ReactElement {
+export default function CLineGraph(props: {
+  values: number[];
+  labels: string[];
+}): React.ReactElement {
+  const { values, labels } = props;
+
   const data = {
     labels,
     options,
     datasets: [
       {
         maintainAspectRatio: false,
-        label: "false",
+        label: "Рецепты",
         backgroundColor: "#0ABAB5",
         pointRadius: 4,
         pointHoverRadius: 8,
         borderColor: "#0ABAB5",
 
-        data: [0, 10, 5, 2, 20, 30, 45],
+        data: values,
       },
     ],
   };

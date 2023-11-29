@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 interface Props {
   src: string;
   name: string;
-  date: Date;
-  id: string;
+  date: string;
+  id: string | number;
 }
 
 export default function TableRow({
@@ -27,12 +27,16 @@ export default function TableRow({
             borderRadius="50%"
             overflow="hidden"
           >
-            <img src={src} alt="patient" className="object-cover" />
+            <img
+              src="/assets/users/user1.png"
+              alt="patient"
+              className="object-cover"
+            />
           </Flex>
           {name}
         </Flex>
       </Td>
-      <Td>{format(date, "dd/MM/yyyy (HH:mm)")}</Td>
+      <Td>{format(new Date(date), "dd/MM/yyyy (HH:mm)")}</Td>
       <Td>
         <Link to={`/patients/${id}`}>
           <Flex

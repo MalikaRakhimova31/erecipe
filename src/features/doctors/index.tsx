@@ -2,6 +2,7 @@ import UInput from "@/components/UInput/UInput";
 import { Flex, Text } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import Restricted from "@/providers/restricted";
+import { roles } from "@/config/permissions";
 import DoctorsTable from "./views/DoctorsTable";
 import FilterPopup from "./views/FilterPopup";
 
@@ -27,7 +28,7 @@ export default function Doctors(): React.ReactElement {
             icon="/assets/search.svg"
             placeholder="Поиск по имени и специализации врача"
           />
-          <Restricted to={["MINZDRAV"]}>
+          <Restricted to={[roles.healthMinistry]}>
             <Flex
               alignItems="center"
               justifyContent="center"

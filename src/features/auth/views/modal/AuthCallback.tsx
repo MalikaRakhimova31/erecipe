@@ -116,6 +116,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import { groups } from "@/config/permissions";
+import setItem from "@/helpers/set-item";
 import redirectToSSO from "../../../../helpers/login";
 import useAuthStore from "../../../../stores/authStore";
 
@@ -176,44 +178,48 @@ export default function AuthCallback(): any {
     // }
 
     if (q.code !== null) {
-      if (true) {
-        getToken(
-          "https://test-sso.ssv.uz/oauth/token",
-          {
-            grant_type: "authorization_code",
-            code: q.code,
-            client_id: "97c3e637-6441-4cbe-95fa-5cbf6fb907a3",
-            redirect_uri: "http://localhost:3000/auth/callback",
-            code_verifier: localStorage.getItem("pkce_code_verifier"),
-            claims: "organization",
-          },
-          function (_request: any, body: any) {
-            axios
-              .get(`${import.meta.env.VITE_BASE_URL}/api/v1/get-token/`, {
-                params: {
-                  token: body.access_token,
-                },
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              })
-              .then((res) => {
-                console.log("token res", res);
-                localStorage.setItem("ACCESS_TOKEN", res.data.token);
-                setUserInfo(res.data);
-                navigate("/");
-              })
-              .catch((err) => {
-                console.log("res error", err);
-              });
-          },
-          function (_request: any, error: any) {
-            setResponse(error.error_description);
-          },
-        );
-      }
+      getToken(
+        "https://test-sso.ssv.uz/oauth/token",
+        {
+          grant_type: "authorization_code",
+          code: q.code,
+          client_id: "97c3e637-6441-4cbe-95fa-5cbf6fb907a3",
+          redirect_uri: "http://localhost:3000/auth/callback",
+          code_verifier: localStorage.getItem("pkce_code_verifier"),
+          claims: "organization",
+        },
+        function (_request: any, body: any) {
+          axios
+            .get(`${import.meta.env.VITE_BASE_URL}/api/v1/get-token/`, {
+              params: {
+                token: body.access_token,
+              },
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+            .then((res) => {
+              console.log("token res", res);
+              localStorage.setItem("ACCESS_TOKEN", res.data.token);
+              setUserInfo(res.data);
+              const userGroup = res.data.user.groups.find(
+                (group: { name: string }) => group.name in groups,
+              );
+              if (typeof userGroup !== "undefined") {
+                setItem("role", userGroup.name);
+              }
+              navigate("/");
+            })
+            .catch((err) => {
+              console.log("res error", err);
+            });
+        },
+        function (_request: any, error: any) {
+          setResponse(error.error_description);
+        },
+      );
     }
-    console.log("respoinse", response);
+    console.log("response", response);
   }, []);
 
   return (

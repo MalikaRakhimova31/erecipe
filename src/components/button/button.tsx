@@ -13,6 +13,7 @@ export default function CButton(props: ButtonProps): JSX.Element {
     isFull = false,
     height = "53",
     disabled,
+    isLoading,
   } = props;
 
   return (
@@ -26,6 +27,7 @@ export default function CButton(props: ButtonProps): JSX.Element {
       w={`${isFull ? "full" : ""}`}
       padding={padding}
       height={`${height}px`}
+      isLoading={isLoading}
     >
       {text}
     </Button>

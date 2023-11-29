@@ -4,6 +4,7 @@ import { useRef } from "react";
 import USelect from "@/components/USelect/USelect";
 import statusOptions from "@/components/mock/options";
 import Restricted from "@/providers/restricted";
+import { roles } from "@/config/permissions";
 import RecipesTable from "./views/RecipesTable";
 import ExcelBtn from "./views/ExcelBtn";
 
@@ -33,7 +34,7 @@ export default function ERecipes(): React.ReactElement {
             placeholder=""
           />
         </Box>
-        <Restricted to={["MINZDRAV"]}>
+        <Restricted to={[roles.healthMinistry]}>
           <Box flex={2}>
             <ExcelBtn />
           </Box>

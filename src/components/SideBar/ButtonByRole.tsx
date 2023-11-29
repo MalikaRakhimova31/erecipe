@@ -1,19 +1,19 @@
-import roles from "@/providers/roles";
-import { type userRoleProps } from "@/types";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import Restricted from "@/providers/restricted";
+import { roles } from "@/config/permissions";
 import CButton from "../button/button";
 import OrganizationButton from "../OrganizationButton/OrganizationButton";
 
-interface buttonProps {
-  role: userRoleProps;
+interface RoleButton {
+  role: keyof typeof roles;
   children: React.ReactElement;
 }
 
 export default function ButtonByRole(): React.ReactElement {
   const navigate = useNavigate();
-  const component: buttonProps[] = [
+
+  const component: RoleButton[] = [
     {
       role: roles.doctor,
       children: (
@@ -38,7 +38,7 @@ export default function ButtonByRole(): React.ReactElement {
       ),
     },
     {
-      role: roles.minzdrav,
+      role: roles.healthMinistry,
       children: (
         <OrganizationButton src="/assets/minzdrav.svg" text="Минздрав РУз" />
       ),
@@ -53,6 +53,7 @@ export default function ButtonByRole(): React.ReactElement {
       ),
     },
   ];
+
   return (
     <Box width="100%">
       {component.map((el) => (

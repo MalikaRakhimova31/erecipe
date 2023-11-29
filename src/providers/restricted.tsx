@@ -1,20 +1,23 @@
-import { useContext } from "react";
-import { type roleArrayProps } from "@/types";
-import PermissionContext from "./permission-content";
+import { groups, type roles } from "@/config/permissions";
+import getItem from "@/helpers/get-item";
 
 interface Props {
-  to: roleArrayProps;
+  to: Array<keyof typeof roles>;
   children: React.ReactElement;
 }
 
-export default function Restricted({
-  to,
-  children,
-}: Props): null | React.ReactElement {
-  const { isAllowedTo } = useContext(PermissionContext);
+export default function Restricted(props: Props): null | React.ReactElement {
+  const { to, children } = props;
 
-  if (to !== null && isAllowedTo(to)) {
-    return <div>{children}</div>;
+  const userRole = getItem("role") as keyof typeof groups;
+
+  if (userRole === null) {
+    return null;
   }
+
+  if (to.includes(groups[userRole])) {
+    return children;
+  }
+
   return null;
 }

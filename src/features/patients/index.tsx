@@ -5,6 +5,7 @@ import UInput from "@/components/UInput/UInput";
 import Restricted from "@/providers/restricted";
 import { useSearchParams } from "react-router-dom";
 import format from "date-fns/format";
+import { roles } from "@/config/permissions";
 import PatientsTable from "./views/PatientsTable";
 import FilterPopup from "../doctors/views/FilterPopup";
 import { UseGetAllUsers } from "../create-recipe/api";
@@ -35,10 +36,11 @@ function PatientsHome(): React.ReactElement {
   const handleChange = (e: Date): void => {
     setValue(e);
   };
+
   return (
     <>
       <Flex columnGap="16px" padding="16px">
-        <Restricted to={["DOCTOR", "MAIN_DOCTOR"]}>
+        <Restricted to={[roles.doctor, roles.mainDoctor]}>
           <Box flex="1">
             <CCalendar
               value={value}
@@ -83,7 +85,7 @@ function PatientsHome(): React.ReactElement {
                 });
               }}
             />
-            <Restricted to={["MINZDRAV"]}>
+            <Restricted to={[roles.healthMinistry]}>
               <Flex
                 alignItems="center"
                 justifyContent="center"

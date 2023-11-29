@@ -1,13 +1,16 @@
 import TitleWithIcon from "@/components/TitleWithIcon/TitleWithIcon";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { type SelectionMenuProps, type IconTitleBoxProps } from "@/types";
+import { type SelectionMenuProps } from "@/types";
 import USelect from "@/components/USelect/USelect";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+
 import DoughnutChart from "./views/Donut";
 
 import RecentPatients from "./views/RecentPatients";
 
 import LineGraph from "./views/LineGraph";
+import { getRecipeStatDate, getRecipeStats } from "./api";
 
 const options: SelectionMenuProps[] = [
   {
@@ -17,24 +20,6 @@ const options: SelectionMenuProps[] = [
   {
     value: "monthly",
     label: "За месяц",
-  },
-];
-
-const info: IconTitleBoxProps[] = [
-  {
-    icon: <PersonIcon />,
-    title: "Кол-во принятых пациентов за текущий месяц",
-    text: "140",
-  },
-  {
-    icon: <DocumentIcon />,
-    title: "Кол-во выписанных рецептов за текущий месяц",
-    text: "1650",
-  },
-  {
-    icon: <BottleIcon />,
-    title: "Кол-во выписанных назначений в рецептах",
-    text: "2890",
   },
 ];
 
@@ -48,6 +33,27 @@ export default function Dashboard(): React.ReactElement {
   //   searchParams.set("role", "DOCTOR");
   //   navigate({ ...location, search: searchParams.toString() });
   // }, []);
+
+  const { data: recipeStats } = useQuery({
+    queryKey: ["recipe-stats"],
+    queryFn: async () => {
+      const res = await getRecipeStats();
+      return res;
+    },
+  });
+
+  console.log(recipeStats);
+
+  const { data } = useQuery({
+    queryKey: ["recipe-stats-date"],
+    queryFn: async () => {
+      const res = await getRecipeStatDate();
+      return res;
+    },
+  });
+
+  console.log(data);
+
   const handleChange = (e: SelectionMenuProps): void => {
     setDateTime(e);
   };
@@ -57,14 +63,21 @@ export default function Dashboard(): React.ReactElement {
   return (
     <Flex p={4} direction="column" rowGap="16px">
       <Flex alignItems="center" justifyContent="space-between" columnGap="16px">
-        {info.map((el: IconTitleBoxProps) => (
-          <TitleWithIcon
-            icon={el.icon}
-            title={el.title}
-            text={el.text}
-            key={`${el.title}-${el.text}`}
-          />
-        ))}
+        <TitleWithIcon
+          icon={<PersonIcon />}
+          title="Кол-во принятых пациентов за текущий месяц"
+          text="140"
+        />
+        <TitleWithIcon
+          icon={<DocumentIcon />}
+          title="Кол-во выписанных рецептов за текущий месяц"
+          text={recipeStats?.current}
+        />
+        <TitleWithIcon
+          icon={<BottleIcon />}
+          title="Кол-во выписанных назначений в рецептах"
+          text="2890"
+        />
       </Flex>
       <Flex columnGap="16px" width="100%">
         <Flex
@@ -95,7 +108,10 @@ export default function Dashboard(): React.ReactElement {
               />
             </Box>
           </Flex>
-          <LineGraph />
+          <LineGraph
+            labels={data?.data?.map((month) => month.item) ?? []}
+            values={data?.data?.map((month) => month.count) ?? []}
+          />
         </Flex>
         <Flex w="32.4%" direction="column" rowGap="16px">
           <Flex
@@ -106,8 +122,7 @@ export default function Dashboard(): React.ReactElement {
             bg="white"
             width="full"
           >
-            {/* <CDonut /> */}
-            <DoughnutChart />
+            {/* <DoughnutChart /> */}
           </Flex>
           <Flex
             border="1px solid #E7EAF0"
@@ -117,7 +132,10 @@ export default function Dashboard(): React.ReactElement {
             bg="white"
             width="full"
           >
-            {/* <DoughnutChart /> */}
+            <DoughnutChart
+              values={recipeStats?.data?.map((recipe) => recipe.count) ?? []}
+              labels={recipeStats?.data?.map((recipe) => recipe.status) ?? []}
+            />
           </Flex>
         </Flex>
       </Flex>

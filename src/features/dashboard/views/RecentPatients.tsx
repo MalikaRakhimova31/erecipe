@@ -9,11 +9,22 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import userData from "@/components/mock/usersData";
 import EmptyBox from "@/components/EmptyBox/EmptyBox";
 import TableRow from "@/features/patients/views/TableRow";
+import { useQuery } from "@tanstack/react-query";
+import { getPatients } from "../api";
 
 export default function RecentPatients(): React.ReactElement {
+  const { data: patientsData } = useQuery({
+    queryKey: ["patients"],
+    queryFn: async () => {
+      const res = await getPatients();
+      return res;
+    },
+  });
+
+  const patients = patientsData?.results;
+
   return (
     <Box
       bg="white"
@@ -26,7 +37,7 @@ export default function RecentPatients(): React.ReactElement {
       <Text fontSize="18px" fontWeight={500} color="secondary.main" mb="8px">
         Показатели враче
       </Text>
-      {userData.length > 0 ? (
+      {Array.isArray(patients) ? (
         <Flex direction="column" justifyContent="space-between" h="100%">
           <TableContainer>
             <Table variant="simple">
@@ -38,13 +49,13 @@ export default function RecentPatients(): React.ReactElement {
                 </Tr>
               </Thead>
               <Tbody>
-                {userData.slice(0, 2).map((el) => (
+                {patients.map((el) => (
                   <TableRow
-                    src={el.src}
-                    name={el.name}
-                    date={el.lastInvite}
-                    id={el.userId}
-                    key={`${el.name}+${el.userId}`}
+                    src={el.birth_date}
+                    name={`${el.lastname} ${el.firstname} ${el.middlename}`}
+                    date={el.last_visited}
+                    id={el.id}
+                    key={el.id}
                   />
                 ))}
               </Tbody>
