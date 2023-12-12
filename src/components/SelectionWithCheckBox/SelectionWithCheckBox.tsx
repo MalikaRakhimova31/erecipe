@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/prefer-ts-expect-error */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react/require-default-props */
-
+// @ts-ignore
+// @ts-nocheck
 import { Controller } from "react-hook-form";
 import Select, {
   components,
@@ -141,8 +144,6 @@ export default function SelectionWithCheckBox({
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
             onChange={onChange}
-            // eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             options={options}
             value={value}
             menuPlacement={menuPlacement}

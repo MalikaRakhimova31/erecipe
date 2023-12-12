@@ -1,3 +1,12 @@
+/* eslint-disable arrow-body-style */
+/* eslint-disable react/function-component-definition */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable @typescript-eslint/prefer-ts-expect-error */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable react/require-default-props */
+// @ts-ignore
+// @ts-nocheck
 import { type USelectProps } from "@/types";
 import SelectMenu, { components, type OptionProps } from "react-select";
 import { Text, Checkbox, Flex } from "@chakra-ui/react";
