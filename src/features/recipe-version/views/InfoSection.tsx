@@ -1,16 +1,27 @@
 import StatusBox from "@/components/StatusBox/StatusBox";
 import TitleDescBox from "@/components/TitleDescBox/TitleDescBox";
-import { Flex } from "@chakra-ui/react";
+import { useHaveAccessTo } from "@/helpers/have-access-to";
+import { Grid, GridItem } from "@chakra-ui/react";
 import format from "date-fns/format";
 import { useMemo } from "react";
+import type { RecipeDetailsTypes } from "../types";
 
-export default function InfoSection({ recipe }: any): React.ReactElement {
-  // console.log("info recipe", recipe);
+interface recipeProps {
+  recipe: RecipeDetailsTypes;
+}
+
+export default function InfoSection({
+  recipe,
+}: recipeProps): React.ReactElement {
+  const isOrganization = useHaveAccessTo("recipe-version-organization");
+  const isDoctor = useHaveAccessTo("recipe-version-doctor");
+
+  console.log("isDoctor", isDoctor);
+
   const recipeInfo = useMemo(
     // eslint-disable-next-line consistent-return
     () => {
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (recipe) {
+      if (Boolean(recipe) && isDoctor) {
         return [
           {
             title: "создан",
@@ -36,24 +47,58 @@ export default function InfoSection({ recipe }: any): React.ReactElement {
           },
         ];
       }
+      if (Boolean(recipe) && isOrganization) {
+        return [
+          {
+            title: "создан",
+            description: format(
+              new Date(recipe?.created_at),
+              "dd/MM/yyyy (HH:mm)",
+            ),
+          },
+          {
+            title: "Действует до",
+            description: format(
+              new Date(recipe?.created_at),
+              "dd/MM/yyyy (HH:mm)",
+            ),
+          },
+          {
+            title: "Врач",
+            description: recipe?.practitioner.firstname,
+          },
+
+          {
+            title: "Пациент",
+            description: `${recipe?.patient?.firstname} ${recipe?.patient?.lastname}`,
+          },
+          {
+            title: "Поликлиника",
+            description: recipe.practitioner.organization.name.ru,
+          },
+          {
+            title: "Адрес поликлиники",
+            description: recipe.practitioner.organization.name.ru,
+          },
+          {
+            title: "Статус",
+            description: <StatusBox status={recipe.status} />,
+          },
+        ];
+      }
     },
-    [recipe],
+    [isDoctor, isOrganization, recipe],
   );
 
+  console.log("recipeInfo", recipeInfo);
+
   return (
-    <Flex
-      w="full"
-      columnGap="16px"
-      alignItems="center"
-      justifyContent="space-between"
-    >
+    <Grid templateColumns="repeat(4, 1fr)" gap={4}>
       {recipeInfo?.map((el) => (
-        <TitleDescBox
-          title={el.title}
-          description={el.description}
-          key={el.title}
-        />
+        <GridItem key={el.title}>
+          <TitleDescBox title={el.title} description={el.description} />
+        </GridItem>
       ))}
-    </Flex>
+    </Grid>
   );
 }

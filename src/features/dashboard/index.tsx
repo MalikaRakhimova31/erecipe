@@ -4,13 +4,17 @@ import { type SelectionMenuProps } from "@/types";
 import USelect from "@/components/USelect/USelect";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-
-import DoughnutChart from "./views/Donut";
-
+import Chart from "react-apexcharts";
+import {
+  mainDoctorsListTH,
+  patientIndicatorsTH,
+} from "@/components/mock/tableHeaders";
+import JoinedTable from "@/components/JoinedTable/JoinedTable";
+import Pagination from "@/components/Pagination/Pagination";
 import RecentPatients from "./views/RecentPatients";
-
 import LineGraph from "./views/LineGraph";
-import { getRecipeStatDate, getRecipeStats } from "./api";
+import { getRecipeStatDate } from "./api";
+import useStatsState from "./views/state";
 
 const options: SelectionMenuProps[] = [
   {
@@ -25,24 +29,28 @@ const options: SelectionMenuProps[] = [
 
 export default function Dashboard(): React.ReactElement {
   const [dateTime, setDateTime] = useState(options[0]);
-
-  // const location = useLocation();
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   const searchParams = new URLSearchParams(location.search);
-  //   searchParams.set("role", "DOCTOR");
-  //   navigate({ ...location, search: searchParams.toString() });
-  // }, []);
-
-  const { data: recipeStats } = useQuery({
-    queryKey: ["recipe-stats"],
-    queryFn: async () => {
-      const res = await getRecipeStats();
-      return res;
-    },
-  });
-
-  console.log(recipeStats);
+  const {
+    patientsStats,
+    patientsDoughnut,
+    patientsDoughnutSeries,
+    recipeDoughnut,
+    recipeDoughnutSeries,
+    recipeStats,
+    practitionerCount,
+    isPractitionerCount,
+    healthMinistryTable,
+    patientsIndicatorTB,
+    isDoctor,
+    PAGE_SIZE,
+    currentPage,
+    setCurrentPage,
+    patientsData,
+    patientsLoading,
+    doctorsTB,
+    doctorsLoading,
+    doctors,
+    isMainDoctor,
+  } = useStatsState();
 
   const { data } = useQuery({
     queryKey: ["recipe-stats-date"],
@@ -52,13 +60,9 @@ export default function Dashboard(): React.ReactElement {
     },
   });
 
-  console.log(data);
-
   const handleChange = (e: SelectionMenuProps): void => {
     setDateTime(e);
   };
-
-  // console.log("DASHBOARD USER", user)
 
   return (
     <Flex p={4} direction="column" rowGap="16px">
@@ -66,17 +70,24 @@ export default function Dashboard(): React.ReactElement {
         <TitleWithIcon
           icon={<PersonIcon />}
           title="Кол-во принятых пациентов за текущий месяц"
-          text="140"
+          text={patientsStats?.current}
         />
+        {isPractitionerCount && (
+          <TitleWithIcon
+            icon={<DocumentIcon />}
+            title="Кол-во работающих врачей в области"
+            text={practitionerCount?.count}
+          />
+        )}
         <TitleWithIcon
-          icon={<DocumentIcon />}
-          title="Кол-во выписанных рецептов за текущий месяц"
+          icon={<BottleIcon />}
+          title="Кол-во выписанных назначений в рецептах"
           text={recipeStats?.current}
         />
         <TitleWithIcon
           icon={<BottleIcon />}
-          title="Кол-во выписанных назначений в рецептах"
-          text="2890"
+          title="Кол-во выписанных назначений в области"
+          text={recipeStats?.total_recipe_items}
         />
       </Flex>
       <Flex columnGap="16px" width="100%">
@@ -120,9 +131,12 @@ export default function Dashboard(): React.ReactElement {
             py={4}
             px={5}
             bg="white"
-            width="full"
           >
-            {/* <DoughnutChart /> */}
+            <Chart
+              type="donut"
+              options={patientsDoughnut ?? []}
+              series={patientsDoughnutSeries ?? []}
+            />
           </Flex>
           <Flex
             border="1px solid #E7EAF0"
@@ -130,16 +144,87 @@ export default function Dashboard(): React.ReactElement {
             py={4}
             px={5}
             bg="white"
-            width="full"
           >
-            <DoughnutChart
-              values={recipeStats?.data?.map((recipe) => recipe.count) ?? []}
-              labels={recipeStats?.data?.map((recipe) => recipe.status) ?? []}
+            <Chart
+              type="donut"
+              options={recipeDoughnut ?? []}
+              series={recipeDoughnutSeries ?? []}
             />
           </Flex>
         </Flex>
       </Flex>
-      <RecentPatients />
+      {healthMinistryTable && <RecentPatients />}
+      {isDoctor && (
+        <Box
+          bg="white"
+          borderRadius="8px"
+          px="20px"
+          py={6}
+          border="1px solid #E7EAF0"
+          w="100%"
+        >
+          <Text
+            fontSize="18px"
+            fontWeight={500}
+            color="secondary.main"
+            mb="8px"
+          >
+            Недавние пациенты
+          </Text>
+          <Flex direction="column" justifyContent="space-between" h="100%">
+            <JoinedTable
+              headData={patientIndicatorsTH}
+              bodyData={patientsIndicatorTB}
+              loading={patientsLoading}
+              path="patients"
+            />
+            <Pagination
+              pageSize={PAGE_SIZE}
+              totalCount={patientsData?.count ?? 1}
+              siblingCount={1}
+              currentPage={currentPage}
+              onPageChange={(page) => {
+                setCurrentPage(page);
+              }}
+            />
+          </Flex>
+        </Box>
+      )}
+      {isMainDoctor && (
+        <Box
+          bg="white"
+          borderRadius="8px"
+          px="20px"
+          py={6}
+          border="1px solid #E7EAF0"
+          w="100%"
+        >
+          <Text
+            fontSize="18px"
+            fontWeight={500}
+            color="secondary.main"
+            mb="8px"
+          >
+            Показатели врачей
+          </Text>
+          <Flex direction="column" justifyContent="space-between" h="100%">
+            <JoinedTable
+              headData={mainDoctorsListTH}
+              bodyData={doctorsTB}
+              loading={doctorsLoading}
+            />
+            <Pagination
+              pageSize={PAGE_SIZE}
+              totalCount={doctors?.count ?? 1}
+              siblingCount={1}
+              currentPage={currentPage}
+              onPageChange={(page) => {
+                setCurrentPage(page);
+              }}
+            />
+          </Flex>
+        </Box>
+      )}
     </Flex>
   );
 }

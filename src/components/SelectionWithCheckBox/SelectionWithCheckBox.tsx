@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+
 import { Controller } from "react-hook-form";
 import Select, {
   components,
@@ -100,10 +102,13 @@ interface Props {
   control: any;
   name: string;
   title: string;
-  options: SelectionMenuProps[];
+  options: SelectionMenuProps[] | undefined | string;
   placeholder: string;
-  // eslint-disable-next-line react/require-default-props
   errors?: boolean;
+  isMulti?: boolean;
+  isSearchable?: boolean;
+  isClearable?: boolean;
+  menuPlacement?: "bottom" | "top";
 }
 
 export default function SelectionWithCheckBox({
@@ -113,6 +118,10 @@ export default function SelectionWithCheckBox({
   options,
   placeholder,
   errors = false,
+  isMulti = false,
+  menuPlacement = "bottom",
+  isClearable,
+  isSearchable,
 }: Props): React.ReactElement {
   const selectionStyles = selectStyles(errors);
   return (
@@ -124,14 +133,19 @@ export default function SelectionWithCheckBox({
           <Select
             styles={selectionStyles}
             defaultValue={[]}
-            isMulti
+            isSearchable={isSearchable}
+            isClearable={isClearable}
+            isMulti={isMulti}
             className="react-select"
             classNamePrefix="react-select"
             closeMenuOnSelect={false}
             hideSelectedOptions={false}
             onChange={onChange}
+            // eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error, @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             options={options}
             value={value}
+            menuPlacement={menuPlacement}
             placeholder={placeholder}
             components={{
               Option: InputOption,

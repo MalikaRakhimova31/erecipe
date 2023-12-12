@@ -43,7 +43,7 @@ export default function SeparatedTable({
             </Tr>
           </Thead>
           <Tbody>
-            {bodyData?.map((el) => (
+            {bodyData?.map((el: any) => (
               <>
                 <Tr
                   bg="white"

@@ -124,14 +124,13 @@ export default function CSelect({
               options={options}
               classNamePrefix="react-select"
               className="react-select"
-              // openMenuOnFocus
               isClearable={isClearable}
               isMulti={isMulti}
               isDisabled={isDisabled}
               isSearchable={isSearchable}
               placeholder={placeholder}
-              formatOptionLabel={formatOptionLabel}
               menuPlacement={menuPlacement}
+              formatOptionLabel={formatOptionLabel}
               // getOptionValue={(option) => option.value}
               components={{
                 IndicatorSeparator: () => null,

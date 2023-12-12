@@ -11,6 +11,10 @@ import ERecipes from "@/features/recipes";
 import Polyclinic from "@/features/polylinic";
 import RecipeRecommendation from "@/features/recipe-recommendation";
 import IssueHistory from "@/features/issue-history";
+import PatientsContainer from "@/features/patients/views/patients-container";
+import RecipeContainer from "@/features/recipes/views/recipe-container";
+import IssuesHistoryItem from "@/features/issue-history/views/issues-history-item";
+import OrdersContainer from "@/features/issue-history/views/issues-container";
 
 const routes = [
   {
@@ -24,6 +28,13 @@ const routes = [
         id: "dashboard",
         path: "dashboard",
         element: <Dashboard />,
+        loader: async () => null,
+        errorElement: <div>Error element</div>,
+      },
+      {
+        id: "polyclinics",
+        path: "polyclinics",
+        element: <Polyclinic />,
         loader: async () => null,
         errorElement: <div>Error element</div>,
       },
@@ -44,7 +55,7 @@ const routes = [
       {
         id: "erecipes",
         path: "erecipes",
-        element: <ERecipes />,
+        element: <RecipeContainer of={<ERecipes />} />,
         loader: async () => null,
         errorElement: <div>Error element</div>,
         children: [
@@ -65,7 +76,7 @@ const routes = [
       {
         id: "patients",
         path: "patients",
-        element: <PatientsHome />,
+        element: <PatientsContainer of={<PatientsHome />} />,
         loader: async () => null,
         errorElement: <div>Error element</div>,
         children: [
@@ -102,9 +113,18 @@ const routes = [
       {
         id: "issues-history",
         path: "issues-history",
-        element: <IssueHistory />,
+        element: <OrdersContainer of={<IssueHistory />} />,
         loader: async () => null,
         errorElement: <div>Error element</div>,
+        children: [
+          {
+            id: "recipe-orders-item",
+            path: ":id",
+            element: <IssuesHistoryItem />,
+            loader: async () => null,
+            errorElement: <div>Error element</div>,
+          },
+        ],
       },
       {
         id: "local-not-found",

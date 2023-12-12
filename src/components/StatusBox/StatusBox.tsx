@@ -1,8 +1,18 @@
 import { Flex } from "@chakra-ui/react";
 import cn from "classnames";
-import { type StatusProps } from "@/types";
+
 import styles from "./Styles.module.scss";
 import statuses from "../mock/statuses";
+
+interface StatusProps {
+  status:
+    | "issuedByDoctor"
+    | "issuedByPharmacy"
+    | "issued"
+    | "declined"
+    | "expired"
+    | "new";
+}
 
 export default function StatusBox({ status }: StatusProps): React.ReactElement {
   const classNames = cn(

@@ -35,7 +35,7 @@ export default function RecipeTable({
           </Tr>
         </Thead>
         <Tbody>
-          {bodyData?.map((el) => (
+          {bodyData?.map((el: any) => (
             <Tr
               key={9 + 9}
               onClick={() => {

@@ -1,7 +1,77 @@
 import { type USelectProps } from "@/types";
-import SelectMenu, { components } from "react-select";
+import SelectMenu, { components, type OptionProps } from "react-select";
+import { Text, Checkbox, Flex } from "@chakra-ui/react";
+import { useState } from "react";
 import selectStyles from "./selectStyles";
-import { Text } from "@chakra-ui/react";
+
+interface InputOptionProps extends OptionProps<any> {
+  getStyles: any;
+  isDisabled: boolean;
+  isFocused: boolean;
+  isSelected: boolean;
+  children: React.ReactNode;
+  innerProps: any;
+}
+
+function InputOption({
+  getStyles,
+  isDisabled,
+  isFocused,
+  isSelected,
+  children,
+  innerProps,
+  ...rest
+}: InputOptionProps): React.ReactElement {
+  const [isActive, setIsActive] = useState(false);
+  const onMouseDown = (): void => {
+    setIsActive(true);
+  };
+  const onMouseUp = (): void => {
+    setIsActive(false);
+  };
+  const onMouseLeave = (): void => {
+    setIsActive(false);
+  };
+
+  // styles
+  let bg = "transparent";
+  if (isFocused) bg = "#EBFAF9";
+  if (isActive) bg = "#EBFAF9";
+
+  const style = {
+    alignItems: "center",
+    backgroundColor: bg,
+    color: "inherit",
+    display: "flex ",
+  };
+
+  // prop assignment
+  const props = {
+    ...innerProps,
+    onMouseDown,
+    onMouseUp,
+    onMouseLeave,
+    style,
+  };
+
+  return (
+    <components.Option
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...rest}
+      isDisabled={isDisabled}
+      isFocused={isFocused}
+      isSelected={isSelected}
+      getStyles={getStyles}
+      innerProps={props}
+    >
+      {/* <input type="checkbox" checked={isSelected} /> */}
+      <Flex columnGap="8px" alignItems="center">
+        <Checkbox isChecked={isSelected} colorScheme="primary.main" />
+        {children}
+      </Flex>
+    </components.Option>
+  );
+}
 
 function ChevronDown(): React.ReactElement {
   return (
@@ -164,8 +234,8 @@ export default function USelect({
     <SelectMenu
       styles={selectStyles}
       options={options}
-      classNamePrefix="select"
-      className="basic-multi-select"
+      className="react-select"
+      classNamePrefix="react-select"
       openMenuOnFocus
       isClearable={isClearable}
       isMulti={isMulti}
@@ -180,6 +250,7 @@ export default function USelect({
       components={{
         // IndicatorSeparator: () => null,
         NoOptionsMessage,
+        Option: InputOption,
         DropdownIndicator: customDropdownIndicator,
         ClearIndicator: customClearIndicator,
       }}

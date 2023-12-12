@@ -6,7 +6,7 @@ import { Outlet, useSearchParams } from "react-router-dom";
 
 export default function Auth(): React.ReactElement {
   const code = useSearchParams()[0].get("code");
-  const [isLoading, setIsLoading] = useState(!!code || false);
+  const [isLoading, setIsLoading] = useState(!(code == null) || false);
 
   return (
     <Box padding="16px" w="100%" height="92vh">
@@ -22,7 +22,7 @@ export default function Auth(): React.ReactElement {
           <img
             src="/assets/background.png"
             alt="bg"
-            className="h-full object-cover"
+            className="h-full object-cover w-full"
           />
         </Box>
         <Box

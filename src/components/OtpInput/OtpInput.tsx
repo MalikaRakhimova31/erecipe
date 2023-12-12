@@ -22,7 +22,6 @@ export default function OtpInput({ name, control }: Props): React.ReactElement {
           validChars="0-9"
           length={6}
           inputProps={{ inputMode: "numeric" }}
-          // inputMode="numeric"
           onChange={onChange}
           value={value}
           classNames={{

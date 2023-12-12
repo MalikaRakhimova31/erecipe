@@ -1,4 +1,5 @@
 import {
+  Skeleton,
   Table,
   TableContainer,
   Tbody,
@@ -15,8 +16,10 @@ export default function JoinedTable({
   bodyData,
   hasPath = false,
   path = "",
+  loading,
 }: TableProps): React.ReactElement {
   const navigate = useNavigate();
+  const arr = [1, 2, 3, 4];
   const handleNavigate = (url: string, id: string): void => {
     if (hasPath) {
       navigate(`/${url}/${id}`);
@@ -26,35 +29,57 @@ export default function JoinedTable({
     <TableContainer>
       <Table variant="simple">
         <Thead>
-          <Tr>
-            {headData?.map((el) => (
-              <Th key={el}>{el}</Th>
-            ))}
-          </Tr>
+          {loading ? (
+            <Tr>
+              <Th>
+                <div />
+              </Th>
+            </Tr>
+          ) : (
+            <Tr>
+              {headData?.map((el) => (
+                <Th key={el}>{el}</Th>
+              ))}
+            </Tr>
+          )}
         </Thead>
         <Tbody>
-          {bodyData?.map((el) => (
-            <Tr
-              key={9 + 9}
-              onClick={() => {
-                handleNavigate(path, el.id);
-              }}
-            >
-              {Object.keys(el).map((key: string) => {
-                if (key === "id") return null;
-                return (
-                  <Td key={key}>
-                    {key === "edit" ? (
-                      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                      <Link to={`/${path}/${el.id}`}>{el[key]}</Link>
-                    ) : (
-                      el[key]
-                    )}
+          {loading
+            ? arr.map((el) => (
+                <Tr key={el}>
+                  <Td>
+                    <Skeleton
+                      key={`skeleton-table-${el}`}
+                      height={10}
+                      width="100%"
+                      borderRadius="8px"
+                      size="sm"
+                    />
                   </Td>
-                );
-              })}
-            </Tr>
-          ))}
+                </Tr>
+              ))
+            : bodyData?.map((el: any) => (
+                <Tr
+                  key={el.id}
+                  onClick={() => {
+                    handleNavigate(path, el.id);
+                  }}
+                >
+                  {Object.keys(el).map((key: string) => {
+                    if (key === "id") return null;
+                    return (
+                      <Td key={key}>
+                        {key === "edit" ? (
+                          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                          <Link to={`/${path}/${el.id}`}>{el[key]}</Link>
+                        ) : (
+                          el[key]
+                        )}
+                      </Td>
+                    );
+                  })}
+                </Tr>
+              ))}
         </Tbody>
       </Table>
     </TableContainer>

@@ -1,15 +1,16 @@
 import { Box, Flex } from "@chakra-ui/react";
 import CTabs from "@/components/CTabs/CTabs";
 import UInput from "@/components/UInput/UInput";
-import { useRef } from "react";
 import CButton from "@/components/button/button";
+import { useState } from "react";
 import Header from "./views/Header";
 import TitleText from "./views/TitleText";
 import RecipeTable from "./views/RecipeTable";
 import DrugQuantity from "./views/DrugQuantity";
 
 export default function RecipeRecommendation(): React.ReactElement {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [search, setSearch] = useState("");
+
   const tHead = [
     "нАЗВАНИЕ лекарства",
     "МНН",
@@ -34,12 +35,7 @@ export default function RecipeRecommendation(): React.ReactElement {
       ),
     },
   ];
-  const onChange = (): void => {
-    if (inputRef.current !== null) {
-      const inputValue = inputRef.current.value;
-      console.log(inputValue);
-    }
-  };
+
   const tabs = ["Назначение #1"];
   return (
     <>
@@ -66,10 +62,12 @@ export default function RecipeRecommendation(): React.ReactElement {
               <UInput
                 icon="/assets/search.svg"
                 placeholder="Поиск лекарств"
-                inputRef={inputRef}
-                onChange={onChange}
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
               />
-              <RecipeTable headData={tHead} bodyData={bData} />
+              <RecipeTable headData={tHead} bodyData={bData} loading />
             </Flex>
           </Flex>
         </CTabs>

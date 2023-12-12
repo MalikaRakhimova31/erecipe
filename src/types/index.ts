@@ -46,7 +46,7 @@ interface SidebarMenuProps {
 }
 
 interface SelectionMenuProps {
-  value: string;
+  value: string | number;
   label: string;
 }
 interface SelectProps {
@@ -65,7 +65,7 @@ interface SelectProps {
 }
 interface USelectProps {
   options: any;
-  placeholder: string;
+  placeholder?: string;
   isClearable?: boolean;
   isSearchable?: boolean;
   isMulti?: boolean;
@@ -169,9 +169,10 @@ type permissionProps = string;
 
 interface TableProps {
   headData: any[];
-  bodyData: any[];
+  bodyData: any;
   path?: string;
   hasPath?: boolean;
+  loading: boolean;
 }
 
 interface ModalProps {
@@ -198,7 +199,24 @@ interface ListResponse<T> {
 
 interface BaseParams {
   page?: number;
-  page_number?: number;
+  page_size?: number;
+}
+
+interface RegionsParams extends BaseParams {
+  id: string | number;
+}
+
+interface RegionTypes {
+  id: number;
+  name: {
+    ru: string;
+    uz: string;
+    uzc: string;
+  };
+}
+
+interface RegionChildrenTypes {
+  childs: RegionTypes[];
 }
 
 export type {
@@ -225,4 +243,7 @@ export type {
   patientInfoProps,
   ListResponse,
   BaseParams,
+  RegionsParams,
+  RegionTypes,
+  RegionChildrenTypes,
 };

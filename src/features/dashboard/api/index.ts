@@ -1,29 +1,16 @@
 import request from "@/utils/axios";
-import type { BaseParams, ListResponse } from "@/types";
-
-interface Patient {
-  id: number;
-  uid: string;
-  firstname: string;
-  lastname: string;
-  middlename: string;
-  nnuzb: string;
-  ppn: string;
-  tppn: string;
-  bct: string;
-  gender: "male" | "female";
-  birth_date: string;
-  last_visited: string;
-}
-
-interface PatientsParams extends BaseParams {
-  visited?: string;
-  organization?: string;
-  region?: string;
-  practitioner_role?: string;
-  search?: string;
-  ordering?: string;
-}
+import type { ListResponse } from "@/types";
+import type {
+  Organizations,
+  OrganizationsParams,
+  Patient,
+  PatientStatsParams,
+  PatientStatsTypes,
+  PatientsParams,
+  PractitionerCountTypes,
+  RecipeStatDateParams,
+  RecipeStatsParams,
+} from "../types";
 
 export async function getPatients(
   params?: PatientsParams,
@@ -36,26 +23,37 @@ export async function getPatients(
 
   return res;
 }
+export async function getPatientsStats(
+  params?: PatientStatsParams,
+): Promise<PatientStatsTypes> {
+  const res: PatientStatsTypes = await request({
+    url: "/api/v1/ssv/patients/patient_statistics/",
+    method: "get",
+    params,
+  });
 
-interface RecipeList {
-  id: number;
-  patient: Patient;
-  practitioner: string;
-  uid: string;
-  status: "new" | "done" | "expired";
-  created_at: string;
-  updated_at: string;
+  return res;
 }
+export async function getOrganizations(
+  params?: OrganizationsParams,
+): Promise<ListResponse<Organizations[]>> {
+  const res: ListResponse<Organizations[]> = await request({
+    url: "/api/v1/ssv/organizations/",
+    method: "get",
+    params,
+  });
 
-interface RecipeStatDateParams extends BaseParams {
-  patient?: string;
-  practitioner?: string;
-  status?: "new" | "done" | "expired";
-  region?: string;
-  organization?: string;
-  search?: string;
-  ordering?: string;
-  date?: "year" | "month" | "week";
+  return res;
+}
+export async function getPractitionerCount(): Promise<
+  ListResponse<PractitionerCountTypes>
+> {
+  const res: ListResponse<PractitionerCountTypes> = await request({
+    url: "/api/v1/ssv/organizations/get_practitioner_count/",
+    method: "get",
+  });
+
+  return res;
 }
 
 export async function getRecipeStatDate(
@@ -76,20 +74,14 @@ export async function getRecipeStatDate(
   return res;
 }
 
-interface RecipeStatsParams extends BaseParams {
-  patient: string;
-  practitioner: string;
-  status: "new" | "done" | "expired";
-  region: string;
-  organization: string;
-  search: string;
-  ordering: string;
-}
-
 export async function getRecipeStats(params?: RecipeStatsParams): Promise<{
   current: 0;
   total: 0;
-  data: Array<{ status: "expired" | "done"; count: number; percent: number }>;
+  data: Array<{
+    status: "expired" | "done" | "new";
+    count: number;
+    percent: number;
+  }>;
 }> {
   const res: {
     current: 0;

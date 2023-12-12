@@ -1,34 +1,65 @@
 import UInput from "@/components/UInput/UInput";
-import { Flex, Text } from "@chakra-ui/react";
-import { useRef, useState } from "react";
-import Restricted from "@/providers/restricted";
-import { roles } from "@/config/permissions";
-import DoctorsTable from "./views/DoctorsTable";
-import FilterPopup from "./views/FilterPopup";
+import {
+  Box,
+  Flex,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Text,
+} from "@chakra-ui/react";
+import {
+  mainDoctorsTH,
+  ministryDoctorsTH,
+} from "@/components/mock/tableHeaders";
+import JoinedTable from "@/components/JoinedTable/JoinedTable";
+import Pagination from "@/components/Pagination/Pagination";
+import SelectionWithCheckBox from "@/components/SelectionWithCheckBox/SelectionWithCheckBox";
+import CModal from "@/components/CModal/CModal";
+import CButton from "@/components/button/button";
+import EmptyBox from "@/components/EmptyBox/EmptyBox";
+import useDoctorState from "./views/state";
 
 export default function Doctors(): React.ReactElement {
-  const [filter, setFilter] = useState<boolean>(false);
+  const {
+    doctors,
+    ministryDoctorsTB,
+    doctorsLoading,
+    PAGE_SIZE,
+    currentPage,
+    setCurrentPage,
+    filter,
+    setFilter,
+    control,
+    handleSubmit,
+    onSubmit,
+    isMinistry,
+    reset,
+    regionsOption,
+    cityOptions,
+    valleyOptions,
+    polyclinicOptions,
+    specializationOptions,
+    search,
+    setSearch,
+  } = useDoctorState();
+
   const handleFilterModal = (): void => {
     setFilter(true);
   };
-  const inputRef = useRef<HTMLInputElement>(null);
-  const onChange = (): void => {
-    if (inputRef.current !== null) {
-      const inputValue = inputRef.current.value;
-      console.log(inputValue);
-    }
-  };
+
   return (
     <>
       <Flex p={4} direction="column" rowGap="16px">
-        <Flex alignItems="center" columnGap="16px">
-          <UInput
-            onChange={onChange}
-            inputRef={inputRef}
-            icon="/assets/search.svg"
-            placeholder="Поиск по имени и специализации врача"
-          />
-          <Restricted to={[roles.healthMinistry]}>
+        {isMinistry && (
+          <Flex alignItems="center" columnGap="16px">
+            <UInput
+              icon="/assets/search.svg"
+              placeholder="Поиск по имени и специализации врача"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+            />
             <Flex
               alignItems="center"
               justifyContent="center"
@@ -46,16 +77,142 @@ export default function Doctors(): React.ReactElement {
                 Фильтр<span className="text-[#8E93AA] ml-1">(0)</span>
               </Text>
             </Flex>
-          </Restricted>
-        </Flex>
-        <DoctorsTable />
+          </Flex>
+        )}
+        <Box
+          bg="white"
+          borderRadius="8px"
+          px="20px"
+          py={6}
+          border="1px solid #E7EAF0"
+          w="100%"
+          minH="80vh"
+        >
+          <Flex direction="column" justifyContent="space-between" h="100%">
+            {doctors?.results?.length !== null && doctors?.count !== 0 ? (
+              <JoinedTable
+                headData={isMinistry ? ministryDoctorsTH : mainDoctorsTH}
+                bodyData={ministryDoctorsTB}
+                loading={doctorsLoading}
+              />
+            ) : (
+              <EmptyBox
+                title="Список врачей пуст"
+                description="Здесь будет отображаться список всех врачей, которые работают по всей РУз"
+                icon="/assets/doctors.svg"
+              />
+            )}
+            <Pagination
+              currentPage={currentPage}
+              totalCount={doctors?.count ?? 0}
+              pageSize={PAGE_SIZE}
+              onPageChange={(page) => {
+                setCurrentPage(page);
+              }}
+              siblingCount={1}
+            />
+          </Flex>
+        </Box>
       </Flex>
-      <FilterPopup
+      <CModal
         isOpen={filter}
         onClose={() => {
           setFilter(false);
         }}
-      />
+      >
+        <Box width="475px">
+          <ModalHeader>Фильтр</ModalHeader>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <ModalBody>
+              <Flex
+                width="full"
+                direction="column"
+                rowGap={4}
+                alignItems="flex-start"
+                justifyContent="flex-start"
+                id="filter-popup-select"
+              >
+                <Box width="100%">
+                  <SelectionWithCheckBox
+                    title="Выберите область"
+                    control={control}
+                    name="area"
+                    options={regionsOption}
+                    placeholder="Выберите из списка"
+                    // isMulti
+                    isClearable
+                    isSearchable
+                  />
+                </Box>
+                <Box width="100%">
+                  <SelectionWithCheckBox
+                    title="Выберите город"
+                    placeholder="Выберите из списка"
+                    control={control}
+                    name="city"
+                    options={cityOptions}
+                    isSearchable
+                    isClearable
+                    // isMulti
+                  />
+                </Box>
+                <Box width="100%">
+                  <SelectionWithCheckBox
+                    title="Выберите район"
+                    placeholder="Выберите из списка"
+                    control={control}
+                    name="region"
+                    options={valleyOptions}
+                    menuPlacement="top"
+                    isSearchable
+                    isClearable
+                    // isMulti
+                  />
+                </Box>
+                <Box width="100%">
+                  <SelectionWithCheckBox
+                    title="Выберите поликлинику"
+                    placeholder="Выберите из списка"
+                    control={control}
+                    name="polyclinic"
+                    options={polyclinicOptions}
+                    isSearchable
+                    isClearable
+                    isMulti
+                  />
+                </Box>
+                <Box width="100%">
+                  <SelectionWithCheckBox
+                    title="Выберите специализацию"
+                    placeholder="Выберите из списка"
+                    control={control}
+                    name="specialization"
+                    options={specializationOptions}
+                    menuPlacement="top"
+                    isSearchable
+                    isClearable
+                    isMulti
+                  />
+                </Box>
+              </Flex>
+            </ModalBody>
+            <ModalFooter>
+              <Flex width="100%" justifyContent="flex-end" columnGap={6}>
+                <CButton
+                  buttonType="button"
+                  onClick={() => {
+                    setFilter(false);
+                    reset();
+                  }}
+                  variant="outline"
+                  text="Очистить"
+                />
+                <CButton buttonType="submit" variant="solid" text="Применить" />
+              </Flex>
+            </ModalFooter>
+          </form>
+        </Box>
+      </CModal>
     </>
   );
 }

@@ -19,15 +19,21 @@ export default function haveAccessTo(
     return false;
   }
 
-  if (typeof section === "string") {
+  if (
+    typeof section === "string" &&
+    permissions[section][part]?.includes(
+      groups[userRole as keyof typeof groups],
+    )
+  ) {
     return permissions[section][part].includes(
       groups[userRole as keyof typeof groups],
     );
   }
+  // TODO
 
   const madeUpSection = getSection() as keyof typeof sections;
 
-  return permissions[madeUpSection][part].includes(
+  return permissions[madeUpSection][part]?.includes(
     userRole as keyof typeof roles,
   );
 }

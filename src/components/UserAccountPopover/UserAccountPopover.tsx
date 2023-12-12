@@ -15,6 +15,7 @@ export default function UserAccountPopover(): React.ReactElement {
       width="max-content"
       onClick={() => {
         navigate("/auth");
+        localStorage.removeItem("access_token");
       }}
     >
       <img src="/assets/logout.svg" alt="leave icon" />

@@ -30,7 +30,15 @@ function ExcelIcon(): React.ReactElement {
   );
 }
 
-export default function ExcelBtn(): React.ReactElement {
+interface Props {
+  onClick: () => void;
+  loading: boolean;
+}
+
+export default function ExcelBtn({
+  onClick,
+  loading,
+}: Props): React.ReactElement {
   return (
     <CButton
       buttonType="button"
@@ -38,6 +46,8 @@ export default function ExcelBtn(): React.ReactElement {
       icon={<ExcelIcon />}
       text="Экспорт в Excel"
       height="48"
+      onClick={onClick}
+      isLoading={loading}
     />
   );
 }

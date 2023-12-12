@@ -6,13 +6,13 @@ import { UseGetRecipeItem } from "./api";
 
 export default function RecipeVersion(): React.ReactElement {
   const { id: recipeId } = useParams();
+
   const { data: recipeItem } = UseGetRecipeItem({
     queryParams: {},
     id: recipeId,
     open: !(recipeId == null),
   });
 
-  console.log("recipeItem", recipeItem);
   return (
     <Box padding="16px">
       <InfoSection recipe={recipeItem} />

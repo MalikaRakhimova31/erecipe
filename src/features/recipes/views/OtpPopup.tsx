@@ -3,7 +3,6 @@ import CModal from "@/components/CModal/CModal";
 import OtpInput from "@/components/OtpInput/OtpInput";
 import CButton from "@/components/button/button";
 import formatCodeExpireDuration from "@/helpers/formatCodeExpireDuration";
-import useCodeExpire from "@/helpers/useCodeExpire";
 import {
   Box,
   ModalBody,
@@ -30,18 +29,16 @@ export default function OtpPopup({ open, onClose }: Props): React.ReactElement {
   const onSubmit = (): void => {
     navigate("/recipe-recommendation/1");
   };
-  const [isConfirm, setIsConfirm] = useState(true);
+  // const [isConfirm, setIsConfirm] = useState(true);
   const [seconds, setSeconds] = useState(60);
-  const [expired, setExpired] = useState(false);
-  console.log("setIsConfirm", setIsConfirm);
-  console.log("expired", expired);
+  // const [expired, setExpired] = useState(false);
 
-  useCodeExpire({
-    seconds,
-    setExpired,
-    isConfirm,
-    setSeconds,
-  });
+  // useCodeExpire({
+  //   seconds,
+  //   setExpired,
+  //   isConfirm,
+  //   setSeconds,
+  // });
 
   return (
     <CModal isOpen={open} onClose={onClose}>

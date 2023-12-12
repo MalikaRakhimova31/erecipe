@@ -12,7 +12,7 @@ const request = axios.create({
 
 // request.defaults.headers["Accept-Language"] =
 //   localStorage.getItem("lang") ?? settings.defaultLanguage;
-const token = localStorage.getItem("ACCESS_TOKEN");
+const token = localStorage.getItem("access_token");
 
 request.interceptors.request.use((config) => {
   if (token !== null) {

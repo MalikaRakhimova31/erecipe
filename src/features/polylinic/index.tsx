@@ -1,20 +1,55 @@
 import UInput from "@/components/UInput/UInput";
-import { Flex, Text } from "@chakra-ui/react";
-import { useRef, useState } from "react";
-import FilterPopup from "./views/FilterPopup";
-import PolyclinicTable from "./views/PolyclinicTable";
+import {
+  Box,
+  Flex,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Text,
+} from "@chakra-ui/react";
+import EmptyBox from "@/components/EmptyBox/EmptyBox";
+import JoinedTable from "@/components/JoinedTable/JoinedTable";
+import { healthMinistryDashTH } from "@/components/mock/tableHeaders";
+import Pagination from "@/components/Pagination/Pagination";
+import CButton from "@/components/button/button";
+import CModal from "@/components/CModal/CModal";
+import SelectionWithCheckBox from "@/components/SelectionWithCheckBox/SelectionWithCheckBox";
+import usePolyclinicState from "./views/state";
 
 export default function Polyclinic(): React.ReactElement {
-  const [filter, setFilter] = useState<boolean>(false);
+  const {
+    PAGE_SIZE,
+    currentPage,
+    setCurrentPage,
+    organizationsLoading,
+    oraganizationsData,
+    healthMinistryDashTableBody,
+    cityOptions,
+    valleyOptions,
+    regionsOption,
+    onSubmit,
+    handleSubmit,
+    control,
+    reset,
+    filter,
+    setFilter,
+    params,
+    search,
+    setSearch,
+  } = usePolyclinicState();
+
   const handleFilterModal = (): void => {
     setFilter(true);
   };
-  const inputRef = useRef<HTMLInputElement>(null);
-  const handleChange = (): void => {
-    if (inputRef.current !== null) {
-      console.log(inputRef.current.value);
-    }
-  };
+
+  if (oraganizationsData?.results?.length === 0) {
+    <EmptyBox
+      icon="/assets/patientsBig.svg"
+      title="Список пациентов пуст"
+      description="Здесь будет отображаться список Ваших пациентов, которым вы выписывали рецепт"
+    />;
+  }
+
   return (
     <>
       <Flex p={4} direction="column" rowGap={4}>
@@ -22,8 +57,11 @@ export default function Polyclinic(): React.ReactElement {
           <UInput
             placeholder="Поиск по названию поликлиники"
             icon="/assets/search.svg"
-            inputRef={inputRef}
-            onChange={handleChange}
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            // onChange={handleChange}
           />
           <Flex
             alignItems="center"
@@ -39,18 +77,110 @@ export default function Polyclinic(): React.ReactElement {
           >
             <FilterIcon />
             <Text fontWeight={500} fontSize="16px" color="secondary.main">
-              Фильтр<span className="text-[#8E93AA] ml-1">(0)</span>
+              Фильтр
+              <span className="text-[#8E93AA] ml-1">
+                ({params !== undefined ? params.length : 0})
+              </span>
             </Text>
           </Flex>
         </Flex>
-        <PolyclinicTable />
+        <Box
+          bg="white"
+          borderRadius="8px"
+          px="20px"
+          py={6}
+          border="1px solid #E7EAF0"
+          w="100%"
+        >
+          <Flex direction="column" justifyContent="space-between" h="100%">
+            <JoinedTable
+              headData={healthMinistryDashTH}
+              bodyData={healthMinistryDashTableBody}
+              loading={organizationsLoading}
+            />
+            <Pagination
+              currentPage={currentPage}
+              totalCount={oraganizationsData?.count ?? 0}
+              pageSize={PAGE_SIZE}
+              onPageChange={(page) => {
+                setCurrentPage(page);
+              }}
+              siblingCount={1}
+            />
+          </Flex>
+        </Box>
       </Flex>
-      <FilterPopup
+      <CModal
         isOpen={filter}
         onClose={() => {
           setFilter(false);
         }}
-      />
+      >
+        <Box width="475px">
+          <ModalHeader>Фильтр</ModalHeader>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <ModalBody>
+              <Flex
+                width="full"
+                direction="column"
+                rowGap={4}
+                alignItems="flex-start"
+                justifyContent="flex-start"
+                id="filter-popup-select"
+              >
+                <Box width="100%">
+                  <SelectionWithCheckBox
+                    title="Выберите область"
+                    placeholder="Выберите из списка"
+                    control={control}
+                    name="area"
+                    options={regionsOption}
+                    isSearchable
+                    isClearable
+                  />
+                </Box>
+                <Box width="100%">
+                  <SelectionWithCheckBox
+                    title="Выберите город"
+                    placeholder="Выберите из списка"
+                    control={control}
+                    name="city"
+                    options={cityOptions}
+                    isSearchable
+                    isClearable
+                  />
+                </Box>
+                <Box width="100%">
+                  <SelectionWithCheckBox
+                    title="Выберите район"
+                    placeholder="Выберите из списка"
+                    control={control}
+                    name="region"
+                    options={valleyOptions}
+                    menuPlacement="top"
+                    isSearchable
+                    isClearable
+                  />
+                </Box>
+              </Flex>
+            </ModalBody>
+            <ModalFooter>
+              <Flex width="100%" justifyContent="flex-end" columnGap={6}>
+                <CButton
+                  buttonType="button"
+                  onClick={() => {
+                    reset();
+                    setFilter(false);
+                  }}
+                  variant="outline"
+                  text="Очистить"
+                />
+                <CButton buttonType="submit" variant="solid" text="Применить" />
+              </Flex>
+            </ModalFooter>
+          </form>
+        </Box>
+      </CModal>
     </>
   );
 }

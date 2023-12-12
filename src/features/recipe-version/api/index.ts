@@ -38,7 +38,7 @@ export const UseGetSingleRecipe = ({ queryParams }: QueryType): any => {
 export const UseGetRecipeItem = ({ id, open }: QueryType): any => {
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: ["GET_RECIPE_ITEM"],
+    queryKey: ["GET_RECIPE_ITEM_VERSION"],
     queryFn: () =>
       createRecipeService.getRecipeItem(id).then((res) => {
         return res;

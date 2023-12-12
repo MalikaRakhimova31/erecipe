@@ -5,7 +5,7 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   icon: string;
   placeholder: string;
-  inputRef: React.RefObject<HTMLInputElement>;
+  value: string | undefined;
   type?: string;
   disabled?: boolean;
 }
@@ -13,7 +13,7 @@ export default function UInput({
   onChange,
   icon,
   placeholder,
-  inputRef,
+  value,
   type = "string",
   disabled = false,
 }: Props): React.ReactElement {
@@ -24,7 +24,7 @@ export default function UInput({
         onChange={onChange}
         className={styles.input}
         placeholder={placeholder}
-        ref={inputRef}
+        value={value}
         type={type}
         disabled={disabled}
       />

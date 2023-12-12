@@ -42,7 +42,7 @@ const sidebarMenu: SidebarMenuProps[] = [
     title: "История выдач",
     icon: "/assets/history.svg",
     activeIcon: "/assets/active-history.svg",
-    path: "/issue-history",
+    path: "/issues-history",
     roles: [roles.pharmacy],
   },
 ];

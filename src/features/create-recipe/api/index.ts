@@ -16,6 +16,7 @@ interface ErrorResponse {}
 interface QueryType {
   queryParams?: any;
   open?: boolean;
+  id?: any;
 }
 
 const createRecipeService = {
@@ -38,6 +39,10 @@ const createRecipeService = {
     request.get(`/api/v1/recipe/`, {
       params: queryParams,
     }),
+  getPatientRecipeItem: (queryParams: any, id: string) =>
+    request.get(`/api/v1/recipe/${id}`, {
+      params: queryParams,
+    }),
   getRecipeUnits: () => request.get("/api/v1/units/"),
   getRecipeMethods: () => request.get("/api/v1/methods/"),
   getRecipeMNN: () => request.get("/api/v1/ssv/mnn/"),
@@ -48,6 +53,21 @@ export const UseGetPatientRecipes = ({ queryParams, open }: QueryType): any => {
     queryKey: ["GET_PATIENT_RECIPES", queryParams],
     queryFn: () =>
       createRecipeService.getPatientRecipes(queryParams).then((res) => {
+        return res;
+      }),
+    enabled: !!(open ?? false),
+    cacheTime: 0,
+  });
+};
+export const UseGetPatientRecipeItems = ({
+  id,
+  queryParams,
+  open,
+}: QueryType): any => {
+  return useQuery({
+    queryKey: ["GET_PATIENT_RECIPE_ITEMS", queryParams, id],
+    queryFn: () =>
+      createRecipeService.getPatientRecipeItem(queryParams, id).then((res) => {
         return res;
       }),
     enabled: !!(open ?? false),

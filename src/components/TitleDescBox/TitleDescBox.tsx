@@ -28,12 +28,7 @@ export default function TitleDescBox({
       >
         {title}
       </Text>
-      <Text
-        textTransform="uppercase"
-        fontSize="14px"
-        fontWeight="500"
-        color="secondary.main"
-      >
+      <Text fontSize="14px" fontWeight="500" color="secondary.main">
         {description}
       </Text>
     </Flex>

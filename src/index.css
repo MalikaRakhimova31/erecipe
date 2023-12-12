@@ -136,6 +136,7 @@ input {
   color: #0abab5 !important;
 }
 
-.myDonut {
-  height: 230px;
+#myDonut {
+  height: 330px !important;
+  /* width: 100% !important; */
 }

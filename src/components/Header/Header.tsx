@@ -1,14 +1,11 @@
 import { Flex, Text } from "@chakra-ui/react";
 import useSection from "@/hooks/use-section";
-import { useHaveAccessTo } from "@/helpers/have-access-to";
 import UserAccount from "../UserAccount/UserAccount";
 
 export default function Header(): React.ReactElement {
   const section = useSection();
 
-  const part = useHaveAccessTo("doctors-indicators");
-
-  console.log(part);
+  // const part = useHaveAccessTo("doctors-indicators");
 
   const generateHeaderTitle = (): React.ReactNode => {
     switch (section) {
@@ -20,9 +17,6 @@ export default function Header(): React.ReactElement {
       }
       case "patients": {
         return "Пациенты";
-      }
-      case "settings": {
-        return "Настройки";
       }
       default: {
         return "";

@@ -27,7 +27,7 @@ import FormSchema from "./validation";
 
 import {
   UseGetAllUsers,
-  UseGetPatientRecipes,
+  UseGetPatientRecipeItems,
   UseGetRecipeId,
   UseGetUserById,
   UseSendRecipeItems,
@@ -58,7 +58,7 @@ export default function CreateRecipe(): React.ReactElement {
     if (containerRef.current != null) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
     }
-  });
+  }, []);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -79,7 +79,8 @@ export default function CreateRecipe(): React.ReactElement {
     }
   };
 
-  const { data: patientRecipes } = UseGetPatientRecipes({
+  const { data: patientRecipes } = UseGetPatientRecipeItems({
+    id: searchParams.get("recipe-id"),
     queryParams: {
       uid: searchParams.get("recipe-id"),
       patient: searchParams.get("id"),
@@ -87,27 +88,18 @@ export default function CreateRecipe(): React.ReactElement {
     open: location.pathname.includes("recipe-edit"),
   });
 
-  console.log("patientRecipes", patientRecipes?.results);
-  // console.log("location", location.pathname.includes("recipe-edit"));
-  // console.log("watching.....", watch("items"));
-
   useEffect(() => {
-    if (patientRecipes?.results[0]?.items?.length) {
+    if (patientRecipes?.items?.length > 0) {
       reset({
-        items: patientRecipes?.results[0]?.items?.map((item: any) => ({
-          mnn: { value: item.mnn, label: item.mnn },
-          unit: { value: item.unit, label: item.unit },
-          method: { value: item.method, label: item.method },
+        items: patientRecipes?.items?.map((item: any) => ({
+          mnn: { value: item.mnn.id, label: item.mnn.name.ru },
+          unit: { value: item.unit.id, label: item.unit.name.ru },
+          method: { value: item.method.id, label: item.method.name.ru },
           note: item.note,
         })),
       });
-    } else {
-      reset({
-        items: [],
-      });
-      setPatientInfo({});
     }
-  }, [location.pathname, patientRecipes]);
+  }, [location.pathname, patientRecipes, reset]);
 
   const { mutate: getUserById } = UseGetUserById({
     onSuccess: (res) => {
@@ -119,6 +111,7 @@ export default function CreateRecipe(): React.ReactElement {
   const { mutate: getRecipeId } = UseGetRecipeId({
     onSuccess: (res) => {
       localStorage.setItem("recipeId", res.id);
+      localStorage.setItem("recipeUID", res.uid);
     },
   });
 
@@ -130,6 +123,9 @@ export default function CreateRecipe(): React.ReactElement {
       });
       navigate("/patients");
     },
+    onError: (err) => {
+      console.log("err======>", err);
+    },
   });
 
   useEffect(() => {
@@ -138,7 +134,7 @@ export default function CreateRecipe(): React.ReactElement {
         search: searchParams.get("nnuzb"),
       });
     }
-  }, [searchParams.get("nnuzb")]);
+  }, [getUserById, searchParams]);
 
   const { data: allUsers } = UseGetAllUsers({
     queryParams: {},
@@ -153,7 +149,7 @@ export default function CreateRecipe(): React.ReactElement {
 
   const onSubmit = (data: any): void => {
     sendRecipeItems({
-      id: localStorage.getItem("recipeId"),
+      id: localStorage.getItem("recipeUID"),
       data: {
         items: data.items.map((item: any) => ({
           note: item.note,
@@ -253,7 +249,7 @@ export default function CreateRecipe(): React.ReactElement {
                 onChange={(e) => {
                   setSearchParams({
                     nnuzb: e.label?.split("/")[0],
-                    id: e.value,
+                    id: String(e.value),
                   });
                   getRecipeId({
                     patient: Number(e.value),

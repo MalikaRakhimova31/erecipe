@@ -1,29 +1,27 @@
-import {
-  Box,
-  Flex,
-  Table,
-  TableContainer,
-  Tbody,
-  Text,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import EmptyBox from "@/components/EmptyBox/EmptyBox";
-import TableRow from "@/features/patients/views/TableRow";
-import { useQuery } from "@tanstack/react-query";
-import { getPatients } from "../api";
+import JoinedTable from "@/components/JoinedTable/JoinedTable";
+import { healthMinistryDashTH } from "@/components/mock/tableHeaders";
+import Pagination from "@/components/Pagination/Pagination";
+import useStatsState from "./state";
 
 export default function RecentPatients(): React.ReactElement {
-  const { data: patientsData } = useQuery({
-    queryKey: ["patients"],
-    queryFn: async () => {
-      const res = await getPatients();
-      return res;
-    },
-  });
+  const {
+    organizationsLoading,
+    healthMinistryDashTableBody,
+    PAGE_SIZE,
+    currentPage,
+    setCurrentPage,
+    oraganizationsData,
+  } = useStatsState();
 
-  const patients = patientsData?.results;
+  if (oraganizationsData?.results?.length === 0) {
+    <EmptyBox
+      icon="/assets/patientsBig.svg"
+      title="Список пациентов пуст"
+      description="Здесь будет отображаться список Ваших пациентов, которым вы выписывали рецепт"
+    />;
+  }
 
   return (
     <Box
@@ -35,49 +33,24 @@ export default function RecentPatients(): React.ReactElement {
       w="100%"
     >
       <Text fontSize="18px" fontWeight={500} color="secondary.main" mb="8px">
-        Показатели враче
+        Показатели поликлиник в Ташкентской области
       </Text>
-      {Array.isArray(patients) ? (
-        <Flex direction="column" justifyContent="space-between" h="100%">
-          <TableContainer>
-            <Table variant="simple">
-              <Thead>
-                <Tr>
-                  <Th w="65%">ФИО пациента</Th>
-                  <Th>последний визит</Th>
-                  <Th>Действия</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {patients.map((el) => (
-                  <TableRow
-                    src={el.birth_date}
-                    name={`${el.lastname} ${el.firstname} ${el.middlename}`}
-                    date={el.last_visited}
-                    id={el.id}
-                    key={el.id}
-                  />
-                ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
-          {/* <Pagination
-            currentPage={currentPage}
-            totalCount={userData.length}
-            pageSize={pageSize}
-            onPageChange={(page) => {
-              setCurrentPage(page);
-            }}
-            siblingCount={1}
-          /> */}
-        </Flex>
-      ) : (
-        <EmptyBox
-          icon="/assets/patientsBig.svg"
-          title="Список пациентов пуст"
-          description="Здесь будет отображаться список Ваших пациентов, которым вы выписывали рецепт"
+      <Flex direction="column" justifyContent="space-between" h="100%">
+        <JoinedTable
+          headData={healthMinistryDashTH}
+          bodyData={healthMinistryDashTableBody}
+          loading={organizationsLoading}
         />
-      )}
+        <Pagination
+          currentPage={currentPage}
+          totalCount={oraganizationsData?.count ?? 0}
+          pageSize={PAGE_SIZE}
+          onPageChange={(page) => {
+            setCurrentPage(page);
+          }}
+          siblingCount={1}
+        />
+      </Flex>
     </Box>
   );
 }
