@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import "@/lib/to-capital-case";
 import SideBar from "@/components/SideBar/SideBar";
 import { Flex } from "@chakra-ui/react";
@@ -24,7 +25,7 @@ export default function Root(): React.ReactElement {
         grant_type: "authorization_code",
         code: code ?? "",
         code_verifier: verifier ?? "",
-        redirect_uri: "http://localhost:3000",
+        redirect_uri: import.meta.env.VITE_REDIRECT_URL,
         client_id: import.meta.env.VITE_CLIENT_ID,
       };
 
