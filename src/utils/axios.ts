@@ -12,7 +12,9 @@ const request = axios.create({
 
 // request.defaults.headers["Accept-Language"] =
 //   localStorage.getItem("lang") ?? settings.defaultLanguage;
-const token = localStorage.getItem("access_token");
+// const token = localStorage.getItem("access_token");
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1pcmFobWFkIiwiaWF0IjoxNzAyNDYwMDM1LCJleHAiOjE3MDI0NzA4MzUsImp0aSI6ImYyMjAwOTRkLWZmMjQtNDNiZi04M2UyLTUxMWYwM2RmMmE2YiIsInVzZXJfaWQiOjEsIm9yaWdfaWF0IjoxNzAyNDYwMDM1fQ.lfWG0U-H-yVZ3yn8Cmst38S6_al-L5ecYhTwbil-n14";
 
 request.interceptors.request.use((config) => {
   if (token !== null) {

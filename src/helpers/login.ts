@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 function base64urlencode(str: ArrayBuffer): string {
   const bytes = new Uint8Array(str);
   const regularArray = Array.from(bytes);
@@ -45,7 +46,7 @@ async function redirectToSSO(): Promise<void> {
     `&client_id=` +
     `${encodeURIComponent(import.meta.env.VITE_CLIENT_ID)}` +
     `&state=${encodeURIComponent(state)}&redirect_uri=${encodeURIComponent(
-      "https://erecipe.vercel.app/auth/callback",
+      `${import.meta.env.VITE_REDIRECT_URL}/auth/callback`,
     )}&code_challenge=${encodeURIComponent(
       await codeChallenge,
     )}&code_challenge_method=S256`;
