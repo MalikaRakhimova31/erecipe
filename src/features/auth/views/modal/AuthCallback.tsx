@@ -84,7 +84,7 @@ export default function AuthCallback(): any {
           grant_type: "authorization_code",
           code: q.code,
           client_id: `${import.meta.env.VITE_CLIENT_ID}`,
-          redirect_uri: `${import.meta.env.VITE_REDIRECT_URL}/auth/callback`,
+          redirect_uri: `https://erecipe.vercel.app/auth/callback`,
           code_verifier: localStorage.getItem("pkce_code_verifier"),
           claims: "organization",
         },
