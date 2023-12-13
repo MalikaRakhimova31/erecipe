@@ -5,8 +5,6 @@ import UserAccount from "../UserAccount/UserAccount";
 export default function Header(): React.ReactElement {
   const section = useSection();
 
-  // const part = useHaveAccessTo("doctors-indicators");
-
   const generateHeaderTitle = (): React.ReactNode => {
     switch (section) {
       case "dashboard": {
@@ -17,6 +15,15 @@ export default function Header(): React.ReactElement {
       }
       case "patients": {
         return "Пациенты";
+      }
+      case "polyclinics": {
+        return "Поликлиники";
+      }
+      case "doctors": {
+        return "Врачи";
+      }
+      case "erecipes": {
+        return "E-рецепты";
       }
       default: {
         return "";

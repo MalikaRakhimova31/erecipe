@@ -11,7 +11,8 @@ interface StatusProps {
     | "issued"
     | "declined"
     | "expired"
-    | "new";
+    | "new"
+    | "notIssued";
 }
 
 export default function StatusBox({ status }: StatusProps): React.ReactElement {
@@ -23,6 +24,7 @@ export default function StatusBox({ status }: StatusProps): React.ReactElement {
     status === statuses.expired && styles.expired,
     status === statuses.new && styles.issued,
     status === statuses.done && styles.issuedByDoctor,
+    status === statuses.notIssued && styles.expired,
   );
 
   const generateTitle = (): string => {
@@ -54,6 +56,10 @@ export default function StatusBox({ status }: StatusProps): React.ReactElement {
       }
       case statuses.done: {
         str = "Готова";
+        break;
+      }
+      case statuses.notIssued: {
+        str = "Невыдан";
         break;
       }
       default:

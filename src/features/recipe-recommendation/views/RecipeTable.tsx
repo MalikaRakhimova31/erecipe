@@ -27,7 +27,7 @@ export default function RecipeTable({
       <Table variant="simple">
         <Thead bg="#F8FAFB">
           <Tr>
-            {headData?.map((el, index) => (
+            {headData?.map((el: any, index: number) => (
               <Th key={el} paddingLeft={index === 0 ? "20px" : "0"}>
                 {el}
               </Th>

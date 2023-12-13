@@ -2,12 +2,14 @@ import CButton from "@/components/button/button";
 import { Flex, Box, Text } from "@chakra-ui/react";
 
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import LeavePopup from "./LeavePopup";
 import ConfirmPopup from "./ConfirmPopup";
 
 export default function Header(): React.ReactElement {
   const [leave, setLeave] = useState(false);
   const [confirm, setConfirm] = useState(false);
+  const { id } = useParams();
   return (
     <>
       <Box
@@ -28,7 +30,7 @@ export default function Header(): React.ReactElement {
               <img src="/assets/headerArrowLeft.svg" alt="arrow left" />
             </Box>
             <Text color="#393D4E" fontWeight={500} fontSize="18px">
-              Рекомендации на основе назначений в рецепте: ER123456
+              Рекомендации на основе назначений в рецепте: {id}
             </Text>
           </Flex>
           <CButton

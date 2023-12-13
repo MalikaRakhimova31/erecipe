@@ -168,7 +168,7 @@ interface IconTitleBoxProps {
 type permissionProps = string;
 
 interface TableProps {
-  headData: any[];
+  headData: any;
   bodyData: any;
   path?: string;
   hasPath?: boolean;

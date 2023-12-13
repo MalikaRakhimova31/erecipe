@@ -11,8 +11,8 @@ export default function DrugQuantity(): React.ReactElement {
     { value: "Порошки", label: "Порошки" },
   ];
   return (
-    <Flex columnGap="12px">
-      <Flex
+    <Flex columnGap="12px" width="70%">
+      {/* <Flex
         borderRadius="7px"
         border="1px solid #E7EAF0"
         bg="#F8FAFB"
@@ -24,7 +24,7 @@ export default function DrugQuantity(): React.ReactElement {
         <Text fontWeight="400" fontSize="16px">
           1
         </Text>
-      </Flex>
+      </Flex> */}
       <USelect
         options={options}
         searchIcon={false}

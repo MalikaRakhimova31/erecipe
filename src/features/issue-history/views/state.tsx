@@ -43,7 +43,7 @@ export default function useIssueHistory(): OrderState {
             text="Детали"
             variant="gray"
             onClick={() => {
-              navigate(`/issues-history/${el.id}`);
+              navigate(`/issues-history/${el.recipe.uid}`);
             }}
             buttonType="button"
           />

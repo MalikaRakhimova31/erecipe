@@ -131,11 +131,14 @@ export default function Dashboard(): React.ReactElement {
             py={4}
             px={5}
             bg="white"
+            alignItems="center"
+            justifyContent="center"
           >
             <Chart
               type="donut"
               options={patientsDoughnut ?? []}
               series={patientsDoughnutSeries ?? []}
+              width={310}
             />
           </Flex>
           <Flex
@@ -144,11 +147,14 @@ export default function Dashboard(): React.ReactElement {
             py={4}
             px={5}
             bg="white"
+            alignItems="center"
+            justifyContent="center"
           >
             <Chart
               type="donut"
               options={recipeDoughnut ?? []}
               series={recipeDoughnutSeries ?? []}
+              width={320}
             />
           </Flex>
         </Flex>

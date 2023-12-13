@@ -66,11 +66,11 @@ const routes = [
             loader: async () => null,
             errorElement: <div>Error element</div>,
           },
-          {
-            id: "recipe-recommendation",
-            path: "recipe-recommendation/:id",
-            element: <RecipeRecommendation />,
-          },
+          // {
+          //   id: "recipe-recommendation",
+          //   path: "recipe-recommendation/:id",
+          //   element: <RecipeRecommendation />,
+          // },
         ],
       },
       {
@@ -145,6 +145,11 @@ const routes = [
     id: "global-not-found",
     path: "*",
     element: <h1>404: Page not found</h1>,
+  },
+  {
+    id: "recipe-recommendation",
+    path: "/recipe-recommendation/:id",
+    element: <RecipeRecommendation />,
   },
 ];
 

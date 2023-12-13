@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { type ListResponse } from "@/types";
 import request from "@/utils/axios";
-import type { OrderParams, OrdersTypes } from "../types";
+import type { OrderItemTypes, OrderParams, OrdersTypes } from "../types";
 
 // eslint-disable-next-line import/prefer-default-export
 export async function getIssueHistory(
@@ -17,11 +17,11 @@ export async function getIssueHistory(
 }
 
 export async function getOrdersItem(
-  id: string | null,
+  id: string | undefined,
   params?: OrderParams,
-): Promise<OrdersTypes> {
-  const res: OrdersTypes = await request({
-    url: `/api/v1/orders/${id}/`,
+): Promise<OrderItemTypes> {
+  const res: OrderItemTypes = await request({
+    url: `/api/v1/recipe/${id}/get_ordered_detail/`,
     method: "get",
     params,
   });

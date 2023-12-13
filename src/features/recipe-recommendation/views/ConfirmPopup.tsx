@@ -42,7 +42,7 @@ export default function ConfirmPopup({
             variant="solid"
             buttonType="button"
             onClick={() => {
-              navigate("/erecipes");
+              navigate(-1);
             }}
           />
         </ModalFooter>

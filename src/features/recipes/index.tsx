@@ -10,7 +10,10 @@ import UInput from "@/components/UInput/UInput";
 import USelect from "@/components/USelect/USelect";
 import Restricted from "@/providers/restricted";
 import { roles } from "@/config/permissions";
-import { erecipeMinistryTH } from "@/components/mock/tableHeaders";
+import {
+  erecipeMinistryTH,
+  pharmacyRecipeTH,
+} from "@/components/mock/tableHeaders";
 import SelectionWithCheckBox from "@/components/SelectionWithCheckBox/SelectionWithCheckBox";
 import CModal from "@/components/CModal/CModal";
 import CButton from "@/components/button/button";
@@ -47,6 +50,8 @@ export default function ERecipes(): React.ReactElement {
     PAGE_SIZE,
     setIsExported,
     isFetching,
+    isPharmacy,
+    pharmacyTB,
   } = useRecipeState();
 
   if (recipes?.count === 0) {
@@ -56,6 +61,7 @@ export default function ERecipes(): React.ReactElement {
       icon="/assets/doctors.svg"
     />;
   }
+  console.log("isPharmacy", isPharmacy);
 
   return (
     <>
@@ -131,13 +137,24 @@ export default function ERecipes(): React.ReactElement {
             />
           </Box>
         ) : (
-          <SeparatedTable
-            headData={erecipeMinistryTH}
-            bodyData={ministryTB}
-            loading={recipeLoading}
-            hasPath
-            path="erecipes/recipe-version"
-          />
+          <>
+            {isMinistry && (
+              <SeparatedTable
+                headData={erecipeMinistryTH}
+                bodyData={ministryTB}
+                loading={recipeLoading}
+                hasPath
+                path="erecipes/recipe-version"
+              />
+            )}
+            {isPharmacy && (
+              <SeparatedTable
+                headData={pharmacyRecipeTH}
+                bodyData={pharmacyTB}
+                loading={recipeLoading}
+              />
+            )}
+          </>
         )}
         <Pagination
           currentPage={currentPage}

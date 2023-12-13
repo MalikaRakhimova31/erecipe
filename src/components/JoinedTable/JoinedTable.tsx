@@ -37,7 +37,7 @@ export default function JoinedTable({
             </Tr>
           ) : (
             <Tr>
-              {headData?.map((el) => (
+              {headData?.map((el: any) => (
                 <Th key={el}>{el}</Th>
               ))}
             </Tr>

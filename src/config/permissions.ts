@@ -44,6 +44,7 @@ const permissions = {
     "clinics-indicators": [healthMinistry],
     "stats-by-day": [mainDoctor, healthMinistry],
     "practitioner-count": [healthMinistry],
+    pharmacy: [pharmacy],
   },
   clinics: {
     access: [healthMinistry],
@@ -73,6 +74,7 @@ const permissions = {
     "recipe-version-organization": [healthMinistry],
     "recipe-version-doctor": [doctor, mainDoctor],
     "recipe-version-organization-doctor": [mainDoctor],
+    "recipes-pharmacy-table": [pharmacy],
   },
   polyclinics: {
     access: [healthMinistry],

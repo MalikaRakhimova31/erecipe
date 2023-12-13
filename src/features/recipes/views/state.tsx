@@ -11,12 +11,15 @@ import { getRegions, getRegionsById } from "@/features/api";
 import { getOrganizations } from "@/features/dashboard/api";
 import StatusBox from "@/components/StatusBox/StatusBox";
 import format from "date-fns/format";
+import CButton from "@/components/button/button";
+import { useNavigate } from "react-router-dom";
 import { getRecipes } from "../api";
 import type { FormValues, RecipeStats, ministryTableProps } from "../types";
 
 export default function useRecipeState(): RecipeStats {
   const isMinistry = useHaveAccessTo("ministry-recipe-table");
   const isMainDoctor = useHaveAccessTo("main-doctor-recipe-table");
+  const isPharmacy = useHaveAccessTo("recipes-pharmacy-table");
   const isStatusBtn = useHaveAccessTo("status-button");
   const PAGE_SIZE = 10;
   const [isExported, setIsExported] = useState(false);
@@ -24,11 +27,14 @@ export default function useRecipeState(): RecipeStats {
   const [filter, setFilter] = useState(false);
   const [search, setSearch] = useState("");
   const debounced = useDebounce(search, 3000);
+  const navigate = useNavigate();
   const [params, setParams] = useState({
     region: "",
     organization: "",
     status: "",
   });
+
+  console.log("searching===>", search);
 
   const { control, handleSubmit, reset, watch } = useForm<FormValues>({
     defaultValues: {
@@ -49,11 +55,14 @@ export default function useRecipeState(): RecipeStats {
         region: params.region,
         page: currentPage,
         page_size: PAGE_SIZE,
+        uid_ppn: search.toUpperCase(),
         search,
       });
       return res;
     },
   });
+
+  console.log("recipes", recipes);
 
   const { isFetching } = useQuery({
     queryKey: ["RECIPES", debounced, params],
@@ -115,6 +124,30 @@ export default function useRecipeState(): RecipeStats {
         status: <StatusBox status={el.status} />,
       })),
     [recipes],
+  );
+
+  const pharmacyTB = useMemo(
+    () =>
+      isPharmacy &&
+      recipes?.results.map((el) => ({
+        id: el.uid,
+        created: format(new Date(el.created_at), "dd/MM/yyyy (HH:mm)"),
+        pinfl: el.patient.nnuzb,
+        patient: `${el.patient.firstname} ${el.patient.lastname}`,
+        status: <StatusBox status={el.status} />,
+        action: (
+          <CButton
+            variant="solid"
+            text="Посмотреть"
+            disabled={el.status === "expired"}
+            buttonType="button"
+            onClick={() => {
+              navigate(`/recipe-recommendation/${el.uid}`);
+            }}
+          />
+        ),
+      })),
+    [recipes, isPharmacy],
   );
 
   const { data: regions } = useQuery({
@@ -233,5 +266,7 @@ export default function useRecipeState(): RecipeStats {
     setIsExported,
     isFetching,
     isStatusBtn,
+    pharmacyTB,
+    isPharmacy,
   };
 }

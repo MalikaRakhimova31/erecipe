@@ -30,6 +30,44 @@ interface OrderParams extends BaseParams {
   search?: string;
 }
 
+interface OrderItemTB {
+  name: string;
+  mnn: string;
+  quantity: number | string;
+  appointment: string;
+  organization: string;
+  status: React.ReactElement;
+}
+
+interface ItemsProps {
+  id: number;
+  order_item: {
+    drug: string;
+    organization: {
+      ru: string;
+      uz: string;
+      uzc: string;
+    };
+  };
+  mnn: {
+    ru: string;
+    uz: string;
+    uzc: string;
+  };
+  unit: number | string;
+  method: {
+    ru: string;
+    uz: string;
+    uzc: string;
+  };
+}
+
+interface OrderItemTypes {
+  id: string;
+  uid: string;
+  items: ItemsProps[];
+}
+
 interface TableProps {
   id: string;
   createdAt: string;
@@ -41,9 +79,10 @@ interface TableProps {
 }
 
 interface OrderItemState {
-  orderItem: OrdersTypes | undefined;
+  orderItem: OrderItemTypes | undefined;
   orderItemLoading: boolean;
   tableHeader: string[] | undefined;
+  tableBody: OrderItemTB[] | undefined;
 }
 
 interface OrderState {
@@ -57,4 +96,10 @@ interface OrderState {
   setSearch: (s: string) => void;
 }
 
-export type { OrdersTypes, OrderParams, OrderState, OrderItemState };
+export type {
+  OrdersTypes,
+  OrderParams,
+  OrderState,
+  OrderItemState,
+  OrderItemTypes,
+};

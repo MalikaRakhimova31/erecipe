@@ -197,7 +197,7 @@ export default function useStatsState(): StatsState {
       type: "donut",
     },
     legend: {
-      position: "right",
+      position: "bottom",
       horizontalAlign: "center",
       fontWeight: 600,
     },
@@ -242,7 +242,7 @@ export default function useStatsState(): StatsState {
       type: "donut",
     },
     legend: {
-      position: "right",
+      position: "bottom",
       horizontalAlign: "center",
       fontWeight: 600,
     },

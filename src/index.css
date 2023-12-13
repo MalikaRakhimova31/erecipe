@@ -87,6 +87,10 @@ input {
   max-width: fit-content !important;
 }
 
+.react-select {
+  width: 100% !important;
+}
+
 .react-select__menu {
   max-height: 250px !important;
   height: 250px !important;

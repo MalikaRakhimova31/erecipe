@@ -1,19 +1,23 @@
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import StatusBox from "@/components/StatusBox/StatusBox";
 import { type OrderItemState } from "../types";
 import { getOrdersItem } from "../api";
 
 export default function useOrderItemState(): OrderItemState {
-  const [searchParams] = useSearchParams();
-  const orderId = searchParams.get("id");
+  const { id } = useParams();
+
   const { data: orderItem, isLoading: orderItemLoading } = useQuery({
-    queryKey: ["ORDERS_ITEM", orderId],
+    queryKey: ["ORDERS_ITEM", id],
     queryFn: async () => {
-      const res = await getOrdersItem(orderId);
+      const res = await getOrdersItem(id);
       return res;
     },
-    enabled: !(orderId == null),
+    enabled: !(id == null),
   });
+
+  console.log("orderId", id);
 
   const tableHeader = [
     "нАЗВАНИЕ лекарства",
@@ -24,13 +28,19 @@ export default function useOrderItemState(): OrderItemState {
     "статус",
   ];
 
-  //   const tableBody = useMemo(
-  //     () => ({
-  //       name: "",
-  //       mnn: "",
-  //       quantity: orderItem?.qty,
-  //     }),
-  //     [orderItem],
-  //   );
-  return { orderItem, orderItemLoading, tableHeader };
+  const tableBody = useMemo(
+    () =>
+      orderItem?.items.map((el) => ({
+        name: el?.order_item?.drug ?? "--",
+        mnn: el.mnn.ru,
+        quantity: el.unit,
+        appointment: `Назначение #${el.id}`,
+        organization: el?.order_item?.organization.ru ?? "--",
+        status: (
+          <StatusBox status={el.order_item !== null ? "new" : "notIssued"} />
+        ),
+      })),
+    [orderItem],
+  );
+  return { orderItem, orderItemLoading, tableHeader, tableBody };
 }

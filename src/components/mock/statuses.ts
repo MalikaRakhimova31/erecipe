@@ -7,6 +7,7 @@ interface statusesProps {
   expired: string;
   new: string;
   done: string;
+  notIssued: string;
 }
 
 const statuses: statusesProps = {
@@ -18,6 +19,7 @@ const statuses: statusesProps = {
   expired: "expired",
   new: "new",
   done: "done",
+  notIssued: "notIssued",
 };
 
 export default statuses;

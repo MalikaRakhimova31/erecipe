@@ -32,11 +32,21 @@ interface RecipeTypes {
   created_at: Date;
 }
 
+interface PharmacyTBTypes {
+  id: number;
+  created: string;
+  pinfl: string;
+  patient: string;
+  status: React.ReactElement;
+  action: React.ReactElement;
+}
+
 interface RecipeParams extends BaseParams {
   search?: string;
   status: string | null;
   organization?: string;
   region?: string;
+  uid_ppn?: string;
 }
 interface FormValues {
   area: SelectionMenuProps;
@@ -82,6 +92,8 @@ interface RecipeStats {
   setIsExported: (s: boolean) => void;
   isFetching: boolean;
   isStatusBtn: boolean;
+  pharmacyTB: any;
+  isPharmacy: boolean;
 }
 
 export type {

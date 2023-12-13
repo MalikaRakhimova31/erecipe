@@ -38,6 +38,15 @@ const doctorRecipeHistoryTH = [
   "Действия",
 ];
 
+const pharmacyRecipeTH = [
+  "ID рецепта",
+  "создан",
+  "ПИНФЛ",
+  "Пациент",
+  "Статус",
+  "Действия",
+];
+
 const erecipeMinistryTH = [
   "ID рецепта",
   "создан",
@@ -66,4 +75,5 @@ export {
   doctorRecipeHistoryTH,
   mainDoctorPatientsTH,
   mainDoctorsListTH,
+  pharmacyRecipeTH,
 };
