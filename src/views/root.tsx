@@ -25,7 +25,7 @@ export default function Root(): React.ReactElement {
         grant_type: "authorization_code",
         code: code ?? "",
         code_verifier: verifier ?? "",
-        redirect_uri: import.meta.env.VITE_REDIRECT_URL,
+        redirect_uri: "https://erecipe.vercel.app",
         client_id: import.meta.env.VITE_CLIENT_ID,
       };
 
