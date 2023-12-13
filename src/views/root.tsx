@@ -6,10 +6,14 @@ import { useMutation } from "@tanstack/react-query";
 import { getToken } from "@/features/auth/api";
 import { useCallback, useEffect } from "react";
 import Header from "@/components/Header/Header";
+import getItem from "@/helpers/get-item";
 
 export default function Root(): React.ReactElement {
   const mutation = useMutation({ mutationFn: getToken });
   const verifier = localStorage.getItem("pkce_code_verifier");
+  const role = getItem("role");
+
+  console.log("role", role);
 
   const getQueryParams = useCallback(async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -41,7 +45,12 @@ export default function Root(): React.ReactElement {
   const match = useMatch("/");
 
   if (match !== null) {
-    return <Navigate to="/dashboard" replace />;
+    return (
+      <Navigate
+        to={`${role === "pharmacy" ? "/erecipes" : "/dashboard"}`}
+        replace
+      />
+    );
   }
 
   return (

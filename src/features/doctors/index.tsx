@@ -41,11 +41,15 @@ export default function Doctors(): React.ReactElement {
     specializationOptions,
     search,
     setSearch,
+    params,
+    setParams,
   } = useDoctorState();
 
   const handleFilterModal = (): void => {
     setFilter(true);
   };
+
+  console.log("Params", params);
 
   return (
     <>
@@ -203,6 +207,7 @@ export default function Doctors(): React.ReactElement {
                   onClick={() => {
                     setFilter(false);
                     reset();
+                    setParams({});
                   }}
                   variant="outline"
                   text="Очистить"

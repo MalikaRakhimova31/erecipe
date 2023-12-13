@@ -71,7 +71,7 @@ interface USelectProps {
   isMulti?: boolean;
   isDisabled?: boolean;
   searchRef?: any;
-  searchIcon: boolean;
+  searchIcon?: boolean;
   defaultValue?: SelectionMenuProps;
   value?: SelectionMenuProps;
   onChange?: (e: SelectionMenuProps) => void;

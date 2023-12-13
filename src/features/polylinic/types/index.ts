@@ -23,6 +23,7 @@ interface PolyclinicState {
   params: Array<string | number> | undefined;
   search: string | undefined;
   setSearch: (s: string) => void;
+  setParams: (s: Array<number | string>) => void;
 }
 
 interface FormValues {

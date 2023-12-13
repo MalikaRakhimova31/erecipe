@@ -83,8 +83,8 @@ export default function AuthCallback(): any {
         {
           grant_type: "authorization_code",
           code: q.code,
-          client_id: "99723a41-74de-45ac-9552-0ecafcfcc9d4",
-          redirect_uri: "http://localhost:3000/auth/callback",
+          client_id: `${import.meta.env.VITE_CLIENT_ID}`,
+          redirect_uri: `${import.meta.env.VITE_REDIRECT_URL}/auth/callback`,
           code_verifier: localStorage.getItem("pkce_code_verifier"),
           claims: "organization",
         },

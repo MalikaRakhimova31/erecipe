@@ -36,6 +36,7 @@ export default function Polyclinic(): React.ReactElement {
     params,
     search,
     setSearch,
+    setParams,
   } = usePolyclinicState();
 
   const handleFilterModal = (): void => {
@@ -171,6 +172,7 @@ export default function Polyclinic(): React.ReactElement {
                   onClick={() => {
                     reset();
                     setFilter(false);
+                    setParams([]);
                   }}
                   variant="outline"
                   text="Очистить"

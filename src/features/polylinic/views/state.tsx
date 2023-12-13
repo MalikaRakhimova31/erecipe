@@ -144,6 +144,7 @@ export default function usePolyclinicState(): PolyclinicState {
     filter,
     setFilter,
     params,
+    setParams,
     search,
     setSearch,
   };

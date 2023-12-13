@@ -3,16 +3,12 @@ import CTabs from "@/components/CTabs/CTabs";
 import UInput from "@/components/UInput/UInput";
 import CButton from "@/components/button/button";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import Header from "./views/Header";
 import TitleText from "./views/TitleText";
 import RecipeTable from "./views/RecipeTable";
 import DrugQuantity from "./views/DrugQuantity";
 
 export default function RecipeRecommendation(): React.ReactElement {
-  const { id } = useParams();
-
-  const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
   const tHead = [

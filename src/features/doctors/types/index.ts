@@ -97,6 +97,7 @@ interface DoctorState {
   };
   search: string;
   setSearch: (s: string) => void;
+  setParams: (s: any) => void;
 }
 
 export type {

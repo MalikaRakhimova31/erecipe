@@ -27,7 +27,7 @@ export default function useDoctorState(): DoctorState {
   const debounced = useDebounce(search, 3000);
   const { control, handleSubmit, reset, watch } = useForm<FormValues>({
     defaultValues: {
-      area: { value: "", label: "" },
+      area: {},
       city: { value: "", label: "" },
       region: { value: "", label: "" },
       polyclinic: [],
@@ -215,6 +215,7 @@ export default function useDoctorState(): DoctorState {
     polyclinicOptions,
     specializationOptions,
     params,
+    setParams,
     search,
     setSearch,
   };
