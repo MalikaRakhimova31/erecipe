@@ -8,6 +8,7 @@ import { getToken } from "@/features/auth/api";
 import { useCallback, useEffect } from "react";
 import Header from "@/components/Header/Header";
 import getItem from "@/helpers/get-item";
+import setItem from "@/helpers/set-item";
 
 export default function Root(): React.ReactElement {
   const mutation = useMutation({ mutationFn: getToken });
