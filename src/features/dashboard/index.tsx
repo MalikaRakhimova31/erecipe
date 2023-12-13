@@ -16,19 +16,24 @@ import LineGraph from "./views/LineGraph";
 import { getRecipeStatDate } from "./api";
 import useStatsState from "./views/state";
 
-const options: SelectionMenuProps[] = [
+const options = [
   {
-    value: "yearly",
+    value: "year",
     label: "За год",
   },
   {
-    value: "monthly",
+    value: "month",
     label: "За месяц",
+  },
+  {
+    value: "week",
+    label: "За неделю",
   },
 ];
 
 export default function Dashboard(): React.ReactElement {
   const [dateTime, setDateTime] = useState(options[0]);
+
   const {
     patientsStats,
     patientsDoughnut,
@@ -53,14 +58,16 @@ export default function Dashboard(): React.ReactElement {
   } = useStatsState();
 
   const { data } = useQuery({
-    queryKey: ["recipe-stats-date"],
+    queryKey: ["recipe-stats-date", dateTime],
     queryFn: async () => {
-      const res = await getRecipeStatDate();
+      const res = await getRecipeStatDate({
+        date: dateTime.value,
+      });
       return res;
     },
   });
 
-  const handleChange = (e: SelectionMenuProps): void => {
+  const handleChange = (e: any): void => {
     setDateTime(e);
   };
 

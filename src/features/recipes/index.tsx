@@ -61,7 +61,6 @@ export default function ERecipes(): React.ReactElement {
       icon="/assets/doctors.svg"
     />;
   }
-  console.log("isPharmacy", isPharmacy);
 
   return (
     <>
@@ -102,7 +101,6 @@ export default function ERecipes(): React.ReactElement {
                 searchIcon={false}
                 options={statusSelectionOption}
                 placeholder="Все статусы"
-                // isMulti
                 isClearable
                 onChange={(e) => {
                   console.log(e);

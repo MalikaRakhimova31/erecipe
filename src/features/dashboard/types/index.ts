@@ -75,7 +75,7 @@ interface RecipeStatDateParams extends BaseParams {
   organization?: string;
   search?: string;
   ordering?: string;
-  date?: "year" | "month" | "week";
+  date?: string;
 }
 interface RecipeList {
   id: number;
