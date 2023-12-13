@@ -236,7 +236,7 @@ export default function USelect({
   const customDropdownIndicator = (props: any): React.ReactElement => (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <components.DropdownIndicator {...props}>
-      {searchIcon ? <SearchIcon /> : <ChevronDown />}
+      {searchIcon ?? false ? <SearchIcon /> : <ChevronDown />}
     </components.DropdownIndicator>
   );
   return (

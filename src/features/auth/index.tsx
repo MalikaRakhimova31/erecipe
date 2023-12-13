@@ -2,12 +2,11 @@ import CButton from "@/components/button/button";
 import redirectToSSO from "@/helpers/login";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
 
 export default function Auth(): React.ReactElement {
   const code = useSearchParams()[0].get("code");
   const [isLoading, setIsLoading] = useState(!(code == null) || false);
-  const navigate = useNavigate();
   return (
     <Box padding="16px" w="100%" height="92vh">
       <Flex alignItems="center" columnGap="16px" h="100vh">
@@ -75,11 +74,10 @@ export default function Auth(): React.ReactElement {
                   variant="solid"
                   buttonType="button"
                   onClick={() => {
-                    // setIsLoading(true);
-                    // redirectToSSO().finally(() => {
-                    //   setIsLoading(false);
-                    // });
-                    navigate("/");
+                    setIsLoading(true);
+                    redirectToSSO().finally(() => {
+                      setIsLoading(false);
+                    });
                   }}
                   isLoading={isLoading}
                   rightIcon={<img src="/assets/ssologo.svg" alt="sso logo" />}

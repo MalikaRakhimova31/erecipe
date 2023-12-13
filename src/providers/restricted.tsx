@@ -9,8 +9,7 @@ interface Props {
 export default function Restricted(props: Props): null | React.ReactElement {
   const { to, children } = props;
 
-  // const userRole = getItem("role") as keyof typeof groups;
-  const userRole = "minzdrav";
+  const userRole = getItem("role") as keyof typeof groups;
 
   if (userRole === null) {
     return null;

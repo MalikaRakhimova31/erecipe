@@ -8,14 +8,11 @@ import { getToken } from "@/features/auth/api";
 import { useCallback, useEffect } from "react";
 import Header from "@/components/Header/Header";
 import getItem from "@/helpers/get-item";
-import setItem from "@/helpers/set-item";
 
 export default function Root(): React.ReactElement {
   const mutation = useMutation({ mutationFn: getToken });
   const verifier = localStorage.getItem("pkce_code_verifier");
   const role = getItem("role");
-
-  console.log("role", role);
 
   const getQueryParams = useCallback(async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -26,7 +23,7 @@ export default function Root(): React.ReactElement {
         grant_type: "authorization_code",
         code: code ?? "",
         code_verifier: verifier ?? "",
-        redirect_uri: "https://erecipe.vercel.app",
+        redirect_uri: import.meta.env.VITE_REDIRECT_URL,
         client_id: import.meta.env.VITE_CLIENT_ID,
       };
 
