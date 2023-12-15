@@ -142,6 +142,7 @@ export default function RecipeRecommendation(): React.ReactElement {
         confirm={confirm}
         setLeave={setLeave}
         setConfirm={setConfirm}
+        items={items}
       />
       <Box p={4}>
         <Tabs variant="enclosed">

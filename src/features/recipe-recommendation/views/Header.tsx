@@ -9,6 +9,7 @@ interface Props {
   confirm: boolean;
   setLeave: (s: boolean) => void;
   setConfirm: (s: boolean) => void;
+  items: any[];
 }
 
 export default function Header({
@@ -16,6 +17,7 @@ export default function Header({
   confirm,
   setLeave,
   setConfirm,
+  items,
 }: Props): React.ReactElement {
   const { id } = useParams();
 
@@ -46,6 +48,7 @@ export default function Header({
             buttonType="button"
             variant="solid"
             text="Выдать рецепт пациенту"
+            disabled={items.length === 0}
             height="41"
             onClick={() => {
               setConfirm(true);
