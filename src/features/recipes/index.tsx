@@ -103,7 +103,10 @@ export default function ERecipes(): React.ReactElement {
                 placeholder="Все статусы"
                 isClearable
                 onChange={(e) => {
-                  console.log(e);
+                  setParams((prev: any) => ({
+                    ...prev,
+                    status: e?.value,
+                  }));
                 }}
               />
             </Box>

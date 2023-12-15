@@ -34,8 +34,6 @@ export default function useRecipeState(): RecipeStats {
     status: "",
   });
 
-  console.log("searching===>", search);
-
   const { control, handleSubmit, reset, watch } = useForm<FormValues>({
     defaultValues: {
       area: { value: "", label: "" },
@@ -51,7 +49,7 @@ export default function useRecipeState(): RecipeStats {
     queryFn: async () => {
       const res = await getRecipes({
         organization: params.organization,
-        status: params.status.length > 0 ? params.status : null,
+        status: params.status?.length > 0 ? params.status : null,
         region: params.region,
         page: currentPage,
         page_size: PAGE_SIZE,
@@ -239,6 +237,7 @@ export default function useRecipeState(): RecipeStats {
     }));
     setFilter(false);
   };
+  console.log("params", params);
 
   return {
     isMinistry,

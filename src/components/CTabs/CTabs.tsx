@@ -1,7 +1,7 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
 interface TabProps {
-  tabs: string[];
+  tabs: string[] | undefined;
   children: React.ReactElement;
 }
 
@@ -12,7 +12,7 @@ export default function CTabs({
   return (
     <Tabs variant="enclosed">
       <TabList>
-        {tabs.map((tab, index) => (
+        {tabs?.map((tab, index) => (
           <Tab key={tab} borderTopLeftRadius={index === 0 ? "none" : "8px"}>
             {tab}
           </Tab>

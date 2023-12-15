@@ -88,7 +88,7 @@ interface LabelProps {
 
 interface ButtonProps {
   onClick?: (evt: React.MouseEvent<HTMLButtonElement>) => void;
-  text: string;
+  text?: string;
   icon?: React.ReactElement;
   rightIcon?: React.ReactElement;
   variant:
@@ -101,7 +101,8 @@ interface ButtonProps {
     | "greenText"
     | "statusButton"
     | "blackButton"
-    | "gray";
+    | "gray"
+    | "bordered";
   buttonType: "submit" | "button";
   padding?: string;
   isFull?: boolean;
@@ -113,6 +114,8 @@ interface ButtonProps {
 interface PopupInstanceProps {
   open: boolean;
   onClose: () => void;
+  onClick?: () => void;
+  loading?: boolean;
 }
 
 // interface itemProps {

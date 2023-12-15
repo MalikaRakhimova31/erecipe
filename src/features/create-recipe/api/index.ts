@@ -46,6 +46,7 @@ const createRecipeService = {
   getRecipeUnits: () => request.get("/api/v1/units/"),
   getRecipeMethods: () => request.get("/api/v1/methods/"),
   getRecipeMNN: () => request.get("/api/v1/ssv/mnn/"),
+  getRecipeDrug: () => request.get("/api/v1/ssv/drug/"),
 };
 
 export const UseGetPatientRecipes = ({ queryParams, open }: QueryType): any => {
@@ -136,6 +137,16 @@ export const UseGetRecipeMNN = (open: boolean): any => {
     queryKey: ["GET_RECIPE_MNN_LIST"],
     queryFn: () =>
       createRecipeService.getRecipeMNN().then((res) => {
+        return res;
+      }),
+    enabled: !!(open ?? false),
+  });
+};
+export const UseGetRecipeDrug = (open: boolean): any => {
+  return useQuery({
+    queryKey: ["GET_RECIPE_DRUG_LIST"],
+    queryFn: () =>
+      createRecipeService.getRecipeDrug().then((res) => {
         return res;
       }),
     enabled: !!(open ?? false),

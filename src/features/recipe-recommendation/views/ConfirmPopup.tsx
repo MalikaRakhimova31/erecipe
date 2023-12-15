@@ -13,8 +13,9 @@ import { useNavigate } from "react-router-dom";
 export default function ConfirmPopup({
   open,
   onClose,
+  onClick,
+  loading,
 }: PopupInstanceProps): React.ReactElement {
-  const navigate = useNavigate();
   return (
     <CModal isOpen={open} onClose={onClose}>
       <Box maxW="451px">
@@ -41,9 +42,8 @@ export default function ConfirmPopup({
             text="Подтвердить"
             variant="solid"
             buttonType="button"
-            onClick={() => {
-              navigate(-1);
-            }}
+            onClick={onClick}
+            isLoading={loading}
           />
         </ModalFooter>
       </Box>

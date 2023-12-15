@@ -188,6 +188,21 @@ const theme = extendTheme({
             boxShadow: "0px 0px 5px 0px rgba(10, 186, 181, 0.15);",
           },
         },
+        bordered: {
+          borderRadius: "8px",
+          width: "100%",
+          height: "41px",
+          background: "white",
+          color: "#393D4E",
+          fontWeight: "500 !important",
+          border: "1px solid",
+          borderColor: "#0ABAB5",
+          fontSize: "16px",
+
+          _hover: {
+            boxShadow: "0px 0px 5px 0px rgba(10, 186, 181, 0.15);",
+          },
+        },
       },
     },
     Tabs: tabsTheme,
